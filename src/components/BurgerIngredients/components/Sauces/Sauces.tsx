@@ -1,3 +1,5 @@
+import React from 'react';
+import {DataProps} from '../../../../types/data';
 import styles from '../../BurgerIngredients.module.scss';
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import SpicySauce from '../../../../img/sauce-1.png'
@@ -5,7 +7,7 @@ import SpaceSauce from '../../../../img/sauce-2.png'
 import TraditionalSauce from '../../../../img/sauce-3.png'
 import SpikesSauce from '../../../../img/sauce-4.png'
 
-const Sauces = () => {
+const Sauces: React.FC<DataProps> = ({info}) => {
     return (
         <>
             <h3 className="text text_type_main-medium mb-6">Соусы</h3>
