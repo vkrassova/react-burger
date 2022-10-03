@@ -1,9 +1,9 @@
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from '../BurgerConstructor/BurgerConstructor.module.scss'
 
 const BurgerConstructor = () => {
     return (
-        <div style={{display: 'flex', alignItems: 'center'}} className="pl-4">
-            <DragIcon type="secondary" />
+        <div className={`${styles.wrapper} pl-4`}>
             <div className="pl-2">
                 <ConstructorElement
                     type="top"

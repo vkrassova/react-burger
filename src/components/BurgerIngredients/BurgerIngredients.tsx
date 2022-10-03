@@ -1,21 +1,17 @@
-import React from 'react';
-import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from '../BurgerIngredients/BurgerIngredients.module.scss';
+import Tabs from '../Tabs/Tabs';
+import Buns from './components/Buns/Buns';
+import Sauces from './components/Sauces/Sauces';
 
 const BurgerIngredients = () => {
-    const [current, setCurrent] = React.useState('one')
-
     return (
-        <div className="pr-10" style={{display: 'flex'}}>
-            <Tab value="one" active={current === 'one'} onClick={setCurrent}>
-                Булки
-            </Tab>
-            <Tab value="two" active={current === 'two'} onClick={setCurrent}>
-                Соусы
-            </Tab>
-            <Tab value="three" active={current === 'three'} onClick={setCurrent}>
-                Начинки
-            </Tab>
+        <div className={styles.wrapper}>
+            <h2 className="text text_type_main-large mb-5">Соберите бургер</h2>
+            <Tabs />
+            <Buns />
+            <Sauces />
         </div>
+
     )
 }
 
