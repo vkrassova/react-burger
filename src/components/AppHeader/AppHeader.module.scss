@@ -1,7 +1,16 @@
+.headerContainer {
+  width: 100%;
+  background-color: #1C1C21;
+}
+
 .navigation {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .navigation__list {

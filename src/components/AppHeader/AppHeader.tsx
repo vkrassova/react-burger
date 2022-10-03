@@ -3,8 +3,8 @@ import styles from '../AppHeader/AppHeader.module.scss';
 
 const AppHeader = () => {
   return (
-     <header className="pb-10">
-         <nav className={`${styles.navigation} pt-4 pb-4 `}>
+     <header className={`${styles.headerContainer} mb-10`}>
+         <nav className={`${styles.navigation} pt-4 pb-4`}>
              <ul className={styles.navigation__list}>
                  <li>
                      <a className={`${styles.links} pr-5`}>

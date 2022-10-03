@@ -1,4 +1,4 @@
-export interface IngredientsProps {
+export interface Ingredients {
     _id: string,
     name: string,
     type: string,
@@ -11,5 +11,9 @@ export interface IngredientsProps {
     image_mobile: string,
     image_large: string,
     __v: number
+}
+
+export type BurgerIngredientsProps = {
+    ingredients: Ingredients[]
 }
 

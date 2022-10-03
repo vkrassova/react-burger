@@ -15,17 +15,10 @@
 
 .item {
   max-width: 568px;
-
-  &:not(:last-child) {
-    margin-bottom: 16px;
-  }
+  margin-bottom: 16px;
 
   svg {
     margin-right: 8px;
   }
 }
 
-.item__top,
-.item__bottom {
-  padding-left: 32px;
-}

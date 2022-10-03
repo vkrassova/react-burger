@@ -1,35 +1,31 @@
 import styles from '../BurgerConstructor/BurgerConstructor.module.scss';
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import {IngredientsProps} from '../../types/data';
+import {BurgerIngredientsProps} from '../../types/data';
 import data from '../../utils/data';
 import React from 'react';
-
-type BurgerIngredientsProps = {
-    ingredients: IngredientsProps[]
-}
 
 const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
     const bun = data.filter(item => item.type === 'bun')[0]
 
     return (
         <div className={`${styles.wrapper}`}>
-
-            <ConstructorElement
-                type="top"
-                isLocked={true}
-                text={`${bun.name} (верх)`}
-                price={200}
-                thumbnail={bun.image}
-            />
-
+            <div className={`${styles.item} pl-8`}>
+                <ConstructorElement
+                    type="top"
+                    isLocked={true}
+                    text={`${bun.name} (верх)`}
+                    price={200}
+                    thumbnail={bun.image}
+                />
+            </div>
             <div className={styles.dynamicConstructor}>
                 {
                     ingredients.map((el) => {
                             if (el.type !== 'bun') {
                                 return (
-                                    <div>
-                                        <DragIcon type="primary" />
-                                        <ConstructorElement key={el._id}
+                                    <div className={styles.item} key={el._id}>
+                                        <DragIcon type="primary"/>
+                                        <ConstructorElement
                                             text={el.name}
                                             price={el.price}
                                             thumbnail={el.image}
@@ -42,12 +38,15 @@ const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
                 }
             </div>
 
-            <ConstructorElement
-                text={`${bun.name} (низ)`}
-                isLocked={true}
-                price={200}
-                thumbnail={bun.image}
-            />
+            <div className={`${styles.item} pl-8`}>
+                <ConstructorElement
+                    type="bottom"
+                    text={`${bun.name} (низ)`}
+                    isLocked={true}
+                    price={200}
+                    thumbnail={bun.image}
+                />
+            </div>
             <div>
                 <p>
                     610
