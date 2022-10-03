@@ -10,15 +10,36 @@
 }
 
 .dynamicConstructor {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  height: 464px;
+  overflow: hidden;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar { /* 1 - скроллбар */
+    position: absolute;
+    width: 6px;
+    background-color: #E6F6FF;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb { /* 5 - ползунок */
+    border-radius: 3px;
+    background-color: #00AAFF;
+  }
 
 }
 
 .item {
   max-width: 568px;
-  margin-bottom: 16px;
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
 
   svg {
     margin-right: 8px;
   }
 }
+
 
