@@ -16,11 +16,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   max-width: 272px;
+  flex-basis: 272px;
+  min-height: auto;
   margin-bottom: 40px;
 
   p {
-    padding-bottom: 27px;
     text-align: center;
   }
 }

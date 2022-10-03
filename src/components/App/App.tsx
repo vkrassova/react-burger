@@ -1,4 +1,6 @@
 import React from 'react';
+import data from '../../utils/data';
+import {IngredientsProps} from '../../types/data';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
@@ -10,7 +12,7 @@ function App() {
             <AppHeader/>
             <main style={{display: 'flex', alignItems: 'flex-start'}}>
                 <BurgerIngredients/>
-                <BurgerConstructor/>
+                <BurgerConstructor ingredients={data}/>
             </main>
         </div>
     );

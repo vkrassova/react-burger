@@ -1,38 +1,63 @@
-import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from '../BurgerConstructor/BurgerConstructor.module.scss'
+import styles from '../BurgerConstructor/BurgerConstructor.module.scss';
+import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import {IngredientsProps} from '../../types/data';
+import data from '../../utils/data';
+import React from 'react';
 
-const BurgerConstructor = () => {
+type BurgerIngredientsProps = {
+    ingredients: IngredientsProps[]
+}
+
+const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
+    const bun = data.filter(item => item.type === 'bun')[0]
+
     return (
         <div className={`${styles.wrapper}`}>
-            <ul className={styles.list}>
-                <li className={`${styles.item__top} ${styles.item}`}>
-                    <ConstructorElement
-                        type="top"
-                        isLocked={true}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-                    />
-                </li>
 
-                <li className={styles.item}>
-                    <DragIcon type="primary"/>
-                    <ConstructorElement
-                        text="Краторная булка N-200i (верх)"
-                        price={50}
-                        thumbnail={'https://code.s3.yandex.net/react/code/meat-02.png'}
-                    />
-                </li>
-                <li className={`${styles.item__bottom} ${styles.item}`}>
-                    <ConstructorElement
-                        type="bottom"
-                        isLocked={true}
-                        text="Краторная булка N-200i (низ)"
-                        price={200}
-                        thumbnail={'https://code.s3.yandex.net/react/code/meat-02.png'}
-                    />
-                </li>
-            </ul>
+            <ConstructorElement
+                type="top"
+                isLocked={true}
+                text={`${bun.name} (верх)`}
+                price={200}
+                thumbnail={bun.image}
+            />
+
+            <div className={styles.dynamicConstructor}>
+                {
+                    ingredients.map((el) => {
+                            if (el.type !== 'bun') {
+                                return (
+                                    <div>
+                                        <DragIcon type="primary" />
+                                        <ConstructorElement key={el._id}
+                                            text={el.name}
+                                            price={el.price}
+                                            thumbnail={el.image}
+                                        />
+                                    </div>
+                                )
+                            }
+                        }
+                    )
+                }
+            </div>
+
+            <ConstructorElement
+                text={`${bun.name} (низ)`}
+                isLocked={true}
+                price={200}
+                thumbnail={bun.image}
+            />
+            <div>
+                <p>
+                    610
+                    <CurrencyIcon type="primary"/>
+                </p>
+                <Button htmlType="button" type="primary" size="large">
+                    Оформить
+                </Button>
+            </div>
+
         </div>
     )
 }

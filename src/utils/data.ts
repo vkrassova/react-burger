@@ -1,6 +1,6 @@
-import {Data} from '../types/data';
+import {IngredientsProps} from '../types/data';
 
-const data: Data[] = [
+const data: IngredientsProps[] = [
     {
         "_id": "60666c42cc7b410027a1a9b1",
         "name": "Краторная булка N-200i",
