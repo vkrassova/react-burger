@@ -1,7 +1,7 @@
-import styles from '../../BurgerIngredients.module.scss';
-import kratorBun from '../../../../img/bun-1.png';
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import fluorescentBun from '../../../../img/bun-2.png';
+import kratorBun from '../../../../img/bun-1.png';
+import styles from '../../BurgerIngredients.module.scss';
 
 const Buns = () => {
     return (
