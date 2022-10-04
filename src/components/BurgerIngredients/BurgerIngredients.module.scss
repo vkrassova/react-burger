@@ -1,5 +1,8 @@
 .wrapper {
+  display: flex;
+  flex-direction: column;
   max-width: 600px;
+  height: calc(100vh - 170px);
 }
 
 .list {
@@ -40,8 +43,8 @@
 }
 
 .ingredientsWrapper {
-  height: 730px;
-  overflow-x: hidden;
+  //height: 730px;
+  //overflow-x: hidden;
   overflow-y: scroll;
 
   &::-webkit-scrollbar { /* 1 - скроллбар */
