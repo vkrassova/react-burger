@@ -15,13 +15,13 @@ const Sauces: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
                                     <li className={styles.item} key={el._id}>
                                         <div className={styles.img__wrapper}>
                                             <img src={el.image} alt={el.name}/>
-                                            <Counter count={1} size="default" />
+                                            <Counter count={1} size="default"/>
                                         </div>
-                                        <div>
-                                            <span className="text text_type_digits-medium pr-2 mb-1">{el.price}</span>
+                                        <div style={{marginBottom: 'auto'}}>
+                                            <span className="text text_type_digits-medium pr-2">{el.price}</span>
                                             <CurrencyIcon type="primary"/>
                                         </div>
-                                        <p className="text text_type_main-default">{el.name}</p>
+                                        <p className="text text_type_main-default" style={{display: 'inline-block', marginTop: '4px'}}>{el.name}</p>
                                     </li>
                                 )
                             }

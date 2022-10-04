@@ -9,7 +9,7 @@ const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
 
     return (
         <div className={`${styles.wrapper}`}>
-            <div className="pl-8">
+            <div className="pl-8 mr-4">
                 <ConstructorElement
                     type="top"
                     isLocked={true}
@@ -38,7 +38,7 @@ const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
                 }
             </div>
 
-            <div className="pl-8">
+            <div className="pl-8 mb-10 mr-4">
                 <ConstructorElement
                     type="bottom"
                     text={`${bun.name} (низ)`}
@@ -47,11 +47,11 @@ const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
                     thumbnail={bun.image}
                 />
             </div>
-            <div>
-                <p>
-                    610
+            <div className={styles.sum}>
+                <div className="mr-10">
+                    <span className="text text_type_digits-medium">610</span>
                     <CurrencyIcon type="primary"/>
-                </p>
+                </div>
                 <Button htmlType="button" type="primary" size="large">
                     Оформить
                 </Button>

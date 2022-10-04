@@ -1,31 +1,33 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   padding-top: 60px;
   padding-left: 16px;
-  padding-right: 16px;
   max-width: 600px;
+  box-sizing: border-box;
 }
 
 .dynamicConstructor {
-  padding-top: 16px;
-  padding-bottom: 16px;
+  margin-bottom: 16px;
+  margin-top: 16px;
   height: 464px;
   overflow: hidden;
   overflow-y: scroll;
 
   &::-webkit-scrollbar { /* 1 - скроллбар */
     position: absolute;
-    width: 6px;
-    background-color: #E6F6FF;
-    border-radius: 3px;
+    width: 8px;
+    background-color: #2F2F37;
   }
 
   &::-webkit-scrollbar-thumb { /* 5 - ползунок */
-    border-radius: 3px;
-    background-color: #00AAFF;
+    background-color: #8585AD;;
+  }
+
+  .item {
+    margin-right: 8px;
   }
 
 }
@@ -42,4 +44,10 @@
   }
 }
 
+
+.sum {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
 
