@@ -11,17 +11,24 @@
   margin: 0 auto;
   padding-left: 20px;
   padding-right: 20px;
+  box-sizing: border-box;
+
+  svg {
+    margin-right: auto;
+  }
 }
 
 .navigation__list {
   display: flex;
   padding: 0;
-  margin: 0;
+  margin: 0 112px 0 0;
   list-style: none;
 }
 
 .links {
   display: flex;
+  padding-top: 16px;
+  padding-bottom: 16px;
   text-decoration: none;
   cursor: pointer;
 }

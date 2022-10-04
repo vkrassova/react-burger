@@ -7,13 +7,13 @@ const AppHeader = () => {
          <nav className={`${styles.navigation} pt-4 pb-4`}>
              <ul className={styles.navigation__list}>
                  <li>
-                     <a className={`${styles.links} pr-5`} href="#">
+                     <a className={`${styles.links} pr-5 mr-2`} href="#">
                          <BurgerIcon type="primary" />
                          <p className="text text_type_main-default pl-2 text_color_primary">Конструктор</p>
                      </a>
                  </li>
                  <li>
-                     <a className={`${styles.links} pr-5`} href="#">
+                     <a className={`${styles.links} pr-5 pl-5`} href="#">
                          <ListIcon type="secondary" />
                          <p className="text text_type_main-default text_color_inactive pl-2">Лента заказов</p>
                      </a>

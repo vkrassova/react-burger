@@ -3,16 +3,20 @@ import React from 'react';
 import styles from '../Tabs/Tabs.module.scss';
 
 const Tabs = () => {
-    const [current, setCurrent] = React.useState('one')
+    const buns = 'buns';
+    const sauces = 'sauces';
+    const main = 'main';
+
+    const [current, setCurrent] = React.useState(buns)
     return (
         <div className={styles.tabsWrapper}>
-            <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+            <Tab value={buns} active={current === buns} onClick={setCurrent}>
                 Булки
             </Tab>
-            <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+            <Tab value={sauces} active={current === sauces} onClick={setCurrent}>
                 Соусы
             </Tab>
-            <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+            <Tab value={main} active={current === main} onClick={setCurrent}>
                 Начинки
             </Tab>
         </div>
