@@ -17,11 +17,11 @@ const Sauces: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
                                             <img src={el.image} alt={el.name}/>
                                             <Counter count={1} size="default"/>
                                         </div>
-                                        <div style={{marginBottom: 'auto'}}>
-                                            <span className="text text_type_digits-medium pr-2">{el.price}</span>
+                                        <div className={styles.priceWrapper}>
+                                            <span className="text text_type_digits-default pr-2">{el.price}</span>
                                             <CurrencyIcon type="primary"/>
                                         </div>
-                                        <p className="text text_type_main-default" style={{display: 'inline-block', marginTop: '4px'}}>{el.name}</p>
+                                        <p className={`${styles.ingredientsText} text text_type_main-default`}>{el.name}</p>
                                     </li>
                                 )
                             }

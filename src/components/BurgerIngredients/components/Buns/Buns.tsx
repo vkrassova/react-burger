@@ -13,8 +13,8 @@ const Buns = () => {
                         <img src={kratorBun} alt="Булочка"/>
                         <Counter count={1} size="default"/>
                     </div>
-                    <div>
-                        <span className="text text_type_digits-medium pr-2 mb-1">20</span>
+                    <div className={styles.priceWrapper}>
+                        <span className="text text_type_digits-default pr-2">20</span>
                         <CurrencyIcon type="primary"/>
                     </div>
                     <p className="text text_type_main-default">Краторная булка N-200i</p>
@@ -23,8 +23,8 @@ const Buns = () => {
                     <div className={styles.img__wrapper}>
                         <img src={fluorescentBun} alt="Булочка"/>
                     </div>
-                    <div>
-                        <span className="text text_type_digits-medium pr-2 mb-1">20</span>
+                    <div className={styles.priceWrapper}>
+                        <span className="text text_type_digits-default pr-2">20</span>
                         <CurrencyIcon type="primary"/>
                     </div>
                     <p className="text text_type_main-default">Флюоресцентная булка R2-D3</p>
