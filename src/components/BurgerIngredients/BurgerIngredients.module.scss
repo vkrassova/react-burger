@@ -1,0 +1,71 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  height: calc(100vh - 170px);
+}
+
+.list {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 16px 0 16px;
+  margin: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 272px;
+  flex-basis: 272px;
+  min-height: auto;
+  margin-bottom: 40px;
+
+  p {
+    text-align: center;
+  }
+}
+
+.img__wrapper {
+  position: relative;
+  margin: 0 auto 4px;
+  width: 240px;
+  height: 120px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.ingredientsWrapper {
+  //height: 730px;
+  //overflow-x: hidden;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar { /* 1 - скроллбар */
+    position: absolute;
+    width: 8px;
+    background-color: #2F2F37;
+  }
+
+  &::-webkit-scrollbar-thumb { /* 5 - ползунок */
+    background-color: #8585AD;;
+  }
+}
+
+.priceWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.ingredientsText {
+  display: inline-block;
+  text-align: center;
+
+}
