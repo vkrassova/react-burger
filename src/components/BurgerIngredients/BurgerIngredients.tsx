@@ -10,12 +10,9 @@ const BurgerIngredients: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
             <h2 className="text text_type_main-large mb-5">Соберите бургер</h2>
             <Tabs />
             <div className={styles.ingredientsWrapper}>
-                <h3 className="text text_type_main-medium mb-6">Булки</h3>
-                <BurgerCategory ingredientType={'bun'} ingredients={ingredients} />
-                <h3 className="text text_type_main-medium mb-6">Соусы</h3>
-                <BurgerCategory ingredientType={'sauce'} ingredients={ingredients} />
-                <h3 className="text text_type_main-medium mb-6">Начинки</h3>
-                <BurgerCategory ingredientType={'main'} ingredients={ingredients} />
+                <BurgerCategory title={'Булки'} ingredientType={'bun'} ingredients={ingredients} />
+                <BurgerCategory title={'Соусы'} ingredientType={'sauce'} ingredients={ingredients} />
+                <BurgerCategory title={'Начинки'} ingredientType={'main'} ingredients={ingredients} />
             </div>
         </div>
 

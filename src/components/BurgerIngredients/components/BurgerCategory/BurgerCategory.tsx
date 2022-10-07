@@ -1,16 +1,20 @@
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Ingredients} from '../../../../types/data';
-import React from 'react';
+import React, {useState} from 'react';
 import styles from '../../BurgerIngredients.module.scss';
 
 type IngredientsListProps = {
     ingredientType: string,
+    title: string,
     ingredients: Ingredients[]
 }
 
-const BurgerCategory: React.FC<IngredientsListProps> = ({ingredients, ingredientType}) => {
+const BurgerCategory: React.FC<IngredientsListProps> = ({ingredients, ingredientType, title}) => {
+    const [counter, setCounter] = useState(0)
+
     return (
         <>
+            <h3 className="text text_type_main-medium mb-6">{title}</h3>
             <ul className={styles.list}>
                 {
                     ingredients &&
@@ -20,7 +24,10 @@ const BurgerCategory: React.FC<IngredientsListProps> = ({ingredients, ingredient
                                 <li className={styles.item} key={el._id}>
                                     <div className={styles.img__wrapper}>
                                         <img src={el.image} alt={el.name}/>
-                                        <Counter count={0} size="default"/>
+                                        {
+                                            counter &&
+                                            <Counter count={counter} size="default"/>
+                                        }
                                     </div>
                                     <div className={styles.priceWrapper}>
                                         <span className="text text_type_digits-default pr-2">{el.price}</span>
