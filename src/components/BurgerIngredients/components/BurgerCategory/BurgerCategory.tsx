@@ -13,6 +13,7 @@ const BurgerCategory: React.FC<IngredientsListProps> = ({ingredients, ingredient
         <>
             <ul className={styles.list}>
                 {
+                    ingredients &&
                     ingredients.map(el => {
                         if (el.type === ingredientType) {
                             return (

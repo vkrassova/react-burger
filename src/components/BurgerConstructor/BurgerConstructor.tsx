@@ -20,6 +20,7 @@ const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
             </div>
             <div className={styles.dynamicConstructor}>
                 {
+                    ingredients &&
                     ingredients.map((el) => {
                             if (el.type !== 'bun') {
                                 return (
