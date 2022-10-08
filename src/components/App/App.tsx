@@ -5,29 +5,57 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import styles from '../App/App.module.scss';
 
 function App() {
-    const [state, setState] = useState([]);
+    const [state, setState] = useState({
+        isLoading: false,
+        hasError: false,
+        ingredients: []
+    })
     const url = 'https://norma.nomoreparties.space/api/ingredients';
 
     useEffect(() => {
+            setState({...state, isLoading: true})
             fetch(url)
-                .then(res => res.json())
-                .then(data => setState(data.data))
-                .catch((err) => console.log(err))
+                .then(res => {
+                    if (res.ok) {
+                        return res.json()
+                    }
+                    return Promise.reject(res.status)
+                })
+                .then(data => {
+                    setState({
+                        isLoading: false,
+                        hasError: false,
+                        ingredients: data.data
+                    });
+                })
+                .catch((err) => {
+                    setState({
+                        ...state,
+                        hasError: true,
+                    });
+                })
         }, []
     )
+
+    const {isLoading, hasError, ingredients} = state;
 
     return (
         <>
             <AppHeader/>
             <div className={styles.wrapper}>
+                {isLoading && (
+                    <p className="text text_type_main-large">Загрузка...</p>
+                )}
+                {hasError && (
+                    <p className="text text_type_main-large text_color_error">Ошибка</p>
+                )}
                 {
-                    state && state.length &&
-                    <main className={styles.mainContent}>
-                        <BurgerIngredients ingredients={state} />
-                        <BurgerConstructor ingredients={state}/>
-                    </main>
-
-
+                    !isLoading && !hasError && (
+                        <main className={styles.mainContent}>
+                            <BurgerIngredients ingredients={ingredients}/>
+                            <BurgerConstructor ingredients={ingredients}/>
+                        </main>
+                    )
                 }
             </div>
         </>
