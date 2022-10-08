@@ -21,16 +21,12 @@ function App() {
             <AppHeader/>
             <div className={styles.wrapper}>
                 {
-                    state ? (
-                        <main className={styles.mainContent}>
-                            <BurgerIngredients ingredients={state}/>
-                            <BurgerConstructor ingredients={state}/>
-                        </main>
-                    ) : (
-                        <div>
-                            <span className="text text_type_digits-large text_color_error">Что-то пошло не так...</span>
-                        </div>
-                    )
+                    state && state.length &&
+                    <main className={styles.mainContent}>
+                        <BurgerIngredients ingredients={state} />
+                        <BurgerConstructor ingredients={state}/>
+                    </main>
+
 
                 }
             </div>

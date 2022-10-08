@@ -3,9 +3,17 @@ import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/
 import {BurgerIngredientsProps} from '../../types/data';
 import data from '../../utils/data';
 import React from 'react';
+import useModal from '../../hooks/useModal';
+import Modal from '../Modal/Modal';
+import OrderDetails from '../OrderDetails/OrderDetails';
 
 const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
-    const bun = data.filter(item => item.type === 'bun')[0]
+    const bun = data.filter(item => item.type === 'bun')[0];
+
+    const {
+        modalState,
+        toggle
+    } = useModal()
 
     return (
         <div className={`${styles.wrapper}`}>
@@ -53,9 +61,15 @@ const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
                     <span className="text text_type_digits-medium">610</span>
                     <CurrencyIcon type="primary"/>
                 </div>
-                <Button htmlType="button" type="primary" size="large">
+                <Button htmlType="button" type="primary" size="large" onClick={toggle}>
                     Оформить
                 </Button>
+                {
+                    modalState &&
+                    <Modal onCloseButtonClick={toggle}>
+                        <OrderDetails />
+                    </Modal>
+                }
             </div>
 
         </div>
