@@ -6,7 +6,6 @@ const useModal = () => {
 
     const toggle = () => {
         setModalState(!modalState)
-        console.log(modalState)
     }
 
     useEffect(() => {

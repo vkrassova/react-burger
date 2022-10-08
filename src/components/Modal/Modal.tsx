@@ -9,7 +9,7 @@ const modalRoot = document.getElementById("react-modals") as HTMLElement;
 interface ModalsProps {
     title?: string,
     children: React.ReactNode,
-    onCloseButtonClick: any
+    onCloseButtonClick: () => void
 }
 
 const Modal: React.FC<ModalsProps> = ({title, onCloseButtonClick, children}) => {

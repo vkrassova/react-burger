@@ -10,14 +10,14 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 const BurgerIngredients: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
 
-    const [selectedItem, setSelectedIngredient] = useState({});
+    const [selectedItem, setSelectedIngredient] = useState(null);
 
     const {
         modalState,
         toggle
     } = useModal();
 
-    const handleClickItem = (i: object) => {
+    const handleClickItem = (i: null) => {
         toggle();
         setSelectedIngredient(i)
     }
