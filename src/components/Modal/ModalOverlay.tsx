@@ -1,9 +1,8 @@
-import style from './Modal.module.scss'
+import style from './Modal.module.scss';
 
-const ModalOverlay = () => {
+const ModalOverlay = ({onOverlayClick}: any) => {
     return (
-        <div className={style.overlay}>
-
+        <div className={style.overlay} onClick={onOverlayClick}>
         </div>
     )
 }

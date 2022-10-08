@@ -5,6 +5,7 @@ import styles from '../../BurgerIngredients.module.scss';
 import useModal from '../../../../hooks/useModal';
 import Modal from '../../../Modal/Modal';
 import IngredientDetails from '../../../IngredientDetails/IngredientDetails';
+import ModalOverlay from '../../../Modal/ModalOverlay';
 
 type IngredientsListProps = {
     ingredientType: string,
