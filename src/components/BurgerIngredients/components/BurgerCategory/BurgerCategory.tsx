@@ -2,30 +2,16 @@ import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-com
 import {Ingredients} from '../../../../types/data';
 import React, {useState} from 'react';
 import styles from '../../BurgerIngredients.module.scss';
-import useModal from '../../../../hooks/useModal';
-import Modal from '../../../Modal/Modal';
-import IngredientDetails from '../../../IngredientDetails/IngredientDetails';
-import ModalOverlay from '../../../Modal/ModalOverlay';
 
 type IngredientsListProps = {
     ingredientType: string,
     title: string,
     ingredients: Ingredients[],
+    onItemClick: any
 }
 
-const BurgerCategory: React.FC<IngredientsListProps> = ({ingredients, ingredientType, title}) => {
+const BurgerCategory: React.FC<IngredientsListProps> = ({ingredients, onItemClick, ingredientType, title}) => {
     const [counter, setCounter] = useState(0);
-    const [selectedItem, setSelectedIngredient] = useState({});
-
-    const {
-        modalState,
-        toggle
-    } = useModal();
-
-    const handleClickItem = (i: object) => {
-        toggle();
-        setSelectedIngredient(i)
-    }
 
     return (
         <>
@@ -36,10 +22,10 @@ const BurgerCategory: React.FC<IngredientsListProps> = ({ingredients, ingredient
                     ingredients.map((el, i) => {
                         if (el.type === ingredientType) {
                             return (
-                                <li className={styles.item} key={el._id} onClick={() => handleClickItem(el)}>
+                                <li className={styles.item} key={el._id} onClick={() => onItemClick(el)}>
                                     <div className={styles.img__wrapper}>
                                         <img src={el.image} alt={el.name}/>
-                                        {
+                                        { (counter > 0) &&
                                             <Counter count={counter} />
                                         }
                                     </div>
@@ -54,13 +40,6 @@ const BurgerCategory: React.FC<IngredientsListProps> = ({ingredients, ingredient
                     })
                 }
             </ul>
-
-            {
-                modalState &&
-                <Modal onCloseButtonClick={toggle} title="Детали ингридиента">
-                    <IngredientDetails ingredient={selectedItem}/>
-                </Modal>
-            }
         </>
     )
 }

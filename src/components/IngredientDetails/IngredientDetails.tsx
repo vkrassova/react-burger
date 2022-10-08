@@ -1,7 +1,6 @@
 import React from 'react';
 import style from './IngredientDetails.module.scss'
 
-
 const IngredientDetails = ({ingredient}: any) => {
     return (
         <div className={style.content}>
