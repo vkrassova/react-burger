@@ -19,7 +19,7 @@ const BurgerCategory: React.FC<IngredientsListProps> = ({ingredients, onItemClic
             <ul className={styles.list}>
                 {
                     ingredients &&
-                    ingredients.map((el, i) => {
+                    ingredients.map((el) => {
                         if (el.type === ingredientType) {
                             return (
                                 <li className={styles.item} key={el._id} onClick={() => onItemClick(el)}>

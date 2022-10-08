@@ -5,7 +5,7 @@ const IngredientDetails = ({ingredient}: any) => {
     return (
         <div className={style.content}>
             <div className={style.imgWrapper}>
-                <img src={ingredient.image} alt=""/>
+                <img src={ingredient.image} alt={ingredient.name}/>
             </div>
             <h3 className="text text_type_main-medium mb-8">{ingredient.name}</h3>
             <ul className={style.list}>
