@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './IngredientDetails.module.scss'
+import style from './IngredientDetails.module.scss';
 
 const IngredientDetails = ({ingredient}: any) => {
     return (
