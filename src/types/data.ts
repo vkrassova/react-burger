@@ -13,6 +13,10 @@ export interface Ingredients {
     __v: number
 }
 
+export interface CategoryIngredient {
+    ingredient: Ingredients
+}
+
 export type BurgerIngredientsProps = {
     ingredients: Ingredients[]
 }
