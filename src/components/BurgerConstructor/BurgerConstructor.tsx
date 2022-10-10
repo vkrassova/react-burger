@@ -6,8 +6,10 @@ import React from 'react';
 import useModal from '../../hooks/useModal';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
+import {IngredientsContext} from '../../services/IngredientsContext';
 
-const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
+const BurgerConstructor: React.FC = () => {
+    const ingredients = React.useContext(IngredientsContext);
     const bun = data.filter(item => item.type === 'bun')[0];
 
     const {

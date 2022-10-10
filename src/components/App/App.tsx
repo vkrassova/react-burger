@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, createContext} from 'react';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import styles from '../App/App.module.scss';
+import {IngredientsContext} from '../../services/IngredientsContext';
 
-function App() {
+const App: React.FC = () => {
     const [state, setState] = useState({
         isLoading: false,
         hasError: false,
@@ -39,6 +40,8 @@ function App() {
 
     const {isLoading, hasError, ingredients} = state;
 
+    console.log(ingredients)
+
     return (
         <>
             <AppHeader/>
@@ -53,7 +56,9 @@ function App() {
                     !isLoading && !hasError && (
                         <main className={styles.mainContent}>
                             <BurgerIngredients ingredients={ingredients}/>
-                            <BurgerConstructor ingredients={ingredients}/>
+                            <IngredientsContext.Provider value={ingredients}>
+                                <BurgerConstructor />
+                            </IngredientsContext.Provider>
                         </main>
                     )
                 }
