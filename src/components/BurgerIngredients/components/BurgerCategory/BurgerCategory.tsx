@@ -3,11 +3,11 @@ import {Ingredients} from '../../../../types/data';
 import React, {useState} from 'react';
 import styles from '../../BurgerIngredients.module.scss';
 
-type IngredientsListProps = {
+interface IngredientsListProps {
     ingredientType: string,
     title: string,
     ingredients: Ingredients[],
-    onItemClick: any
+    onItemClick: Function
 }
 
 const BurgerCategory: React.FC<IngredientsListProps> = ({ingredients, onItemClick, ingredientType, title}) => {
@@ -26,7 +26,7 @@ const BurgerCategory: React.FC<IngredientsListProps> = ({ingredients, onItemClic
                                     <div className={styles.img__wrapper}>
                                         <img src={el.image} alt={el.name}/>
                                         { (counter > 0) &&
-                                            <Counter count={counter} />
+                                            <Counter count={0} />
                                         }
                                     </div>
                                     <div className={styles.priceWrapper}>
