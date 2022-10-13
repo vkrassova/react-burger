@@ -1,19 +1,57 @@
 import styles from '../BurgerConstructor/BurgerConstructor.module.scss';
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import {BurgerIngredientsProps} from '../../types/data';
-import data from '../../utils/data';
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import useModal from '../../hooks/useModal';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
+import {IngredientsContext} from '../../services/IngredientsContext';
+import {Ingredients} from '../../types/data';
+import {API_ORDER} from '../../const';
 
-const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
-    const bun = data.filter(item => item.type === 'bun')[0];
+const BurgerConstructor: React.FC = () => {
+    const ingredients = useContext(IngredientsContext);
+    const bun = ingredients.filter(item => item.type === 'bun')[0];
+
+    const initialTotalPrice = {price: 0};
+
+    const [orderNumber, setOrderNumber] = useState('');
+
+    const totalPrice = ingredients.reduce((accumulator: number, currentValue: Ingredients) => {
+        if (currentValue.type === 'bun') return accumulator + currentValue.price * 2;
+        else return accumulator + currentValue.price;
+    }, initialTotalPrice.price);
 
     const {
         modalState,
         toggle
-    } = useModal()
+    } = useModal();
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ingredients: ingredients.map(item => item._id),
+        })
+    }
+
+    const getOrder = () => {
+        fetch(API_ORDER, options)
+            .then(res => {
+                if (res.ok) {
+                    return res.json()
+                }
+                return Promise.reject(res.status)
+            })
+            .then(res => {
+                setOrderNumber(res.order.number)
+                toggle()
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    };
 
     return (
         <div className={`${styles.wrapper}`}>
@@ -21,9 +59,9 @@ const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
                 <ConstructorElement
                     type="top"
                     isLocked={true}
-                    text={`${bun.name} (верх)`}
-                    price={200}
-                    thumbnail={bun.image}
+                    text={`${bun?.name} (верх)`}
+                    price={bun?.price}
+                    thumbnail={bun?.image}
                 />
             </div>
             <div className={styles.dynamicConstructor}>
@@ -50,28 +88,28 @@ const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
             <div className="pl-8 mb-10 mr-4">
                 <ConstructorElement
                     type="bottom"
-                    text={`${bun.name} (низ)`}
+                    text={`${bun?.name} (низ)`}
                     isLocked={true}
-                    price={200}
-                    thumbnail={bun.image}
+                    price={bun?.price}
+                    thumbnail={bun?.image}
                 />
             </div>
             <div className={styles.sum}>
                 <div className="mr-10">
-                    <span className="text text_type_digits-medium">610</span>
+                    <span className="text text_type_digits-medium">{totalPrice}</span>
                     <CurrencyIcon type="primary"/>
                 </div>
-                <Button htmlType="button" type="primary" size="large" onClick={toggle}>
+
+                <Button htmlType="button" type="primary" size="large" onClick={getOrder}>
                     Оформить
                 </Button>
                 {
                     modalState &&
                     <Modal onCloseButtonClick={toggle}>
-                        <OrderDetails />
+                        <OrderDetails order={orderNumber}/>
                     </Modal>
                 }
             </div>
-
         </div>
     )
 }

@@ -7,10 +7,11 @@ import BurgerCategory from './components/BurgerCategory/BurgerCategory';
 import useModal from '../../hooks/useModal';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import {IngredientsContext} from '../../services/IngredientsContext';
 
-const BurgerIngredients: React.FC<BurgerIngredientsProps> = ({ingredients}) => {
-
-    const [selectedItem, setSelectedIngredient] = useState(null);
+const BurgerIngredients: React.FC = () => {
+    const ingredients = React.useContext(IngredientsContext);
+    const [selectedItem, setSelectedIngredient] = useState<HTMLElement | null>(null);
 
     const {
         modalState,

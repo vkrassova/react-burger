@@ -3,18 +3,19 @@ import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import styles from '../App/App.module.scss';
+import {IngredientsContext} from '../../services/IngredientsContext';
+import {API_INGREDIENTS} from '../../const';
 
-function App() {
+const App: React.FC = () => {
     const [state, setState] = useState({
         isLoading: false,
         hasError: false,
         ingredients: []
     })
-    const url = 'https://norma.nomoreparties.space/api/ingredients';
 
     useEffect(() => {
             setState({...state, isLoading: true})
-            fetch(url)
+            fetch(API_INGREDIENTS)
                 .then(res => {
                     if (res.ok) {
                         return res.json()
@@ -25,7 +26,7 @@ function App() {
                     setState({
                         isLoading: false,
                         hasError: false,
-                        ingredients: data.data
+                        ingredients: data.data,
                     });
                 })
                 .catch((err) => {
@@ -52,8 +53,10 @@ function App() {
                 {
                     !isLoading && !hasError && (
                         <main className={styles.mainContent}>
-                            <BurgerIngredients ingredients={ingredients}/>
-                            <BurgerConstructor ingredients={ingredients}/>
+                            <IngredientsContext.Provider value={ingredients}>
+                                <BurgerIngredients />
+                                <BurgerConstructor />
+                            </IngredientsContext.Provider>
                         </main>
                     )
                 }
