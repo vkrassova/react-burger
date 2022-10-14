@@ -8,18 +8,22 @@ const INGREDIENT_TYPES = {
     main: 'main'
 }
 
-const Tabs = () => {
+type tabsProps = {
+    activeClick: any
+}
+
+const Tabs: React.FC<tabsProps> = ({activeClick}) => {
     const [current, setCurrent] = React.useState(INGREDIENT_TYPES.buns)
 
     return (
         <div className={styles.tabsWrapper}>
-            <Tab value={INGREDIENT_TYPES.buns} active={current === INGREDIENT_TYPES.buns} onClick={setCurrent}>
+            <Tab value={INGREDIENT_TYPES.buns} active={current === INGREDIENT_TYPES.buns} onClick={() => activeClick}>
                 Булки
             </Tab>
-            <Tab value={INGREDIENT_TYPES.sauces} active={current === INGREDIENT_TYPES.sauces} onClick={setCurrent}>
+            <Tab value={INGREDIENT_TYPES.sauces} active={current === INGREDIENT_TYPES.sauces} onClick={() => activeClick}>
                 Соусы
             </Tab>
-            <Tab value={INGREDIENT_TYPES.main} active={current === INGREDIENT_TYPES.main} onClick={setCurrent}>
+            <Tab value={INGREDIENT_TYPES.main} active={current === INGREDIENT_TYPES.main} onClick={() => activeClick}>
                 Начинки
             </Tab>
         </div>

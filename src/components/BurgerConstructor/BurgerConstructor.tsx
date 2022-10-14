@@ -6,7 +6,7 @@ import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import {IngredientsContext} from '../../services/IngredientsContext';
 import {Ingredients} from '../../types/data';
-import {API_ORDER} from '../../const';
+import {API_ORDER, checkResponse} from '../../const';
 
 const BurgerConstructor: React.FC = () => {
     const ingredients = useContext(IngredientsContext);
@@ -38,18 +38,10 @@ const BurgerConstructor: React.FC = () => {
 
     const getOrder = () => {
         fetch(API_ORDER, options)
-            .then(res => {
-                if (res.ok) {
-                    return res.json()
-                }
-                return Promise.reject(res.status)
-            })
+            .then(res => checkResponse(res))
             .then(res => {
                 setOrderNumber(res.order.number)
                 toggle()
-            })
-            .catch(error => {
-                console.log(error)
             })
     };
 
@@ -79,6 +71,8 @@ const BurgerConstructor: React.FC = () => {
                                         />
                                     </div>
                                 )
+                            } else {
+                                return null
                             }
                         }
                     )

@@ -4,7 +4,7 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import styles from '../App/App.module.scss';
 import {IngredientsContext} from '../../services/IngredientsContext';
-import {API_INGREDIENTS} from '../../const';
+import {API_INGREDIENTS, checkResponse} from '../../const';
 
 const App: React.FC = () => {
     const [state, setState] = useState({
@@ -16,12 +16,7 @@ const App: React.FC = () => {
     useEffect(() => {
             setState({...state, isLoading: true})
             fetch(API_INGREDIENTS)
-                .then(res => {
-                    if (res.ok) {
-                        return res.json()
-                    }
-                    return Promise.reject(res.status)
-                })
+                .then(res => checkResponse(res))
                 .then(data => {
                     setState({
                         isLoading: false,
@@ -54,8 +49,8 @@ const App: React.FC = () => {
                     !isLoading && !hasError && (
                         <main className={styles.mainContent}>
                             <IngredientsContext.Provider value={ingredients}>
-                                <BurgerIngredients />
-                                <BurgerConstructor />
+                                <BurgerIngredients/>
+                                <BurgerConstructor/>
                             </IngredientsContext.Provider>
                         </main>
                     )
