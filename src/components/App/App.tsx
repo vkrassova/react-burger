@@ -4,7 +4,8 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import styles from '../App/App.module.scss';
 import {IngredientsContext} from '../../services/IngredientsContext';
-import {API_INGREDIENTS, checkResponse} from '../../const';
+import {API_INGREDIENTS} from '../../const';
+import {checkResponse} from '../../utils/utils';
 
 const App: React.FC = () => {
     const [state, setState] = useState({

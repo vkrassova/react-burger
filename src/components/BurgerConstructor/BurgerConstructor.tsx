@@ -6,7 +6,8 @@ import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import {IngredientsContext} from '../../services/IngredientsContext';
 import {Ingredients} from '../../types/data';
-import {API_ORDER, checkResponse} from '../../const';
+import {API_ORDER} from '../../const';
+import {checkResponse} from '../../utils/utils';
 
 const BurgerConstructor: React.FC = () => {
     const ingredients = useContext(IngredientsContext);
