@@ -9,12 +9,12 @@ import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import {INGREDIENT_TYPES} from '../../const';
 import {getRect, tabsClickHandler} from '../../utils/utils';
 
-const PADDING_BOTTOM = 50;
-
 const BurgerIngredients: React.FC = () => {
     const ingredients = React.useContext(IngredientsContext)
     const [selectedItem, setSelectedIngredient] = useState<HTMLElement | null>(null)
     const [current, setCurrent] = React.useState(INGREDIENT_TYPES.buns)
+
+    const PADDING_BOTTOM = 50
 
     const {
         modalState,
@@ -32,10 +32,10 @@ const BurgerIngredients: React.FC = () => {
     const tabsRef = useRef(null)
 
     const scroll = () => {
-        let tabsBottom = Math.abs(getRect(tabsRef?.current).bottom - PADDING_BOTTOM)
-        let mainTop = Math.abs(getRect(mainRef?.current).top - tabsBottom)
-        let saucesTop = Math.abs(getRect(sauceRef?.current).top - tabsBottom)
-        let bunTop = Math.abs(getRect(bunRef?.current).top - tabsBottom)
+        let tabsBottom = Math.abs(Math.round((getRect(tabsRef?.current).bottom - PADDING_BOTTOM)))
+        let mainTop = Math.abs(Math.round((getRect(mainRef?.current).top - tabsBottom)))
+        let saucesTop = Math.abs(Math.round((getRect(sauceRef?.current).top - tabsBottom)))
+        let bunTop = Math.abs(Math.round((getRect(bunRef?.current).top - tabsBottom)))
 
         let array = [
             {block: bunTop, tab: INGREDIENT_TYPES.buns},
@@ -50,11 +50,13 @@ const BurgerIngredients: React.FC = () => {
         }
     }
 
+
     return (
         <div className={styles.wrapper}>
             <h2 className="text text_type_main-large mb-5">Соберите бургер</h2>
             <div className={styles.tabsWrapper} ref={tabsRef}>
-                <Tab value={INGREDIENT_TYPES.buns} active={current === INGREDIENT_TYPES.buns} onClick={() => tabsClickHandler(bunRef)}>
+                <Tab value={INGREDIENT_TYPES.buns} active={current === INGREDIENT_TYPES.buns}
+                     onClick={() => tabsClickHandler(bunRef)}>
                     Булки
                 </Tab>
                 <Tab value={INGREDIENT_TYPES.sauces} active={current === INGREDIENT_TYPES.sauces}

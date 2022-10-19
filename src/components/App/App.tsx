@@ -6,6 +6,7 @@ import styles from '../App/App.module.scss';
 import {IngredientsContext} from '../../services/IngredientsContext';
 import {API_INGREDIENTS} from '../../const';
 import {checkResponse} from '../../utils/utils';
+import {applyMiddleware, createStore} from "redux";
 
 const App: React.FC = () => {
     const [state, setState] = useState({
