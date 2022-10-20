@@ -1,18 +1,30 @@
-import React, {useState, useRef, useMemo} from 'react';
-import BurgerCategory from './components/BurgerCategory/BurgerCategory';
-import useModal from '../../hooks/useModal';
-import Modal from '../Modal/Modal';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import React, {useState, useRef, useMemo} from 'react'
+import BurgerCategory from './components/BurgerCategory/BurgerCategory'
+import useModal from '../../hooks/useModal'
+import { useDispatch } from 'react-redux'
+import Modal from '../Modal/Modal'
+import IngredientDetails from '../IngredientDetails/IngredientDetails'
 import {IngredientsContext} from '../../services/IngredientsContext';
-import styles from '../BurgerIngredients/BurgerIngredients.module.scss';
-import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
-import {INGREDIENT_TYPES} from '../../const';
-import {getRect, tabsClickHandler} from '../../utils/utils';
+import styles from '../BurgerIngredients/BurgerIngredients.module.scss'
+import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
+import {INGREDIENT_TYPES} from '../../const'
+import {getRect, tabsClickHandler} from '../../utils/utils'
+import {useTypedSelector} from '../../hooks/useTypedSelector'
+import {AppDispatch} from '../../index'
 
 const BurgerIngredients: React.FC = () => {
-    const ingredients = React.useContext(IngredientsContext)
+    //const ingredients = React.useContext(IngredientsContext)
+
+    const useAppDispatch: () => AppDispatch = useDispatch
+
+    const dispatch = useAppDispatch()
+
+    const { ingredients, ingredientsFailed, ingredientsRequest } =
+        useTypedSelector((store) => store.ingredients)
+
     const [selectedItem, setSelectedIngredient] = useState<HTMLElement | null>(null)
     const [current, setCurrent] = React.useState(INGREDIENT_TYPES.buns)
+
 
     const PADDING_BOTTOM = 50
 
@@ -50,7 +62,6 @@ const BurgerIngredients: React.FC = () => {
         }
     }
 
-
     return (
         <div className={styles.wrapper}>
             <h2 className="text text_type_main-large mb-5">Соберите бургер</h2>
@@ -86,4 +97,4 @@ const BurgerIngredients: React.FC = () => {
     )
 }
 
-export default BurgerIngredients;
+export default BurgerIngredients
