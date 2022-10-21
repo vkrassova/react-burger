@@ -21,7 +21,7 @@ type IngredientsState = {
     ingredientsFailed: boolean,
 }
 
-type IngredientsActions = IngredientsBaseAction | IngredientsSuccessAction
+export type IngredientsActions = IngredientsBaseAction | IngredientsSuccessAction
 
 const initialState = {
     ingredients: [],

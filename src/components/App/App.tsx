@@ -9,11 +9,9 @@ import {API_INGREDIENTS} from '../../const'
 import {checkResponse} from '../../utils/utils'
 import {useTypedSelector} from '../../hooks/useTypedSelector'
 import {getIngredients} from '../../services/actions/ingredients'
-import {AppDispatch} from '../../index';
+import {useAppDispatch} from '../../hooks/useAppDispatch';
 
 const App: React.FC = () => {
-    const useAppDispatch: () => AppDispatch = useDispatch
-
     const dispatch = useAppDispatch()
 
     useEffect(() => {

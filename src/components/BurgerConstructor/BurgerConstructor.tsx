@@ -1,21 +1,23 @@
-import styles from '../BurgerConstructor/BurgerConstructor.module.scss';
-import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {useContext, useState} from 'react';
-import useModal from '../../hooks/useModal';
-import Modal from '../Modal/Modal';
-import OrderDetails from '../OrderDetails/OrderDetails';
-import {IngredientsContext} from '../../services/IngredientsContext';
-import {Ingredients} from '../../types/data';
-import {API_ORDER} from '../../const';
-import {checkResponse} from '../../utils/utils';
+import styles from '../BurgerConstructor/BurgerConstructor.module.scss'
+import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import React, {useState} from 'react'
+import useModal from '../../hooks/useModal'
+import Modal from '../Modal/Modal'
+import OrderDetails from '../OrderDetails/OrderDetails'
+import {Ingredients} from '../../types/data'
+import {API_ORDER} from '../../const'
+import {checkResponse} from '../../utils/utils'
+import {useTypedSelector} from '../../hooks/useTypedSelector'
 
 const BurgerConstructor: React.FC = () => {
-    const ingredients = useContext(IngredientsContext);
-    const bun = ingredients.filter(item => item.type === 'bun')[0];
+    const { ingredients } =
+        useTypedSelector((store) => store.ingredients)
 
-    const initialTotalPrice = {price: 0};
+    const bun = ingredients.filter(item => item.type === 'bun')[0]
 
-    const [orderNumber, setOrderNumber] = useState('');
+    const initialTotalPrice = {price: 0}
+
+    const [orderNumber, setOrderNumber] = useState('')
 
     const totalPrice = ingredients.reduce((accumulator: number, currentValue: Ingredients) => {
         if (currentValue.type === 'bun') return accumulator + currentValue.price * 2;
@@ -25,7 +27,7 @@ const BurgerConstructor: React.FC = () => {
     const {
         modalState,
         toggle
-    } = useModal();
+    } = useModal()
 
     const options = {
         method: 'POST',
@@ -109,4 +111,4 @@ const BurgerConstructor: React.FC = () => {
     )
 }
 
-export default BurgerConstructor;
+export default BurgerConstructor
