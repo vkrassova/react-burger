@@ -1,78 +1,76 @@
 import styles from '../BurgerConstructor/BurgerConstructor.module.scss'
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components'
-import React, {useState} from 'react'
+import React, {useState, useMemo} from 'react'
 import useModal from '../../hooks/useModal'
 import Modal from '../Modal/Modal'
 import OrderDetails from '../OrderDetails/OrderDetails'
 import {Ingredients} from '../../types/data'
-import {API_ORDER} from '../../const'
-import {checkResponse} from '../../utils/utils'
+import { useDrop } from "react-dnd"
 import {useTypedSelector} from '../../hooks/useTypedSelector'
+import { v4 as uuidv4 } from "uuid"
+import {useAppDispatch} from '../../hooks/useAppDispatch';
+import {postOrder} from '../../services/actions/order';
+import DraggableElement from './components/DraggableElement';
+import {ADD_INGREDIENT, ADD_INGREDIENTS_TO_CONSTRUCTOR, addIngredients} from '../../services/actions/constructor';
 
 const BurgerConstructor: React.FC = () => {
-    const { ingredients } =
-        useTypedSelector((store) => store.ingredients)
+    const {ingredientsList} = useTypedSelector(store => store.constructorList)
+    const bun = useMemo(() => ingredientsList.filter(item => item.type === "bun")[0], [ingredientsList]);
 
-    const bun = ingredients.filter(item => item.type === 'bun')[0]
+    const dispatch = useAppDispatch()
 
-    const initialTotalPrice = {price: 0}
-
-    const [orderNumber, setOrderNumber] = useState('')
-
-    const totalPrice = ingredients.reduce((accumulator: number, currentValue: Ingredients) => {
-        if (currentValue.type === 'bun') return accumulator + currentValue.price * 2;
-        else return accumulator + currentValue.price;
-    }, initialTotalPrice.price);
+    const [{isHover}, dragRef] = useDrop({
+        accept: "ingredient",
+        collect: monitor => ({
+            isHover: monitor.isOver()
+        }),
+        drop(item) {
+            // @ts-ignore
+            dispatch({
+                type: ADD_INGREDIENTS_TO_CONSTRUCTOR,
+            });
+        }
+    })
 
     const {
         modalState,
         toggle
     } = useModal()
 
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            ingredients: ingredients.map(item => item._id),
-        })
+    const getIngredientsId = (ingredients: Ingredients[]) => {
+        return [...ingredients].map((e) => e._id);
     }
 
     const getOrder = () => {
-        fetch(API_ORDER, options)
-            .then(res => checkResponse(res))
-            .then(res => {
-                setOrderNumber(res.order.number)
-                toggle()
-            })
-    };
+        toggle()
+        // @ts-ignore
+        dispatch(postOrder(getIngredientsId(ingredientsList)))
+    }
+
+    const targetClassName = `${styles.wrapper} ${isHover ? styles.drop : ''}`
 
     return (
-        <div className={`${styles.wrapper}`}>
+        <div className={`${styles.wrapper}`} ref={dragRef}>
             <div className="pl-8 mr-4">
-                <ConstructorElement
-                    type="top"
-                    isLocked={true}
-                    text={`${bun?.name} (верх)`}
-                    price={bun?.price}
-                    thumbnail={bun?.image}
-                />
+                {
+                    bun && (
+                        <ConstructorElement
+                            type="top"
+                            isLocked={true}
+                            text={`${bun?.name} (верх)`}
+                            price={bun?.price}
+                            thumbnail={bun?.image}
+                        />
+                    )
+                }
+
             </div>
             <div className={styles.dynamicConstructor}>
                 {
-                    ingredients &&
-                    ingredients.map((el) => {
+                    ingredientsList && ingredientsList.map((el) => {
                             if (el.type !== 'bun') {
                                 return (
-                                    <div className={styles.item} key={el._id}>
-                                        <DragIcon type="primary"/>
-                                        <ConstructorElement
-                                            text={el.name}
-                                            price={el.price}
-                                            thumbnail={el.image}
-                                        />
-                                    </div>
+                               <DraggableElement item={el} key={el.id}/>
                                 )
                             } else {
                                 return null
@@ -82,18 +80,18 @@ const BurgerConstructor: React.FC = () => {
                 }
             </div>
 
-            <div className="pl-8 mb-10 mr-4">
-                <ConstructorElement
-                    type="bottom"
-                    text={`${bun?.name} (низ)`}
-                    isLocked={true}
-                    price={bun?.price}
-                    thumbnail={bun?.image}
-                />
-            </div>
+            {/*<div className="pl-8 mb-10 mr-4">*/}
+            {/*    <ConstructorElement*/}
+            {/*        type="bottom"*/}
+            {/*        text={`${bun?.name} (низ)`}*/}
+            {/*        isLocked={true}*/}
+            {/*        price={bun?.price}*/}
+            {/*        thumbnail={bun?.image}*/}
+            {/*    />*/}
+            {/*</div>*/}
             <div className={styles.sum}>
                 <div className="mr-10">
-                    <span className="text text_type_digits-medium">{totalPrice}</span>
+                    <span className="text text_type_digits-medium"></span>
                     <CurrencyIcon type="primary"/>
                 </div>
 
@@ -103,7 +101,7 @@ const BurgerConstructor: React.FC = () => {
                 {
                     modalState &&
                     <Modal onCloseButtonClick={toggle}>
-                        <OrderDetails order={orderNumber}/>
+                        <OrderDetails order={'5555'}/>
                     </Modal>
                 }
             </div>

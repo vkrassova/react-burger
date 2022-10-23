@@ -1,7 +1,10 @@
-import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Ingredients} from '../../../../types/data';
-import React, {useRef, useState} from 'react';
-import styles from '../../BurgerIngredients.module.scss';
+import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import {Ingredients} from '../../../../types/data'
+import React, {useMemo, useRef, useState} from 'react'
+import styles from '../../BurgerIngredients.module.scss'
+import { useDrag } from 'react-dnd'
+import {useTypedSelector} from '../../../../hooks/useTypedSelector';
+import {useAppDispatch} from '../../../../hooks/useAppDispatch';
 
 interface IngredientsListProps {
     ingredientType: string,
@@ -12,7 +15,12 @@ interface IngredientsListProps {
 }
 
 const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(({ingredients, ingredientType, title, onItemClick}, ref: React.ForwardedRef<HTMLParagraphElement>) => {
-    const [counter, setCounter] = useState(0);
+    const [counter, setCounter] = useState(0)
+
+    const [, dragRef] = useDrag({
+        type: "ingredient",
+        item: ingredients
+    });
 
     return (
         <div ref={ref}>
@@ -23,7 +31,7 @@ const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(({ingred
                     ingredients.map((el) => {
                         if (el.type === ingredientType) {
                             return (
-                                <li className={styles.item} key={el._id} onClick={() => onItemClick(el)}>
+                                <li className={styles.item} key={el._id} onClick={() => onItemClick(el)} ref={dragRef}>
                                     <div className={styles.img__wrapper}>
                                         <img src={el.image} alt={el.name}/>
                                         {(counter > 0) &&

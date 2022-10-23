@@ -11,19 +11,19 @@ type OrderBaseAction = {
 
 type OrderSuccessAction = {
     type: 'GET_ORDER_SUCCESS',
-    id: string
+    number: object
 }
 
 type OrderActions = OrderBaseAction | OrderSuccessAction
 
 type OrderSate = {
-    id: string,
+    number: object,
     orderRequest: boolean,
     orderFailed: boolean,
 }
 
 const initialState = {
-    id: '',
+    number: {},
     orderRequest: false,
     orderFailed: false,
 }
@@ -39,7 +39,7 @@ export const orderReducer = (state: OrderSate = initialState, action: OrderActio
         case GET_ORDER_SUCCESS: {
             return {
                 ...state,
-                id: action.id,
+                number: action.number,
                 orderRequest: false,
                 orderFailed: false,
             }

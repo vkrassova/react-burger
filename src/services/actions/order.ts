@@ -7,14 +7,14 @@ export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS'
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED'
 
 
-export const postOrder = (IngredientsID: Ingredients['_id'][]) => {
+export const postOrder = (data: () => void) => {
     const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            ingredients: IngredientsID,
+            ingredients: data,
         })
     }
 
@@ -27,7 +27,7 @@ export const postOrder = (IngredientsID: Ingredients['_id'][]) => {
             .then((res) => {
                 dispatch({
                     type: GET_ORDER_SUCCESS,
-                    id: res.order.number.toString()
+                    number: res.order
                 })
             })
             .catch((error) => {
