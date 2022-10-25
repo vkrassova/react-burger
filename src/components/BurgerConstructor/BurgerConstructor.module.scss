@@ -5,7 +5,7 @@
   justify-content: space-between;
   padding-top: 60px;
   padding-left: 16px;
-  max-width: 600px;
+  width: 600px;
   height: calc(100vh - 180px);
   box-sizing: border-box;
 }
@@ -13,8 +13,6 @@
 .dynamicConstructor {
   margin-bottom: 16px;
   margin-top: 16px;
-  //height: 464px;
-  //overflow: hidden;
   overflow-y: scroll;
 
   &::-webkit-scrollbar { /* 1 - скроллбар */

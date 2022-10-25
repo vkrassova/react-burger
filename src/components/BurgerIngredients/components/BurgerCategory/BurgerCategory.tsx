@@ -15,6 +15,7 @@ const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(({
                                                                              ingredientType,
                                                                              title
                                                                          }, ref: React.ForwardedRef<HTMLParagraphElement>) => {
+
     return (
         <div ref={ref}>
             <h3 className="text text_type_main-medium mb-6">{title}</h3>
@@ -24,9 +25,7 @@ const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(({
                     ingredients.map((el) => {
                         if (el.type === ingredientType) {
                             return (
-                                <li className={styles.item} key={el._id}>
-                                   <IngredientsItem ingredient={el} />
-                                </li>
+                                   <IngredientsItem ingredient={el} key={el._id}/>
                             )
                         }
                     })
@@ -36,4 +35,4 @@ const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(({
     )
 })
 
-export default BurgerCategory;
+export default BurgerCategory

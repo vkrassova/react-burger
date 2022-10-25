@@ -11,24 +11,31 @@ import { v4 as uuidv4 } from "uuid"
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {postOrder} from '../../services/actions/order';
 import DraggableElement from './components/DraggableElement';
-import {ADD_INGREDIENT, ADD_INGREDIENTS_TO_CONSTRUCTOR, addIngredients} from '../../services/actions/constructor';
+import {ADD_INGREDIENTS_TO_CONSTRUCTOR, ADD_BUN} from '../../services/actions/constructor';
 
 const BurgerConstructor: React.FC = () => {
-    const {ingredientsList} = useTypedSelector(store => store.constructorList)
-    const bun = useMemo(() => ingredientsList.filter(item => item.type === "bun")[0], [ingredientsList]);
-
+    const {ingredientsList, bun} = useTypedSelector(store => store.constructorList)
     const dispatch = useAppDispatch()
 
     const [{isHover}, dragRef] = useDrop({
-        accept: "ingredient",
+        accept: "ingredients",
         collect: monitor => ({
             isHover: monitor.isOver()
         }),
-        drop(item) {
-            // @ts-ignore
-            dispatch({
-                type: ADD_INGREDIENTS_TO_CONSTRUCTOR,
-            });
+        drop(itemId: any) {
+            if(itemId.ingredient.type === "bun") {
+                // @ts-ignore
+                dispatch({
+                    type: ADD_BUN,
+                    data: itemId.ingredient
+                })
+            } else {
+                // @ts-ignore
+                dispatch({
+                    type: ADD_INGREDIENTS_TO_CONSTRUCTOR,
+                    data: {...itemId.ingredient, id: uuidv4()}
+                })
+            }
         }
     })
 
@@ -53,7 +60,7 @@ const BurgerConstructor: React.FC = () => {
         <div className={`${styles.wrapper}`} ref={dragRef}>
             <div className="pl-8 mr-4">
                 {
-                    bun && (
+                    bun.length !== (
                         <ConstructorElement
                             type="top"
                             isLocked={true}
@@ -65,20 +72,20 @@ const BurgerConstructor: React.FC = () => {
                 }
 
             </div>
-            <div className={styles.dynamicConstructor}>
-                {
-                    ingredientsList && ingredientsList.map((el) => {
-                            if (el.type !== 'bun') {
-                                return (
-                               <DraggableElement item={el} key={el.id}/>
-                                )
-                            } else {
-                                return null
-                            }
-                        }
-                    )
-                }
-            </div>
+            {/*<div className={styles.dynamicConstructor}>*/}
+            {/*    {*/}
+            {/*        ingredientsList && ingredientsList.map((el) => {*/}
+            {/*                if (el.type !== 'bun') {*/}
+            {/*                    return (*/}
+            {/*                   <DraggableElement item={el} key={el.id}/>*/}
+            {/*                    )*/}
+            {/*                } else {*/}
+            {/*                    return null*/}
+            {/*                }*/}
+            {/*            }*/}
+            {/*        )*/}
+            {/*    }*/}
+            {/*</div>*/}
 
             {/*<div className="pl-8 mb-10 mr-4">*/}
             {/*    <ConstructorElement*/}

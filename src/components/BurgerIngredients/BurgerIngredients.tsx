@@ -11,17 +11,13 @@ import {useTypedSelector} from '../../hooks/useTypedSelector'
 import {useAppDispatch} from '../../hooks/useAppDispatch'
 
 const BurgerIngredients: React.FC = () => {
-
-
-    const dispatch = useAppDispatch()
-
     const {ingredients, ingredientsFailed, ingredientsRequest} =
         useTypedSelector((store) => store.ingredients)
 
     const [selectedItem, setSelectedIngredient] = useState<HTMLElement | null>(null)
     const [current, setCurrent] = React.useState(INGREDIENT_TYPES.buns)
 
-
+    const dispatch = useAppDispatch()
     const PADDING_BOTTOM = 50
 
     const {
@@ -59,7 +55,7 @@ const BurgerIngredients: React.FC = () => {
     }
 
     return (
-        <div className={styles.wrapper}>
+        <section className={styles.wrapper}>
             <h2 className="text text_type_main-large mb-5">Соберите бургер</h2>
             <div className={styles.tabsWrapper} ref={tabsRef}>
                 <Tab value={INGREDIENT_TYPES.buns} active={current === INGREDIENT_TYPES.buns}
@@ -95,7 +91,7 @@ const BurgerIngredients: React.FC = () => {
                     <IngredientDetails ingredient={selectedItem}/>
                 </Modal>
             }
-        </div>
+        </section>
     )
 }
 

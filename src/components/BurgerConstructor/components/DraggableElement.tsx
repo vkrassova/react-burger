@@ -2,35 +2,36 @@ import styles from '../BurgerConstructor.module.scss'
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import React, {useRef} from 'react'
 import {Ingredients} from '../../../types/data'
-import {useDrop, useDrag, DropTargetMonitor} from "react-dnd"
+import {useDrop, useDrag, DropTargetMonitor} from 'react-dnd'
 import {useAppDispatch} from '../../../hooks/useAppDispatch'
 import {useTypedSelector} from '../../../hooks/useTypedSelector'
 import {getIngredients} from '../../../services/actions/constructor'
+import {MOVE_CARD} from '../../../services/actions/constructor'
 
 interface DraggbleElementProps {
-    item: Ingredients
+    items: Ingredients,
+    index: string | number
 }
 
-const DraggableElement: React.FC<DraggbleElementProps> = ({item}) => {
+const DraggableElement: React.FC<DraggbleElementProps> = ({items, index}) => {
+    const { image, _id, price, name } = items;
     const dispatch = useAppDispatch()
-    const {ingredientsList} = useTypedSelector(store => store.constructorList)
     const ref = useRef<HTMLDivElement | null>(null)
 
-    // @ts-ignore
     const [{handlerId}, drop] = useDrop({
-        accept: "ingredient",
+        accept: 'item',
         collect(monitor) {
             return {
                 handlerId: monitor.getHandlerId()
             }
         },
-        hover(item: any, monitor: DropTargetMonitor) {
+        hover(items: any, monitor: DropTargetMonitor) {
             if (!ref.current) {
                 return
             }
 
-            const dragIndex = item.item.id
-            const hoverIndex = item.id
+            const dragIndex = items.item
+            const hoverIndex = index
 
             if (dragIndex === hoverIndex) {
                 return
@@ -51,23 +52,18 @@ const DraggableElement: React.FC<DraggbleElementProps> = ({item}) => {
                 return
             }
 
-            const dragCard = ingredientsList.find(card => card._id === dragIndex)
-            const hoverCard = ingredientsList.find(card => card._id === hoverIndex)
+            dispatch({
+                type: MOVE_CARD,
+                data: {dragIndex, hoverIndex}
+            })
 
-            const newCards = ingredientsList.map(item =>
-                item._id === dragCard?._id ? hoverCard
-                    : item._id === hoverCard?._id ? dragCard
-                        : item)
-
-            // @ts-ignore
-            dispatch(getIngredients(newCards))
+            items.index = hoverIndex;
         }
     })
 
-    const [{ isDragging }, drag] = useDrag({
-        type: "ingredient",
-        // @ts-ignore
-        item: () => ({ item }),
+    const [{isDragging}, drag] = useDrag({
+        type: 'item',
+        item: {_id, index},
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
@@ -79,15 +75,15 @@ const DraggableElement: React.FC<DraggbleElementProps> = ({item}) => {
 
     return (
         <div className={styles.item}
-             style={{ opacity }}
+             style={{opacity}}
              ref={ref}
              onDrop={(e) => e.preventDefault()}
              data-handler-id={handlerId}>
             <DragIcon type="primary"/>
             <ConstructorElement
-                text={item.name}
-                price={item.price}
-                thumbnail={item.image}
+                text={name}
+                price={price}
+                thumbnail={image}
             />
         </div>
     )
