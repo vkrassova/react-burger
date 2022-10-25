@@ -15,12 +15,11 @@ const BurgerIngredients: React.FC = () => {
 
     const dispatch = useAppDispatch()
 
-    const { ingredients, ingredientsFailed, ingredientsRequest } =
+    const {ingredients, ingredientsFailed, ingredientsRequest} =
         useTypedSelector((store) => store.ingredients)
 
     const [selectedItem, setSelectedIngredient] = useState<HTMLElement | null>(null)
     const [current, setCurrent] = React.useState(INGREDIENT_TYPES.buns)
-
 
 
     const PADDING_BOTTOM = 50
@@ -77,12 +76,18 @@ const BurgerIngredients: React.FC = () => {
                 </Tab>
             </div>
             <div className={styles.ingredientsWrapper} onScroll={scroll}>
-                <BurgerCategory title={'Булки'} ingredientType={'bun'} ingredients={ingredients}
-                                onItemClick={handleClickItem} ref={bunRef}/>
-                <BurgerCategory title={'Соусы'} ingredientType={'sauce'} ingredients={ingredients}
-                                onItemClick={handleClickItem} ref={sauceRef}/>
-                <BurgerCategory title={'Начинки'} ingredientType={'main'} ingredients={ingredients}
-                                onItemClick={handleClickItem} ref={mainRef}/>
+                <BurgerCategory title={'Булки'}
+                                ingredientType={'bun'}
+                                ingredients={ingredients}
+                                ref={bunRef}/>
+                <BurgerCategory title={'Соусы'}
+                                ingredientType={'sauce'}
+                                ingredients={ingredients}
+                                ref={sauceRef}/>
+                <BurgerCategory title={'Начинки'}
+                                ingredientType={'main'}
+                                ingredients={ingredients}
+                                ref={mainRef}/>
             </div>
             {
                 modalState &&
