@@ -1,14 +1,16 @@
 import styles from '../../BurgerIngredients.module.scss'
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import React from 'react'
-import {useDrag} from 'react-dnd';
-import {Ingredients} from '../../../../types/data';
+import {useDrag} from 'react-dnd'
+import {Ingredients} from '../../../../types/data'
+import useModal from '../../../../hooks/useModal'
 
 type IngredientsItemProps = {
-    ingredient: Ingredients
+    ingredient: Ingredients,
+    showDetails: Function | any
 }
 
-const IngredientsItem: React.FC<IngredientsItemProps> = ({ingredient}) => {
+const IngredientsItem: React.FC<IngredientsItemProps> = ({ingredient, showDetails}) => {
     const [{opacity}, dragRef] = useDrag({
         type: 'ingredients',
         item: {...ingredient},
@@ -18,7 +20,7 @@ const IngredientsItem: React.FC<IngredientsItemProps> = ({ingredient}) => {
     })
 
     return (
-        <li className={styles.item} ref={dragRef} style={{opacity}}>
+        <li className={styles.item} ref={dragRef} style={{opacity}} onClick={showDetails}>
             <div className={styles.img__wrapper}>
                 <img src={ingredient.image} alt={ingredient.name}/>
             </div>

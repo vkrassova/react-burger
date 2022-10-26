@@ -9,6 +9,8 @@ import {INGREDIENT_TYPES} from '../../const'
 import {getRect, tabsClickHandler} from '../../utils/utils'
 import {useTypedSelector} from '../../hooks/useTypedSelector'
 import {useAppDispatch} from '../../hooks/useAppDispatch'
+import {MODAL_OPEN} from '../../services/actions/modal'
+import {Ingredients} from '../../types/data';
 
 const BurgerIngredients: React.FC = () => {
     const {ingredients, ingredientsFailed, ingredientsRequest} =
@@ -25,9 +27,12 @@ const BurgerIngredients: React.FC = () => {
         toggle
     } = useModal()
 
-    const handleClickItem = (i: null) => {
-        toggle();
-        setSelectedIngredient(i)
+    const handleClickItem = (ingredient: Ingredients) => {
+        toggle()
+        dispatch({
+            type: MODAL_OPEN,
+            item: ingredient
+        })
     }
 
     const bunRef = useRef(null)
@@ -75,20 +80,20 @@ const BurgerIngredients: React.FC = () => {
                 <BurgerCategory title={'Булки'}
                                 ingredientType={'bun'}
                                 ingredients={ingredients}
-                                ref={bunRef}/>
+                                ref={bunRef} showDetails={handleClickItem}/>
                 <BurgerCategory title={'Соусы'}
                                 ingredientType={'sauce'}
                                 ingredients={ingredients}
-                                ref={sauceRef}/>
+                                ref={sauceRef} showDetails={handleClickItem}/>
                 <BurgerCategory title={'Начинки'}
                                 ingredientType={'main'}
                                 ingredients={ingredients}
-                                ref={mainRef}/>
+                                ref={mainRef} showDetails={handleClickItem}/>
             </div>
             {
                 modalState &&
                 <Modal onCloseButtonClick={toggle} title="Детали ингридиента">
-                    <IngredientDetails ingredient={selectedItem}/>
+                    <IngredientDetails ingredient={ingredients}/>
                 </Modal>
             }
         </section>

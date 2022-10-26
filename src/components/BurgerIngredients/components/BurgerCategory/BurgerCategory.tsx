@@ -7,14 +7,11 @@ interface IngredientsListProps {
     ingredientType: string,
     title: string,
     ingredients: Ingredients[],
-    ref: React.ForwardedRef<HTMLParagraphElement>
+    ref: React.ForwardedRef<HTMLParagraphElement>,
+    showDetails: Function | any
 }
 
-const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(({
-                                                                             ingredients,
-                                                                             ingredientType,
-                                                                             title
-                                                                         }, ref: React.ForwardedRef<HTMLParagraphElement>) => {
+const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(({ingredients, ingredientType, title, showDetails}, ref: React.ForwardedRef<HTMLParagraphElement>) => {
 
     return (
         <div ref={ref}>
@@ -25,7 +22,7 @@ const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(({
                     ingredients.map((el) => {
                         if (el.type === ingredientType) {
                             return (
-                                   <IngredientsItem ingredient={el} key={el._id}/>
+                                   <IngredientsItem ingredient={el} key={el._id} showDetails={showDetails}/>
                             )
                         }
                     })
