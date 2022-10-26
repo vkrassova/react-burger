@@ -17,13 +17,13 @@ type OrderSuccessAction = {
 type OrderActions = OrderBaseAction | OrderSuccessAction
 
 type OrderSate = {
-    number: object,
+    number: number | string,
     orderRequest: boolean,
     orderFailed: boolean,
 }
 
 const initialState = {
-    number: {},
+    number: '',
     orderRequest: false,
     orderFailed: false,
 }

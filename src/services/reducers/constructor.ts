@@ -1,9 +1,8 @@
 import {
-    ADD_INGREDIENT,
     DELETE_INGREDIENT,
     RESET_INGREDIENTS,
     GET_INGREDIENTS,
-    ADD_INGREDIENTS_TO_CONSTRUCTOR, ADD_BUN, MOVE_CARD
+    ADD_INGREDIENTS_TO_CONSTRUCTOR, MOVE_CARD
 } from '../actions/constructor'
 
 import {Ingredients} from '../../types/data'
@@ -24,31 +23,22 @@ type MoveCardAction = {
     data: any,
 }
 
-type AddBunAction = {
-    type: 'ADD_BUN',
-    bun: Ingredients[],
-    item: any
-}
-
 type ConstructorBaseAction = {
     type: 'RESET_INGREDIENTS' | 'DELETE_INGREDIENT'
 }
 
 type ConstructorState = {
     ingredientsList: Ingredients[],
-    bun: Ingredients[]
 }
 
 type ConstructorActions =
     AddIngredientAction
-    | AddBunAction
     | ConstructorBaseAction
     | AddIngredientToConstructorAction
     | MoveCardAction
 
 const initialState = {
     ingredientsList: [],
-    bun: []
 }
 
 export const constructorReducer = (state: ConstructorState = initialState, action: ConstructorActions) => {
@@ -59,13 +49,6 @@ export const constructorReducer = (state: ConstructorState = initialState, actio
                 ingredientsList: [...state.ingredientsList, action.data]
             }
         }
-        case ADD_BUN: {
-            return {
-                ...state,
-                bun: [action.item]
-            }
-        }
-
         case MOVE_CARD: {
             const dragCards = [...state.ingredientsList]
             dragCards.splice(action.data.dragIndex, 0,

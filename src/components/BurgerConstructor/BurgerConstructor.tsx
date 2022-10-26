@@ -11,12 +11,32 @@ import {v4 as uuidv4} from 'uuid'
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {postOrder} from '../../services/actions/order';
 import DraggableElement from './components/DraggableElement';
-import {ADD_INGREDIENTS_TO_CONSTRUCTOR, ADD_BUN, addBun} from '../../services/actions/constructor';
+import {ADD_INGREDIENTS_TO_CONSTRUCTOR} from '../../services/actions/constructor';
 
 const BurgerConstructor: React.FC = () => {
     const {ingredientsList} = useTypedSelector(store => store.constructorList)
     const bun = ingredientsList.find((el) => el.type === 'bun', [0])
     const dispatch = useAppDispatch()
+
+    const {number} = useTypedSelector(store => store.order)
+
+    const itemsId = useMemo(
+        () => ingredientsList.map((item) => item._id),
+        [ingredientsList])
+
+    const initialTotalPrice = {price: 0}
+
+    const [total, setTotal] = useState(initialTotalPrice.price)
+
+    useEffect(() => {
+        const totalPrice = ingredientsList.reduce((accumulator: number, currentValue: Ingredients) => {
+            if (currentValue.type === 'bun') return accumulator + currentValue.price * 2;
+            else return accumulator + currentValue.price;
+        }, initialTotalPrice.price)
+
+        setTotal(totalPrice)
+        console.log(total)
+    }, [ingredientsList])
 
     const [{isHover}, dragRef] = useDrop({
         accept: 'ingredients',
@@ -37,32 +57,28 @@ const BurgerConstructor: React.FC = () => {
         toggle
     } = useModal()
 
-    const getIngredientsId = (ingredients: Ingredients[]) => {
-        return [...ingredients].map((e) => e._id);
-    }
-
     const getOrder = () => {
         toggle()
         // @ts-ignore
-        dispatch(postOrder(getIngredientsId(ingredientsList)))
+        dispatch(postOrder(itemsId))
     }
 
     const targetClassName = `${styles.wrapper} ${isHover ? styles.drop : ''}`
 
     // @ts-ignore
     return (
-        <div className={`${styles.wrapper}`} ref={dragRef}>
+        <div className={targetClassName} ref={dragRef}>
             <div className="pl-8 mr-4">
 
                 {
-                    bun &&
-                    <ConstructorElement
-                        type="top"
-                        isLocked={true}
-                        text={`${bun.name} (верх)`}
-                        price={bun.price}
-                        thumbnail={bun.image}
-                    />
+                    bun ?
+                        (<ConstructorElement
+                            type="top"
+                            isLocked={true}
+                            text={`${bun.name} (верх)`}
+                            price={bun.price}
+                            thumbnail={bun.image}
+                        />) : <p className="text text_type_main-medium">Добавьте булочку</p>
                 }
 
 
@@ -85,27 +101,34 @@ const BurgerConstructor: React.FC = () => {
                     bun &&
                     <ConstructorElement
                         type="bottom"
-                        text={`${bun?.name} (низ)`}
+                        text={`${bun.name} (низ)`}
                         isLocked={true}
-                        price={bun?.price}
-                        thumbnail={bun?.image}
+                        price={bun.price}
+                        thumbnail={bun.image}
                     />
                 }
 
             </div>
             <div className={styles.sum}>
                 <div className="mr-10">
-                    <span className="text text_type_digits-medium">{''}</span>
+                    <span className="text text_type_digits-medium">{total}</span>
                     <CurrencyIcon type="primary"/>
                 </div>
 
-                <Button htmlType="button" type="primary" size="large" onClick={getOrder}>
-                    Оформить
-                </Button>
+                {
+                    (bun && ingredientsList.length > 0) ? (
+                        <Button htmlType="button" type="primary" size="large" onClick={getOrder}>
+                            Оформить
+                        </Button>
+                    ) : <Button htmlType="button" type="primary" size="large" onClick={getOrder} disabled>
+                        Оформить
+                    </Button>
+                }
+
                 {
                     modalState &&
-                    <Modal onCloseButtonClick={toggle}>
-                        <OrderDetails order={'5555'}/>
+                    <Modal onCloseButtonClick={getOrder}>
+                        <OrderDetails order={number}/>
                     </Modal>
                 }
             </div>

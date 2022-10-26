@@ -1,13 +1,11 @@
 import {API_ORDER} from '../../const'
-import {Ingredients} from '../../types/data'
 import {checkResponse} from '../../utils/utils'
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST'
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS'
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED'
 
-
-export const postOrder = (data: () => void) => {
+export const postOrder = (data: any) => {
     const options = {
         method: 'POST',
         headers: {
@@ -27,7 +25,7 @@ export const postOrder = (data: () => void) => {
             .then((res) => {
                 dispatch({
                     type: GET_ORDER_SUCCESS,
-                    number: res.order
+                    number: res.order.number
                 })
             })
             .catch((error) => {
