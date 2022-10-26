@@ -22,13 +22,11 @@ type AddIngredientToConstructorAction = {
 type MoveCardAction = {
     type: 'MOVE_CARD',
     data: any,
-    // ingredientsList: Ingredients[]
 }
 
 type AddBunAction = {
     type: 'ADD_BUN',
-    bun: Ingredients[] | null,
-    data: any
+    item: any
 }
 
 type ConstructorBaseAction = {
@@ -37,10 +35,15 @@ type ConstructorBaseAction = {
 
 type ConstructorState = {
     ingredientsList: Ingredients[],
-    bun: Ingredients[] | null
+    bun: Ingredients[] | undefined
 }
 
-type ConstructorActions = AddIngredientAction | AddBunAction | ConstructorBaseAction | AddIngredientToConstructorAction | MoveCardAction
+type ConstructorActions =
+    AddIngredientAction
+    | AddBunAction
+    | ConstructorBaseAction
+    | AddIngredientToConstructorAction
+    | MoveCardAction
 
 const initialState = {
     ingredientsList: [],
@@ -58,7 +61,7 @@ export const constructorReducer = (state: ConstructorState = initialState, actio
         case ADD_BUN: {
             return {
                 ...state,
-                bun: action.data
+                bun: [action.item]
             }
         }
 

@@ -5,7 +5,6 @@ import {Ingredients} from '../../../types/data'
 import {useDrop, useDrag, DropTargetMonitor} from 'react-dnd'
 import {useAppDispatch} from '../../../hooks/useAppDispatch'
 import {useTypedSelector} from '../../../hooks/useTypedSelector'
-import {getIngredients} from '../../../services/actions/constructor'
 import {MOVE_CARD} from '../../../services/actions/constructor'
 
 interface DraggbleElementProps {
@@ -63,7 +62,9 @@ const DraggableElement: React.FC<DraggbleElementProps> = ({items, index}) => {
 
     const [{isDragging}, drag] = useDrag({
         type: 'item',
-        item: {_id, index},
+        item: () => {
+            return { id: items._id, index };
+        },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),

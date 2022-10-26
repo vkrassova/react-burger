@@ -6,9 +6,9 @@ export const GET_INGREDIENTS = "GET_INGREDIENTS"
 export const ADD_INGREDIENTS_TO_CONSTRUCTOR = "ADD_INGREDIENTS_TO_CONSTRUCTOR"
 export const MOVE_CARD = "MOVE_CARD"
 
-export const getIngredients = (id: string) => {
+export const addBun = (id: string) => {
     return {
-        type: ADD_INGREDIENT,
+        type: ADD_BUN,
         id
     }
 }
