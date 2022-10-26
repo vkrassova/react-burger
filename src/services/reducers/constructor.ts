@@ -26,6 +26,7 @@ type MoveCardAction = {
 
 type AddBunAction = {
     type: 'ADD_BUN',
+    bun: Ingredients[],
     item: any
 }
 
@@ -35,7 +36,7 @@ type ConstructorBaseAction = {
 
 type ConstructorState = {
     ingredientsList: Ingredients[],
-    bun: Ingredients[] | undefined
+    bun: Ingredients[]
 }
 
 type ConstructorActions =

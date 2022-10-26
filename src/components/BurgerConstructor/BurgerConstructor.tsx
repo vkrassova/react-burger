@@ -14,7 +14,8 @@ import DraggableElement from './components/DraggableElement';
 import {ADD_INGREDIENTS_TO_CONSTRUCTOR, ADD_BUN, addBun} from '../../services/actions/constructor';
 
 const BurgerConstructor: React.FC = () => {
-    const {ingredientsList, bun} = useTypedSelector(store => store.constructorList)
+    const {ingredientsList} = useTypedSelector(store => store.constructorList)
+    const bun = ingredientsList.find((el) => el.type === 'bun', [0])
     const dispatch = useAppDispatch()
 
     const [{isHover}, dragRef] = useDrop({
@@ -28,16 +29,6 @@ const BurgerConstructor: React.FC = () => {
                 type: ADD_INGREDIENTS_TO_CONSTRUCTOR,
                 data: {...item, id: uuidv4()}
             })
-            // if (item.type === 'bun') {
-            //     // @ts-ignore
-            //     dispatch(addBun(item._id))
-            // } else {
-            //     // @ts-ignore
-            //     dispatch({
-            //         type: ADD_INGREDIENTS_TO_CONSTRUCTOR,
-            //         data: {...item, id: uuidv4()}
-            //     })
-            // }
         }
     })
 
@@ -59,53 +50,52 @@ const BurgerConstructor: React.FC = () => {
     const targetClassName = `${styles.wrapper} ${isHover ? styles.drop : ''}`
 
     // @ts-ignore
-
     return (
         <div className={`${styles.wrapper}`} ref={dragRef}>
             <div className="pl-8 mr-4">
 
-                {/*{*/}
-                {/*    bun && bun.map((el) =>*/}
-                {/*        <ConstructorElement*/}
-                {/*            type="top"*/}
-                {/*            isLocked={true}*/}
-                {/*            text={`${el[0].name} (верх)`}*/}
-                {/*            price={el[0].price}*/}
-                {/*            thumbnail={el[0].image}*/}
-                {/*        />)*/}
-                {/*}*/}
+                {
+                    bun &&
+                    <ConstructorElement
+                        type="top"
+                        isLocked={true}
+                        text={`${bun.name} (верх)`}
+                        price={bun.price}
+                        thumbnail={bun.image}
+                    />
+                }
 
 
             </div>
             <div className={styles.dynamicConstructor}>
                 {
-                    ingredientsList && ingredientsList.map((el, index) =>
-
-                        <DraggableElement items={el} key={el.id} index={index}/>
+                    ingredientsList && ingredientsList.map((el, index) => {
+                            if (el.type !== 'bun') {
+                                return (
+                                    <DraggableElement items={el} key={el.id} index={index}/>
+                                )
+                            }
+                        }
                     )
                 }
             </div>
 
             <div className="pl-8 mb-10 mr-4">
                 {
-                    bun?.length === 0 ? null : (
-                        <ConstructorElement
-                            type="bottom"
-                            // @ts-ignore
-                            text={`${bun?.name} (низ)`}
-                            isLocked={true}
-                            // @ts-ignore
-                            price={bun?.price}
-                            // @ts-ignore
-                            thumbnail={bun?.image}
-                        />
-                    )
+                    bun &&
+                    <ConstructorElement
+                        type="bottom"
+                        text={`${bun?.name} (низ)`}
+                        isLocked={true}
+                        price={bun?.price}
+                        thumbnail={bun?.image}
+                    />
                 }
 
             </div>
             <div className={styles.sum}>
                 <div className="mr-10">
-                    <span className="text text_type_digits-medium"></span>
+                    <span className="text text_type_digits-medium">{''}</span>
                     <CurrencyIcon type="primary"/>
                 </div>
 
