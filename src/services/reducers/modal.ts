@@ -2,7 +2,7 @@ import {MODAL_OPEN, MODAL_CLOSE} from '../actions/modal'
 import {Ingredients} from '../../types/data';
 
 type initialStateAction = {
-    modalData: Ingredients[],
+    modalData: null | Ingredients,
 }
 
 type ModalOpenAction = {
@@ -12,11 +12,11 @@ type ModalOpenAction = {
 
 type ModalCloseAction = {
     type: 'MODAL_CLOSE',
-    item: Ingredients[]
+    item: Ingredients
 }
 
 const initialState = {
-    modalData: [],
+    modalData: null,
 }
 
 type ModalBaseAction = ModalOpenAction | ModalCloseAction
@@ -25,14 +25,12 @@ export const modalReducer = (state: initialStateAction = initialState, action: M
     switch (action.type) {
         case MODAL_OPEN: {
             return {
-                ...state,
-                modalData: action.item,
+                item: action.item
             };
         }
         case MODAL_CLOSE: {
             return {
-                ...state,
-                modalData: [],
+                item: null
             };
         }
         default: {

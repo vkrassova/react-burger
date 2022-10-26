@@ -20,7 +20,7 @@ const IngredientsItem: React.FC<IngredientsItemProps> = ({ingredient, showDetail
     })
 
     return (
-        <li className={styles.item} ref={dragRef} style={{opacity}} onClick={showDetails}>
+        <li className={styles.item} ref={dragRef} style={{opacity}} onClick={() => showDetails(ingredient)}>
             <div className={styles.img__wrapper}>
                 <img src={ingredient.image} alt={ingredient.name}/>
             </div>

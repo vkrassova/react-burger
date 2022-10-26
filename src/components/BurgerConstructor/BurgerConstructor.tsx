@@ -1,6 +1,6 @@
 import styles from '../BurgerConstructor/BurgerConstructor.module.scss'
-import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components'
-import React, {useState, useMemo, useEffect} from 'react'
+import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import React, {useMemo, useCallback} from 'react'
 import useModal from '../../hooks/useModal'
 import Modal from '../Modal/Modal'
 import OrderDetails from '../OrderDetails/OrderDetails'
@@ -24,18 +24,13 @@ const BurgerConstructor: React.FC = () => {
         () => ingredientsList.map((item) => item._id),
         [ingredientsList])
 
-    const initialTotalPrice = {price: 0}
 
-    const [total, setTotal] = useState(initialTotalPrice.price)
-
-    useEffect(() => {
-        const totalPrice = ingredientsList.reduce((accumulator: number, currentValue: Ingredients) => {
-            if (currentValue.type === 'bun') return accumulator + currentValue.price * 2;
-            else return accumulator + currentValue.price;
-        }, initialTotalPrice.price)
-
-        setTotal(totalPrice)
-        console.log(total)
+    const priceCounting = useCallback(() => {
+        return (
+            ingredientsList.reduce((acc: number, topping: Ingredients) => {
+                if (topping.type !== 'bun') return acc + topping.price
+                else return bun ? bun.price * 2 : 0
+            }, 0))
     }, [ingredientsList])
 
     const [{isHover}, dragRef] = useDrop({
@@ -111,7 +106,7 @@ const BurgerConstructor: React.FC = () => {
             </div>
             <div className={styles.sum}>
                 <div className="mr-10">
-                    <span className="text text_type_digits-medium">{total}</span>
+                    <span className="text text_type_digits-medium">{priceCounting()}</span>
                     <CurrencyIcon type="primary"/>
                 </div>
 

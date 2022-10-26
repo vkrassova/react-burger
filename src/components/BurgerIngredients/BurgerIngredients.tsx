@@ -1,4 +1,4 @@
-import React, {useState, useRef, useMemo} from 'react'
+import React, {useRef, useEffect} from 'react'
 import BurgerCategory from './components/BurgerCategory/BurgerCategory'
 import useModal from '../../hooks/useModal'
 import Modal from '../Modal/Modal'
@@ -13,14 +13,17 @@ import {MODAL_OPEN} from '../../services/actions/modal'
 import {Ingredients} from '../../types/data';
 
 const BurgerIngredients: React.FC = () => {
-    const {ingredients, ingredientsFailed, ingredientsRequest} =
+    const PADDING_BOTTOM = 50
+
+    const {ingredients} =
         useTypedSelector((store) => store.ingredients)
 
-    const [selectedItem, setSelectedIngredient] = useState<HTMLElement | null>(null)
     const [current, setCurrent] = React.useState(INGREDIENT_TYPES.buns)
 
+    // @ts-ignore
+    const data = useTypedSelector(state => state.modal.item)
+
     const dispatch = useAppDispatch()
-    const PADDING_BOTTOM = 50
 
     const {
         modalState,
@@ -34,6 +37,10 @@ const BurgerIngredients: React.FC = () => {
             item: ingredient
         })
     }
+
+    useEffect(() => {
+        console.log(data)
+    })
 
     const bunRef = useRef(null)
     const sauceRef = useRef(null)
@@ -90,10 +97,11 @@ const BurgerIngredients: React.FC = () => {
                                 ingredients={ingredients}
                                 ref={mainRef} showDetails={handleClickItem}/>
             </div>
+
             {
                 modalState &&
                 <Modal onCloseButtonClick={toggle} title="Детали ингридиента">
-                    <IngredientDetails ingredient={ingredients}/>
+                    <IngredientDetails dataIng={data}/>
                 </Modal>
             }
         </section>
