@@ -31,7 +31,7 @@ const BurgerConstructor: React.FC = () => {
                 if (topping.type !== 'bun') return acc + topping.price
                 else return bun ? bun.price * 2 : 0
             }, 0))
-    }, [ingredientsList])
+    }, [ingredientsList, bun])
 
     const [{isHover}, dragRef] = useDrop({
         accept: 'ingredients',
@@ -85,7 +85,7 @@ const BurgerConstructor: React.FC = () => {
                                 return (
                                     <DraggableElement items={el} key={el.id} index={index}/>
                                 )
-                            }
+                            } else return null
                         }
                     )
                 }

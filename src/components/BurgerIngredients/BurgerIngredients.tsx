@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react'
+import React, {useRef} from 'react'
 import BurgerCategory from './components/BurgerCategory/BurgerCategory'
 import useModal from '../../hooks/useModal'
 import Modal from '../Modal/Modal'
@@ -37,10 +37,6 @@ const BurgerIngredients: React.FC = () => {
             item: ingredient
         })
     }
-
-    useEffect(() => {
-        console.log(data)
-    })
 
     const bunRef = useRef(null)
     const sauceRef = useRef(null)

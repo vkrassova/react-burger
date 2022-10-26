@@ -3,7 +3,6 @@ import {
     GET_ORDER_SUCCESS,
     GET_ORDER_FAILED
 } from '../actions/order'
-import {Ingredients} from '../../types/data';
 
 type OrderBaseAction = {
     type: 'GET_ORDER_REQUEST' | 'GET_ORDER_FAILED'

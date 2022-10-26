@@ -24,7 +24,7 @@ const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(({ingred
                             return (
                                    <IngredientsItem ingredient={el} key={el._id} showDetails={showDetails}/>
                             )
-                        }
+                        } else return null
                     })
                 }
             </ul>

@@ -20,7 +20,7 @@ const useModal = () => {
                 document.removeEventListener('keyup', closeModalPressEsc)
             }
         }
-    }, [modalState])
+    }, [modalState, toggle])
 
     return {
         modalState,

@@ -1,14 +1,13 @@
 import {
     DELETE_INGREDIENT,
     RESET_INGREDIENTS,
-    GET_INGREDIENTS,
     ADD_INGREDIENTS_TO_CONSTRUCTOR, MOVE_CARD
 } from '../actions/constructor'
 
 import {Ingredients} from '../../types/data'
 
 type AddIngredientAction = {
-    type: 'ADD_INGREDIENT' | 'GET_INGREDIENTS',
+    type: 'ADD_INGREDIENT',
     ingredientsList: Ingredients[],
 }
 
