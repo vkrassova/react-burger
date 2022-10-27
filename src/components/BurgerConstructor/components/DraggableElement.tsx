@@ -7,12 +7,12 @@ import {useAppDispatch} from '../../../hooks/useAppDispatch'
 import {useTypedSelector} from '../../../hooks/useTypedSelector'
 import {MOVE_CARD} from '../../../services/actions/constructor'
 
-interface DraggbleElementProps {
+interface DraggableElementProps {
     items: Ingredients,
     index: string | number
 }
 
-const DraggableElement: React.FC<DraggbleElementProps> = ({items, index}) => {
+const DraggableElement: React.FC<DraggableElementProps> = ({items, index}) => {
     const { image, _id, price, name } = items;
     const dispatch = useAppDispatch()
     const ref = useRef<HTMLDivElement | null>(null)
@@ -24,39 +24,42 @@ const DraggableElement: React.FC<DraggbleElementProps> = ({items, index}) => {
                 handlerId: monitor.getHandlerId()
             }
         },
-        hover(items: any, monitor: DropTargetMonitor) {
+        hover: function (item: any, monitor: DropTargetMonitor) {
             if (!ref.current) {
                 return
             }
 
-            const dragIndex = items.item
-            const hoverIndex = index
+            const dragIndex = item.index;
+            const hoverIndex = index;
 
             if (dragIndex === hoverIndex) {
-                return
+                return;
             }
 
-            const hoverBoundingRect = ref.current?.getBoundingClientRect()
-            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+            const hoverBoundingRect = ref.current?.getBoundingClientRect();
 
-            const clientOffset = monitor.getClientOffset()
+            const hoverMiddleY =
+                (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
-            const hoverClientY = clientOffset!.y - hoverBoundingRect.top
+            const clientOffset = monitor.getClientOffset();
+
+            const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
 
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-                return
+                return;
             }
 
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-                return
+                return;
             }
 
             dispatch({
                 type: MOVE_CARD,
-                data: {dragIndex, hoverIndex}
+                dragIndex: dragIndex,
+                hoverIndex: hoverIndex
             })
 
-            items.index = hoverIndex;
+            item.index = hoverIndex;
         }
     })
 

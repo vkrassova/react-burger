@@ -15,7 +15,7 @@ import {ADD_INGREDIENTS_TO_CONSTRUCTOR} from '../../services/actions/constructor
 
 const BurgerConstructor: React.FC = () => {
     const {ingredientsList} = useTypedSelector(store => store.constructorList)
-    const bun = ingredientsList.find((el) => el.type === 'bun', [0])
+    const bun = ingredientsList.find((el) => el.type === 'bun')
     const topping = ingredientsList.find((el) => el.type !== 'bun')
     const dispatch = useAppDispatch()
 
@@ -59,11 +59,8 @@ const BurgerConstructor: React.FC = () => {
         dispatch(postOrder(itemsId))
     }
 
-    const targetClassName = `${styles.wrapper} ${isHover ? styles.drop : ''}`
-
-    // @ts-ignore
     return (
-        <div className={targetClassName} ref={dragRef}>
+        <div className={`${styles.wrapper} ${isHover ? styles.drop : ''}`} ref={dragRef}>
             <div className="pl-8 mr-4">
 
                 {

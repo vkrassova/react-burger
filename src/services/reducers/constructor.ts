@@ -18,8 +18,9 @@ type AddIngredientToConstructorAction = {
 }
 
 type MoveCardAction = {
+    dragIndex: number;
+    hoverIndex: number | any;
     type: 'MOVE_CARD',
-    data: any,
 }
 
 type ConstructorBaseAction = {
@@ -50,8 +51,7 @@ export const constructorReducer = (state: ConstructorState = initialState, actio
         }
         case MOVE_CARD: {
             const dragCards = [...state.ingredientsList]
-            dragCards.splice(action.data.dragIndex, 0,
-                dragCards.splice(action.data.hoverIndex, 1)[0])
+            dragCards.splice(action.hoverIndex, 0, dragCards.splice(action.dragIndex, 1)[0]);
             return {
                 ...state,
                 ingredientsList: dragCards

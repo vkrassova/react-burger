@@ -20,7 +20,6 @@ const BurgerIngredients: React.FC = () => {
 
     const [current, setCurrent] = React.useState(INGREDIENT_TYPES.buns)
 
-    // @ts-ignore
     const data = useTypedSelector(state => state.modal.item)
 
     const dispatch = useAppDispatch()
