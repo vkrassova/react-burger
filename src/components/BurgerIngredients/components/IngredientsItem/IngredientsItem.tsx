@@ -3,7 +3,6 @@ import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import React from 'react'
 import {useDrag} from 'react-dnd'
 import {Ingredients} from '../../../../types/data'
-import useModal from '../../../../hooks/useModal'
 
 type IngredientsItemProps = {
     ingredient: Ingredients,

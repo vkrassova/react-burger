@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import ReactDOM from 'react-dom';
 import style from './Modal.module.scss';
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
@@ -6,9 +6,8 @@ import ModalOverlay from './ModalOverlay';
 
 const modalRoot = document.getElementById("react-modals") as HTMLElement;
 
-interface ModalsProps {
+interface ModalsProps extends PropsWithChildren {
     title?: string,
-    children: React.ReactNode,
     onCloseButtonClick: () => void
 }
 

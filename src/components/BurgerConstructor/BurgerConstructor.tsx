@@ -8,14 +8,15 @@ import {Ingredients} from '../../types/data'
 import {useDrop} from 'react-dnd'
 import {useTypedSelector} from '../../hooks/useTypedSelector'
 import {v4 as uuidv4} from 'uuid'
-import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {postOrder} from '../../services/actions/order';
-import DraggableElement from './components/DraggableElement';
-import {ADD_INGREDIENTS_TO_CONSTRUCTOR} from '../../services/actions/constructor';
+import {useAppDispatch} from '../../hooks/useAppDispatch'
+import {postOrder} from '../../services/actions/order'
+import DraggableElement from './components/DraggableElement'
+import {ADD_INGREDIENTS_TO_CONSTRUCTOR} from '../../services/actions/constructor'
 
 const BurgerConstructor: React.FC = () => {
     const {ingredientsList} = useTypedSelector(store => store.constructorList)
     const bun = ingredientsList.find((el) => el.type === 'bun', [0])
+    const topping = ingredientsList.find((el) => el.type !== 'bun')
     const dispatch = useAppDispatch()
 
     const {number} = useTypedSelector(store => store.order)
@@ -66,14 +67,14 @@ const BurgerConstructor: React.FC = () => {
             <div className="pl-8 mr-4">
 
                 {
-                    bun ?
-                        (<ConstructorElement
+                    bun &&
+                        <ConstructorElement
                             type="top"
                             isLocked={true}
                             text={`${bun.name} (верх)`}
                             price={bun.price}
                             thumbnail={bun.image}
-                        />) : <p className="text text_type_main-medium">Добавьте булочку</p>
+                        />
                 }
 
 
@@ -104,6 +105,15 @@ const BurgerConstructor: React.FC = () => {
                 }
 
             </div>
+
+            <div>
+                {
+                    (bun && topping) ? null : (
+                        <p className="text text_type_main-medium">Добавьте булочку и другие ингредиенты</p>
+                    )
+                }
+            </div>
+
             <div className={styles.sum}>
                 <div className="mr-10">
                     <span className="text text_type_digits-medium">{priceCounting()}</span>
