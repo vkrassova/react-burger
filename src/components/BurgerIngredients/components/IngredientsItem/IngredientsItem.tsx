@@ -6,7 +6,7 @@ import {Ingredients} from '../../../../types/data'
 
 type IngredientsItemProps = {
     ingredient: Ingredients,
-    showDetails: Function | any
+    showDetails: Function
 }
 
 const IngredientsItem: React.FC<IngredientsItemProps> = ({ingredient, showDetails}) => {

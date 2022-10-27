@@ -13,7 +13,7 @@ interface DraggableElementProps {
 }
 
 const DraggableElement: React.FC<DraggableElementProps> = ({items, index}) => {
-    const { image, _id, price, name } = items;
+    const { image, price, name } = items;
     const dispatch = useAppDispatch()
     const ref = useRef<HTMLDivElement | null>(null)
 

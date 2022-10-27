@@ -32,8 +32,6 @@ export const postOrder = (data: any) => {
                 dispatch({
                     type: GET_ORDER_FAILED
                 })
-
-                console.log(error)
             })
     }
 }
