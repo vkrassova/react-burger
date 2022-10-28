@@ -16,15 +16,10 @@ import {ADD_INGREDIENTS_TO_CONSTRUCTOR} from '../../services/actions/constructor
 const BurgerConstructor: React.FC = () => {
     const {ingredientsList} = useTypedSelector(store => store.constructorList)
     const bun = ingredientsList.find((el) => el.type === 'bun')
-    const topping = ingredientsList.find((el) => el.type !== 'bun')
+    const topping = ingredientsList.filter((el) => el.type !== 'bun')
     const dispatch = useAppDispatch()
 
     const {number} = useTypedSelector(store => store.order)
-
-    const itemsId = useMemo(
-        () => ingredientsList.map((item) => item._id),
-        [ingredientsList])
-
 
     const priceCounting = useCallback(() => {
         return (
@@ -53,28 +48,32 @@ const BurgerConstructor: React.FC = () => {
         toggle
     } = useModal()
 
+    let order = []
+
+    const getIngredientsId = () => {
+        const toppingId = topping?.map((el: { _id: string }) => el._id)
+        return order = [bun?._id, ...toppingId, bun?._id]
+    }
+
     const getOrder = () => {
         toggle()
         // @ts-ignore
-        dispatch(postOrder(itemsId))
+        dispatch(postOrder(getIngredientsId()))
     }
 
     return (
         <div className={`${styles.wrapper} ${isHover ? styles.drop : ''}`} ref={dragRef}>
             <div className="pl-8 mr-4">
-
                 {
                     bun &&
-                        <ConstructorElement
-                            type="top"
-                            isLocked={true}
-                            text={`${bun.name} (верх)`}
-                            price={bun.price}
-                            thumbnail={bun.image}
-                        />
+                    <ConstructorElement
+                        type="top"
+                        isLocked={true}
+                        text={`${bun.name} (верх)`}
+                        price={bun.price}
+                        thumbnail={bun.image}
+                    />
                 }
-
-
             </div>
             <div className={styles.dynamicConstructor}>
                 {
@@ -88,7 +87,6 @@ const BurgerConstructor: React.FC = () => {
                     )
                 }
             </div>
-
             <div className="pl-8 mb-10 mr-4">
                 {
                     bun &&
@@ -102,7 +100,6 @@ const BurgerConstructor: React.FC = () => {
                 }
 
             </div>
-
             <div>
                 {
                     (bun && topping) ? null : (
@@ -110,15 +107,13 @@ const BurgerConstructor: React.FC = () => {
                     )
                 }
             </div>
-
             <div className={styles.sum}>
                 <div className="mr-10">
                     <span className="text text_type_digits-medium">{priceCounting()}</span>
                     <CurrencyIcon type="primary"/>
                 </div>
-
                 {
-                    (bun && ingredientsList.length > 0) ? (
+                    (bun && topping) ? (
                         <Button htmlType="button" type="primary" size="large" onClick={getOrder}>
                             Оформить
                         </Button>
@@ -126,7 +121,6 @@ const BurgerConstructor: React.FC = () => {
                         Оформить
                     </Button>
                 }
-
                 {
                     modalState &&
                     <Modal onCloseButtonClick={getOrder}>
