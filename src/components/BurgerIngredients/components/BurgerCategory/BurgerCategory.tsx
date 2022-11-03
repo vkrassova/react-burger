@@ -8,7 +8,7 @@ interface IngredientsListProps {
     title: string,
     ingredients: Ingredients[],
     ref: React.ForwardedRef<HTMLParagraphElement>,
-    showDetails: Function | any
+    showDetails: Function
 }
 
 const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(({ingredients, ingredientType, title, showDetails}, ref: React.ForwardedRef<HTMLParagraphElement>) => {

@@ -1,7 +1,6 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react'
 
 const useModal = () => {
-
     const [modalState, setModalState] = useState(false);
 
     const toggle = () => {
@@ -28,4 +27,4 @@ const useModal = () => {
     }
 }
 
-export default useModal;
+export default useModal

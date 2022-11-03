@@ -98,7 +98,6 @@ const BurgerConstructor: React.FC = () => {
                         thumbnail={bun.image}
                     />
                 }
-
             </div>
             <div>
                 {

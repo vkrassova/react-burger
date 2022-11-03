@@ -10,7 +10,7 @@ type OrderBaseAction = {
 
 type OrderSuccessAction = {
     type: 'GET_ORDER_SUCCESS',
-    number: object
+    number: number
 }
 
 type OrderActions = OrderBaseAction | OrderSuccessAction

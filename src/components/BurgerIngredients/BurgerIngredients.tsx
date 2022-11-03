@@ -92,7 +92,6 @@ const BurgerIngredients: React.FC = () => {
                                 ingredients={ingredients}
                                 ref={mainRef} showDetails={handleClickItem}/>
             </div>
-
             {
                 modalState &&
                 <Modal onCloseButtonClick={toggle} title="Детали ингридиента">

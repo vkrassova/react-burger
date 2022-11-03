@@ -1,5 +1,5 @@
-import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from '../AppHeader/AppHeader.module.scss';
+import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import styles from '../AppHeader/AppHeader.module.scss'
 
 const AppHeader = () => {
   return (
@@ -29,4 +29,4 @@ const AppHeader = () => {
   )
 }
 
-export default AppHeader;
+export default AppHeader

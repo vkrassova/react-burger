@@ -1,7 +1,7 @@
 import {API_INGREDIENTS} from '../../const'
 import {checkResponse} from '../../utils/utils'
 import {IngredientsActions} from '../reducers/ingredients'
-import {Dispatch} from 'redux';
+import {Dispatch} from 'redux'
 
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST"
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS"
