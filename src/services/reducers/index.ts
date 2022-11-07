@@ -1,9 +1,13 @@
-import { combineReducers } from 'redux'
-
+import {combineReducers} from 'redux'
 import {ingredientsReducer} from './ingredients'
 import {orderReducer} from './order'
 import {constructorReducer} from './constructor'
 import {modalReducer} from './modal'
+import {ConstructorActions} from './constructor'
+import {IngredientsActions} from './ingredients'
+import {ModalBaseAction} from './modal'
+import {OrderActions} from './order'
+
 
 export const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
@@ -12,4 +16,9 @@ export const rootReducer = combineReducers({
     modal: modalReducer
 })
 
-export type RootState = ReturnType<typeof rootReducer>
+export type TApplicationActions =
+    | ConstructorActions
+    | IngredientsActions
+    | ModalBaseAction
+    | OrderActions
+

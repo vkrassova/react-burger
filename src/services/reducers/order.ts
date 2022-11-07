@@ -13,7 +13,7 @@ type OrderSuccessAction = {
     number: number
 }
 
-type OrderActions = OrderBaseAction | OrderSuccessAction
+export type OrderActions = OrderBaseAction | OrderSuccessAction
 
 type OrderSate = {
     number: number | string,

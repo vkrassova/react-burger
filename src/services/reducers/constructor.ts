@@ -13,17 +13,17 @@ type AddIngredientAction = {
 
 type AddIngredientToConstructorAction = {
     type: 'ADD_INGREDIENTS_TO_CONSTRUCTOR',
-    ingredientsList: Ingredients[],
-    data: any
+    item: Ingredients
 }
 
 type MoveCardAction = {
-    dragIndex: number;
-    hoverIndex: number | any;
     type: 'MOVE_CARD',
+    dragIndex: number;
+    hoverIndex: number;
 }
 
 type ConstructorBaseAction = {
+    id: string | undefined;
     type: 'RESET_INGREDIENTS' | 'DELETE_INGREDIENT'
 }
 
@@ -31,7 +31,7 @@ type ConstructorState = {
     ingredientsList: Ingredients[],
 }
 
-type ConstructorActions =
+export type ConstructorActions =
     AddIngredientAction
     | ConstructorBaseAction
     | AddIngredientToConstructorAction
@@ -46,7 +46,7 @@ export const constructorReducer = (state: ConstructorState = initialState, actio
         case ADD_INGREDIENTS_TO_CONSTRUCTOR: {
             return {
                 ...state,
-                ingredientsList: [...state.ingredientsList, action.data]
+                ingredientsList: [...state.ingredientsList, action.item]
             }
         }
         case MOVE_CARD: {
@@ -62,7 +62,6 @@ export const constructorReducer = (state: ConstructorState = initialState, actio
             return {
                 ...state,
                 ingredientsList: [
-                    // @ts-ignore
                     ...state.ingredientsList.filter((el) => el.id !== action.id)
                 ]
             }

@@ -19,7 +19,7 @@ const initialState = {
     item: null,
 }
 
-type ModalBaseAction = ModalOpenAction | ModalCloseAction
+export type ModalBaseAction = ModalOpenAction | ModalCloseAction
 
 export const modalReducer = (state: initialStateAction = initialState, action: ModalBaseAction) => {
     switch (action.type) {

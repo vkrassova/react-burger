@@ -1,11 +1,12 @@
 import {API_ORDER} from '../../const'
 import {checkResponse} from '../../utils/utils'
+import {AppDispatch, AppThunk} from '../index'
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST'
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS'
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED'
 
-export const postOrder = (data: string) => {
+export const postOrder = (data: string[]): AppThunk => (dispatch: AppDispatch) => {
     const options = {
         method: 'POST',
         headers: {
@@ -16,22 +17,20 @@ export const postOrder = (data: string) => {
         })
     }
 
-    return function (dispatch: Function) {
-        dispatch({
-            type: GET_ORDER_REQUEST
+    dispatch({
+        type: GET_ORDER_REQUEST
+    })
+    fetch(API_ORDER, options)
+        .then(checkResponse)
+        .then((res) => {
+            dispatch({
+                type: GET_ORDER_SUCCESS,
+                number: res.order.number
+            })
         })
-        fetch(API_ORDER, options)
-            .then(checkResponse)
-            .then((res) => {
-                dispatch({
-                    type: GET_ORDER_SUCCESS,
-                    number: res.order.number
-                })
+        .catch((error) => {
+            dispatch({
+                type: GET_ORDER_FAILED
             })
-            .catch((error) => {
-                dispatch({
-                    type: GET_ORDER_FAILED
-                })
-            })
-    }
+        })
 }

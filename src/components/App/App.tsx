@@ -14,7 +14,6 @@ const App: React.FC = () => {
     const {ingredients, ingredientsRequest, ingredientsFailed} = useTypedSelector(store => store.ingredients)
 
     useEffect(() => {
-        // @ts-ignore
         dispatch(getIngredients())
     }, [dispatch])
 

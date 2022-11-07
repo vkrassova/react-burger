@@ -2,14 +2,20 @@ import styles from '../BurgerConstructor.module.scss'
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import React, {useRef} from 'react'
 import {Ingredients} from '../../../types/data'
+import type { Identifier } from 'dnd-core'
 import {useDrop, useDrag, DropTargetMonitor} from 'react-dnd'
 import {useAppDispatch} from '../../../hooks/useAppDispatch'
-import {useTypedSelector} from '../../../hooks/useTypedSelector'
 import {MOVE_CARD} from '../../../services/actions/constructor'
 
 interface DraggableElementProps {
     items: Ingredients,
-    index: string | number
+    index: number
+}
+
+interface DragItem {
+    index: number;
+    id: string;
+    type: string;
 }
 
 const DraggableElement: React.FC<DraggableElementProps> = ({items, index}) => {
@@ -17,14 +23,14 @@ const DraggableElement: React.FC<DraggableElementProps> = ({items, index}) => {
     const dispatch = useAppDispatch()
     const ref = useRef<HTMLDivElement | null>(null)
 
-    const [{handlerId}, drop] = useDrop({
+    const [{handlerId}, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
         accept: 'item',
         collect(monitor) {
             return {
                 handlerId: monitor.getHandlerId()
             }
         },
-        hover: function (item: any, monitor: DropTargetMonitor) {
+        hover: function (item, monitor: DropTargetMonitor) {
             if (!ref.current) {
                 return
             }

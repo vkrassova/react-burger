@@ -3,7 +3,7 @@ import IconDone from './../../images/done.png';
 import React from 'react';
 
 type orderProps = {
-    order: string
+    order: string | number
 }
 
 const OrderDetails: React.FC<orderProps> = ({order}) => {

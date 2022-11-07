@@ -1,6 +1,6 @@
 import styles from '../BurgerConstructor/BurgerConstructor.module.scss'
 import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
-import React, {useMemo, useCallback} from 'react'
+import React, {useCallback} from 'react'
 import useModal from '../../hooks/useModal'
 import Modal from '../Modal/Modal'
 import OrderDetails from '../OrderDetails/OrderDetails'
@@ -29,16 +29,15 @@ const BurgerConstructor: React.FC = () => {
             }, 0))
     }, [ingredientsList, bun])
 
-    const [{isHover}, dragRef] = useDrop({
+    const [{isHover}, dragRef] = useDrop<Ingredients, void, { isHover: boolean }>({
         accept: 'ingredients',
         collect: monitor => ({
             isHover: monitor.isOver()
         }),
-        drop(item: any) {
-            // @ts-ignore
+        drop(item) {
             dispatch({
                 type: ADD_INGREDIENTS_TO_CONSTRUCTOR,
-                data: {...item, id: uuidv4()}
+                item: {...item}
             })
         }
     })
@@ -51,7 +50,7 @@ const BurgerConstructor: React.FC = () => {
     let order = []
 
     const getIngredientsId = () => {
-        const toppingId = topping?.map((el: { _id: string }) => el._id)
+        const toppingId = topping?.map((el) => el._id)
         return order = [bun?._id, ...toppingId, bun?._id]
     }
 
@@ -77,7 +76,7 @@ const BurgerConstructor: React.FC = () => {
             </div>
             <div className={styles.dynamicConstructor}>
                 {
-                    ingredientsList && ingredientsList.map((el, index) => {
+                    ingredientsList && ingredientsList.map((el: Ingredients, index: number) => {
                             if (el.type !== 'bun') {
                                 return (
                                     <DraggableElement items={el} key={el.id} index={index}/>

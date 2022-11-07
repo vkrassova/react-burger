@@ -10,7 +10,10 @@ export interface Ingredients {
     image: string,
     image_mobile: string,
     image_large: string,
-    __v: number
+    __v: number,
+    id?: string,
+    key?: number,
+    index?: number
 }
 
 export interface BurgerIngredientsProps  {
