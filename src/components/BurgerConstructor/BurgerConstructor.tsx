@@ -37,7 +37,7 @@ const BurgerConstructor: React.FC = () => {
         drop(item) {
             dispatch({
                 type: ADD_INGREDIENTS_TO_CONSTRUCTOR,
-                item: {...item}
+                item: {...item, id: uuidv4()}
             })
         }
     })
@@ -56,7 +56,6 @@ const BurgerConstructor: React.FC = () => {
 
     const getOrder = () => {
         toggle()
-        // @ts-ignore
         dispatch(postOrder(getIngredientsId()))
     }
 

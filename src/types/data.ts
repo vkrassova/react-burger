@@ -16,7 +16,4 @@ export interface Ingredients {
     index?: number
 }
 
-export interface BurgerIngredientsProps  {
-    ingredients: Ingredients[]
-}
 
