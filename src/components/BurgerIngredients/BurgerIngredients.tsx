@@ -20,7 +20,7 @@ const BurgerIngredients: React.FC = () => {
 
     const [current, setCurrent] = React.useState(INGREDIENT_TYPES.buns)
 
-    const data = useTypedSelector(state => state.modal.item)
+    const data = useTypedSelector(store => store.modal.item)
 
     const dispatch = useAppDispatch()
 
@@ -95,7 +95,7 @@ const BurgerIngredients: React.FC = () => {
             {
                 modalState &&
                 <Modal onCloseButtonClick={toggle} title="Детали ингридиента">
-                    <IngredientDetails dataIng={data}/>
+                   <IngredientDetails data={data}/>
                 </Modal>
             }
         </section>

@@ -2,7 +2,7 @@ import {MODAL_OPEN, MODAL_CLOSE} from '../actions/modal'
 import {Ingredients} from '../../types/data';
 
 type initialStateAction = {
-    item: null | Ingredients,
+    item: Ingredients | undefined,
 }
 
 type ModalOpenAction = {
@@ -16,7 +16,7 @@ type ModalCloseAction = {
 }
 
 const initialState = {
-    item: null,
+    item: undefined,
 }
 
 export type ModalBaseAction = ModalOpenAction | ModalCloseAction
@@ -30,7 +30,7 @@ export const modalReducer = (state: initialStateAction = initialState, action: M
         }
         case MODAL_CLOSE: {
             return {
-                item: null
+                item: undefined
             };
         }
         default: {
