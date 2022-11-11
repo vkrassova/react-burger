@@ -43,12 +43,12 @@ const BurgerIngredients: React.FC = () => {
     const tabsRef = useRef(null)
 
     const scroll = () => {
-        let tabsBottom = Math.abs(Math.round((getRect(tabsRef?.current).bottom - PADDING_BOTTOM)))
-        let mainTop = Math.abs(Math.round((getRect(mainRef?.current).top - tabsBottom)))
-        let saucesTop = Math.abs(Math.round((getRect(sauceRef?.current).top - tabsBottom)))
-        let bunTop = Math.abs(Math.round((getRect(bunRef?.current).top - tabsBottom)))
+        const tabsBottom = Math.abs(Math.round((getRect(tabsRef?.current).bottom - PADDING_BOTTOM)))
+        const mainTop = Math.abs(Math.round((getRect(mainRef?.current).top - tabsBottom)))
+        const saucesTop = Math.abs(Math.round((getRect(sauceRef?.current).top - tabsBottom)))
+        const bunTop = Math.abs(Math.round((getRect(bunRef?.current).top - tabsBottom)))
 
-        let array = [
+        const array = [
             {block: bunTop, tab: INGREDIENT_TYPES.buns},
             {block: saucesTop, tab: INGREDIENT_TYPES.sauces},
             {block: mainTop, tab: INGREDIENT_TYPES.main}

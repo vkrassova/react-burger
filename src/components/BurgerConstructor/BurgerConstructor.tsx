@@ -109,15 +109,9 @@ const BurgerConstructor: React.FC = () => {
                     <span className="text text_type_digits-medium">{priceCounting()}</span>
                     <CurrencyIcon type="primary"/>
                 </div>
-                {
-                    (bun && topping) ? (
-                        <Button htmlType="button" type="primary" size="large" onClick={getOrder}>
-                            Оформить
-                        </Button>
-                    ) : <Button htmlType="button" type="primary" size="large" onClick={getOrder} disabled>
-                        Оформить
-                    </Button>
-                }
+                <Button htmlType="button" type="primary" size="large" onClick={getOrder} disabled={!(bun && topping.length)}>
+                    Оформить
+                </Button>
                 {
                     modalState &&
                     <Modal onCloseButtonClick={getOrder}>
