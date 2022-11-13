@@ -1,4 +1,4 @@
-import {useDispatch as dispatchHook} from 'react-redux'
-import {AppDispatch} from '../services'
+import { useDispatch as dispatchHook } from "react-redux";
+import { AppDispatch } from "../services";
 
-export const useAppDispatch = () => dispatchHook<AppDispatch>()
+export const useAppDispatch = () => dispatchHook<AppDispatch>();

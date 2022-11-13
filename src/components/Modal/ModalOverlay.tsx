@@ -1,9 +1,7 @@
-import style from './Modal.module.scss'
+import style from "./Modal.module.scss";
 
-const ModalOverlay = ({onOverlayClick}: any) => {
-    return (
-        <div className={style.overlay} onClick={onOverlayClick}></div>
-    )
-}
+const ModalOverlay = ({ onOverlayClick }: any) => {
+  return <div className={style.overlay} onClick={onOverlayClick}></div>;
+};
 
-export default ModalOverlay
+export default ModalOverlay;
