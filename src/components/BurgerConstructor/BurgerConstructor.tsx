@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { postOrder } from '../../services/actions/order'
 import DraggableElement from './components/DraggableElement'
-import { ADD_INGREDIENTS_TO_CONSTRUCTOR } from '../../services/actions/constructor'
+import { ADD_INGREDIENTS_TO_CONSTRUCTOR, addToConstructor } from '../../services/actions/constructor'
 
 const BurgerConstructor: React.FC = () => {
   const { ingredientsList } = useTypedSelector((store) => store.constructorList)
@@ -34,10 +34,7 @@ const BurgerConstructor: React.FC = () => {
       isHover: monitor.isOver(),
     }),
     drop(item) {
-      dispatch({
-        type: ADD_INGREDIENTS_TO_CONSTRUCTOR,
-        item: { ...item, id: uuidv4() },
-      })
+      dispatch(addToConstructor(item))
     },
   })
 

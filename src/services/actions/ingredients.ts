@@ -22,6 +22,5 @@ export const getIngredients = (): AppThunk => (dispatch: AppDispatch) => {
       dispatch({
         type: GET_INGREDIENTS_FAILED,
       })
-      console.log(error)
     })
 }

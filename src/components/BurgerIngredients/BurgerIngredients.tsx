@@ -12,9 +12,9 @@ import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { MODAL_OPEN } from '../../services/actions/modal'
 import { Ingredients } from '../../types/data'
 
-const BurgerIngredients: React.FC = () => {
-  const PADDING_BOTTOM = 50
+const PADDING_BOTTOM = 50
 
+const BurgerIngredients: React.FC = () => {
   const { ingredients } = useTypedSelector((store) => store.ingredients)
 
   const [current, setCurrent] = React.useState(INGREDIENT_TYPES.buns)
