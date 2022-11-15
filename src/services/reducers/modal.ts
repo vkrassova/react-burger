@@ -12,7 +12,6 @@ type ModalOpenAction = {
 
 type ModalCloseAction = {
   type: 'MODAL_CLOSE'
-  item: Ingredients
 }
 
 const initialState = {

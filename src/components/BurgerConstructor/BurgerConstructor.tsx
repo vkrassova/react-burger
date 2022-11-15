@@ -7,11 +7,12 @@ import OrderDetails from '../OrderDetails/OrderDetails'
 import { Ingredients } from '../../types/data'
 import { useDrop } from 'react-dnd'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { v4 as uuidv4 } from 'uuid'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { postOrder } from '../../services/actions/order'
 import DraggableElement from './components/DraggableElement'
-import { ADD_INGREDIENTS_TO_CONSTRUCTOR, addToConstructor } from '../../services/actions/constructor'
+import { addToConstructor } from '../../services/actions/constructor'
+import { MODAL_CLOSE } from '../../services/actions/modal'
+import { RESET_INGREDIENTS } from '../../services/actions/constructor'
 
 const BurgerConstructor: React.FC = () => {
   const { ingredientsList } = useTypedSelector((store) => store.constructorList)
@@ -42,12 +43,24 @@ const BurgerConstructor: React.FC = () => {
 
   const getIngredientsId = () => {
     const toppingId = topping?.map((el) => el._id)
-    return ([bun?._id, ...toppingId, bun?._id])
+    return [bun?._id, ...toppingId, bun?._id]
   }
 
   const getOrder = () => {
     toggle()
     dispatch(postOrder(getIngredientsId()))
+  }
+
+  const modalClose = () => {
+    toggle()
+
+    dispatch({
+      type: MODAL_CLOSE,
+    })
+
+    dispatch({
+      type: RESET_INGREDIENTS,
+    })
   }
 
   return (
@@ -83,7 +96,9 @@ const BurgerConstructor: React.FC = () => {
         )}
       </div>
       <div>
-        {bun && topping.length ? null : <p className="text text_type_main-medium">Добавьте булочку и другие ингредиенты</p>}
+        {bun && topping.length ? null : (
+          <p className="text text_type_main-medium">Добавьте булочку и другие ингредиенты</p>
+        )}
       </div>
       <div className={styles.sum}>
         <div className="mr-10">
@@ -94,7 +109,7 @@ const BurgerConstructor: React.FC = () => {
           Оформить
         </Button>
         {modalState && (
-          <Modal onCloseButtonClick={getOrder}>
+          <Modal onCloseButtonClick={modalClose}>
             <OrderDetails order={number} />
           </Modal>
         )}

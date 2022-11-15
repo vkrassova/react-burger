@@ -1,11 +1,12 @@
 import styles from '../BurgerConstructor.module.scss'
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { ConstructorElement, DragIcon, DeleteIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useRef } from 'react'
 import { Ingredients } from '../../../types/data'
 import type { Identifier } from 'dnd-core'
 import { useDrop, useDrag, DropTargetMonitor } from 'react-dnd'
 import { useAppDispatch } from '../../../hooks/useAppDispatch'
 import { MOVE_CARD } from '../../../services/actions/constructor'
+import {DELETE_INGREDIENT, RESET_INGREDIENTS} from '../../../services/actions/constructor';
 
 interface DraggableElementProps {
   items: Ingredients
@@ -82,6 +83,13 @@ const DraggableElement: React.FC<DraggableElementProps> = ({ items, index }) => 
 
   const opacity = isDragging ? 0 : 1
 
+  const deleteIng = () => {
+    dispatch({
+      type: 'DELETE_INGREDIENT',
+      id: items.id,
+    })
+  }
+
   return (
     <div
       className={styles.item}
@@ -91,7 +99,7 @@ const DraggableElement: React.FC<DraggableElementProps> = ({ items, index }) => 
       data-handler-id={handlerId}
     >
       <DragIcon type="primary" />
-      <ConstructorElement text={name} price={price} thumbnail={image} />
+      <ConstructorElement text={name} price={price} thumbnail={image} handleClose={() => deleteIng()}/>
     </div>
   )
 }
