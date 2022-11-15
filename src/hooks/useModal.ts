@@ -8,7 +8,7 @@ const useModal = () => {
   }
 
   useEffect(() => {
-    const closeModalPressEsc = (e: any) => {
+    const closeModalPressEsc = (e: { key: string }) => {
       if (e.key === 'Escape') {
         toggle()
       }
