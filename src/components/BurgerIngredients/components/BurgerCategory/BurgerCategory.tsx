@@ -20,7 +20,7 @@ const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(
           {ingredients &&
             ingredients.map((el) => {
               if (el.type === ingredientType) {
-                return <IngredientsItem ingredient={el} key={el._id} showDetails={showDetails} />
+                return <IngredientsItem ingredient={el} key={el._id} showDetails={showDetails} id={el._id} />
               }
               return null
             })}

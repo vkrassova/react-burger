@@ -6,7 +6,7 @@ import type { Identifier } from 'dnd-core'
 import { useDrop, useDrag, DropTargetMonitor } from 'react-dnd'
 import { useAppDispatch } from '../../../hooks/useAppDispatch'
 import { MOVE_CARD } from '../../../services/actions/constructor'
-import {DELETE_INGREDIENT, RESET_INGREDIENTS} from '../../../services/actions/constructor';
+import { DELETE_INGREDIENT, RESET_INGREDIENTS } from '../../../services/actions/constructor'
 
 interface DraggableElementProps {
   items: Ingredients
@@ -99,7 +99,7 @@ const DraggableElement: React.FC<DraggableElementProps> = ({ items, index }) => 
       data-handler-id={handlerId}
     >
       <DragIcon type="primary" />
-      <ConstructorElement text={name} price={price} thumbnail={image} handleClose={() => deleteIng()}/>
+      <ConstructorElement text={name} price={price} thumbnail={image} handleClose={() => deleteIng()} />
     </div>
   )
 }
