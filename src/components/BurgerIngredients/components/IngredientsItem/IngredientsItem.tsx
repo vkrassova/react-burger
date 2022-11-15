@@ -45,7 +45,7 @@ const IngredientsItem: React.FC<IngredientsItemProps> = ({ ingredient, showDetai
   return (
     <li className={styles.item} ref={dragRef} style={{ opacity }} onClick={() => showDetails(ingredient)}>
       <div className={styles.img__wrapper}>
-        <Counter count={counter} size="default" />
+        {counter > 0 && <Counter count={counter} size="default" />}
         <img src={ingredient.image} alt={ingredient.name} />
       </div>
       <div className={styles.priceWrapper}>
