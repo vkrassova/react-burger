@@ -3,7 +3,7 @@ import style from './IngredientDetails.module.scss'
 import { Ingredients } from '../../types/data'
 
 type DetailsProps = {
-  data: Ingredients | undefined
+  data: Ingredients | null
 }
 
 const IngredientDetails: React.FC<DetailsProps> = ({ data }) => {

@@ -40,11 +40,9 @@ const BurgerConstructor: React.FC = () => {
 
   const { modalState, toggle } = useModal()
 
-  let order = []
-
   const getIngredientsId = () => {
     const toppingId = topping?.map((el) => el._id)
-    return (order = [bun?._id, ...toppingId, bun?._id])
+    return ([bun?._id, ...toppingId, bun?._id])
   }
 
   const getOrder = () => {
@@ -85,7 +83,7 @@ const BurgerConstructor: React.FC = () => {
         )}
       </div>
       <div>
-        {bun && topping ? null : <p className="text text_type_main-medium">Добавьте булочку и другие ингредиенты</p>}
+        {bun && topping.length ? null : <p className="text text_type_main-medium">Добавьте булочку и другие ингредиенты</p>}
       </div>
       <div className={styles.sum}>
         <div className="mr-10">
