@@ -2,11 +2,6 @@ import { DELETE_INGREDIENT, RESET_INGREDIENTS, ADD_INGREDIENTS_TO_CONSTRUCTOR, M
 
 import { Ingredients } from '../../types/data'
 
-type AddIngredientAction = {
-  type: 'ADD_INGREDIENT'
-  ingredientsList: Ingredients[]
-}
-
 type AddIngredientToConstructorAction = {
   type: 'ADD_INGREDIENTS_TO_CONSTRUCTOR'
   item: Ingredients
@@ -28,23 +23,30 @@ type ResetIngredients = {
 }
 
 type ConstructorState = {
+  bun: null | Ingredients
   ingredientsList: Ingredients[]
 }
 
 export type ConstructorActions =
-  | AddIngredientAction
   | ConstructorBaseAction
   | AddIngredientToConstructorAction
   | MoveCardAction
   | ResetIngredients
 
 const initialState = {
+  bun: null,
   ingredientsList: [],
 }
 
 export const constructorReducer = (state: ConstructorState = initialState, action: ConstructorActions) => {
   switch (action.type) {
     case ADD_INGREDIENTS_TO_CONSTRUCTOR: {
+      if (action.item.type === 'bun') {
+        return {
+          ...state,
+          bun: action.item,
+        }
+      }
       return {
         ...state,
         ingredientsList: [...state.ingredientsList, action.item],
@@ -69,6 +71,7 @@ export const constructorReducer = (state: ConstructorState = initialState, actio
       return {
         ...state,
         ingredientsList: [],
+        bun: null,
       }
     }
 

@@ -15,9 +15,7 @@ import { MODAL_CLOSE } from '../../services/actions/modal'
 import { RESET_INGREDIENTS } from '../../services/actions/constructor'
 
 const BurgerConstructor: React.FC = () => {
-  const { ingredientsList } = useTypedSelector((store) => store.constructorList)
-  const bun = ingredientsList.find((el) => el.type === 'bun')
-  const topping = ingredientsList.filter((el) => el.type !== 'bun')
+  const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)
   const dispatch = useAppDispatch()
 
   const { number } = useTypedSelector((store) => store.order)
@@ -42,7 +40,7 @@ const BurgerConstructor: React.FC = () => {
   const { modalState, toggle } = useModal()
 
   const getIngredientsId = () => {
-    const toppingId = topping?.map((el) => el._id)
+    const toppingId = ingredientsList?.map((el) => el._id)
     return [bun?._id, ...toppingId, bun?._id]
   }
 
@@ -77,9 +75,9 @@ const BurgerConstructor: React.FC = () => {
         )}
       </div>
       <div className={styles.dynamicConstructor}>
-        {topping.map((el: Ingredients, index: number) => {
-              return <DraggableElement items={el} key={el.id} index={index} />
-          })}
+        {ingredientsList.map((el: Ingredients, index: number) => {
+          return <DraggableElement items={el} key={el.id} index={index} />
+        })}
       </div>
       <div className="pl-8 mb-10 mr-4">
         {bun && (
@@ -93,7 +91,7 @@ const BurgerConstructor: React.FC = () => {
         )}
       </div>
       <div>
-        {bun && topping.length ? null : (
+        {bun && ingredientsList.length ? null : (
           <p className="text text_type_main-medium">Добавьте булочку и другие ингредиенты</p>
         )}
       </div>
@@ -102,7 +100,13 @@ const BurgerConstructor: React.FC = () => {
           <span className="text text_type_digits-medium">{priceCounting()}</span>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={getOrder} disabled={!(bun && topping.length)}>
+        <Button
+          htmlType="button"
+          type="primary"
+          size="large"
+          onClick={getOrder}
+          disabled={!(bun && ingredientsList.length)}
+        >
           Оформить
         </Button>
         {modalState && (

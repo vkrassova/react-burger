@@ -13,9 +13,7 @@ type IngredientsItemProps = {
 
 const IngredientsItem: React.FC<IngredientsItemProps> = ({ ingredient, showDetails, id }) => {
   const { ingredients } = useTypedSelector((store) => store.ingredients)
-  const { ingredientsList } = useTypedSelector((store) => store.constructorList)
-  const bun = ingredientsList.find((el) => el.type === 'bun')
-  const topping = ingredientsList.filter((el) => el.type !== 'bun')
+  const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)
 
   const element = ingredients.find((el: Ingredients) => el._id === id)
 
@@ -23,7 +21,7 @@ const IngredientsItem: React.FC<IngredientsItemProps> = ({ ingredient, showDetai
     let count = 0
 
     if (element?.type !== 'bun') {
-      topping.map((el) => {
+      ingredientsList.map((el) => {
         if (el._id === element?._id) {
           ++count
         }
@@ -32,7 +30,7 @@ const IngredientsItem: React.FC<IngredientsItemProps> = ({ ingredient, showDetai
       count = 2
     }
     return count
-  }, [ingredientsList])
+  }, [ingredientsList, bun])
 
   const [{ opacity }, dragRef] = useDrag({
     type: 'ingredients',
