@@ -77,11 +77,8 @@ const BurgerConstructor: React.FC = () => {
         )}
       </div>
       <div className={styles.dynamicConstructor}>
-        {ingredientsList &&
-          ingredientsList.map((el: Ingredients, index: number) => {
-            if (el.type !== 'bun') {
+        {topping.map((el: Ingredients, index: number) => {
               return <DraggableElement items={el} key={el.id} index={index} />
-            } else return null
           })}
       </div>
       <div className="pl-8 mb-10 mr-4">
