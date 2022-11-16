@@ -1,117 +1,122 @@
-import styles from '../BurgerConstructor/BurgerConstructor.module.scss';
-import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {useContext, useState} from 'react';
-import useModal from '../../hooks/useModal';
-import Modal from '../Modal/Modal';
-import OrderDetails from '../OrderDetails/OrderDetails';
-import {IngredientsContext} from '../../services/IngredientsContext';
-import {Ingredients} from '../../types/data';
-import {API_ORDER} from '../../const';
+import styles from '../BurgerConstructor/BurgerConstructor.module.scss'
+import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import React, { useCallback } from 'react'
+import useModal from '../../hooks/useModal'
+import Modal from '../Modal/Modal'
+import OrderDetails from '../OrderDetails/OrderDetails'
+import { Ingredients } from '../../types/data'
+import { useDrop } from 'react-dnd'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { postOrder } from '../../services/actions/order'
+import DraggableElement from './components/DraggableElement'
+import { addToConstructor } from '../../services/actions/constructor'
+import { MODAL_CLOSE } from '../../services/actions/modal'
+import { RESET_INGREDIENTS } from '../../services/actions/constructor'
 
 const BurgerConstructor: React.FC = () => {
-    const ingredients = useContext(IngredientsContext);
-    const bun = ingredients.filter(item => item.type === 'bun')[0];
+  const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)
+  const dispatch = useAppDispatch()
 
-    const initialTotalPrice = {price: 0};
+  const { number } = useTypedSelector((store) => store.order)
 
-    const [orderNumber, setOrderNumber] = useState('');
+  const priceCounting = useCallback(() => {
+    return ingredientsList.reduce((acc: number, topping: Ingredients) => {
+      if (topping.type !== 'bun') return acc + topping.price
+      else return bun ? bun.price * 2 : 0
+    }, 0)
+  }, [ingredientsList, bun])
 
-    const totalPrice = ingredients.reduce((accumulator: number, currentValue: Ingredients) => {
-        if (currentValue.type === 'bun') return accumulator + currentValue.price * 2;
-        else return accumulator + currentValue.price;
-    }, initialTotalPrice.price);
+  const [{ isHover }, dragRef] = useDrop<Ingredients, void, { isHover: boolean }>({
+    accept: 'ingredients',
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(item) {
+      dispatch(addToConstructor(item))
+    },
+  })
 
-    const {
-        modalState,
-        toggle
-    } = useModal();
+  const { modalState, toggle } = useModal()
 
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            ingredients: ingredients.map(item => item._id),
-        })
-    }
+  const getIngredientsId = () => {
+    const toppingId = ingredientsList?.map((el) => el._id)
+    return [bun?._id, ...toppingId, bun?._id]
+  }
 
-    const getOrder = () => {
-        fetch(API_ORDER, options)
-            .then(res => {
-                if (res.ok) {
-                    return res.json()
-                }
-                return Promise.reject(res.status)
-            })
-            .then(res => {
-                setOrderNumber(res.order.number)
-                toggle()
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    };
+  const getOrder = () => {
+    toggle()
+    dispatch(postOrder(getIngredientsId()))
+  }
 
-    return (
-        <div className={`${styles.wrapper}`}>
-            <div className="pl-8 mr-4">
-                <ConstructorElement
-                    type="top"
-                    isLocked={true}
-                    text={`${bun?.name} (верх)`}
-                    price={bun?.price}
-                    thumbnail={bun?.image}
-                />
-            </div>
-            <div className={styles.dynamicConstructor}>
-                {
-                    ingredients &&
-                    ingredients.map((el) => {
-                            if (el.type !== 'bun') {
-                                return (
-                                    <div className={styles.item} key={el._id}>
-                                        <DragIcon type="primary"/>
-                                        <ConstructorElement
-                                            text={el.name}
-                                            price={el.price}
-                                            thumbnail={el.image}
-                                        />
-                                    </div>
-                                )
-                            }
-                        }
-                    )
-                }
-            </div>
+  const modalClose = () => {
+    toggle()
 
-            <div className="pl-8 mb-10 mr-4">
-                <ConstructorElement
-                    type="bottom"
-                    text={`${bun?.name} (низ)`}
-                    isLocked={true}
-                    price={bun?.price}
-                    thumbnail={bun?.image}
-                />
-            </div>
-            <div className={styles.sum}>
-                <div className="mr-10">
-                    <span className="text text_type_digits-medium">{totalPrice}</span>
-                    <CurrencyIcon type="primary"/>
-                </div>
+    dispatch({
+      type: MODAL_CLOSE,
+    })
 
-                <Button htmlType="button" type="primary" size="large" onClick={getOrder}>
-                    Оформить
-                </Button>
-                {
-                    modalState &&
-                    <Modal onCloseButtonClick={toggle}>
-                        <OrderDetails order={orderNumber}/>
-                    </Modal>
-                }
-            </div>
+    dispatch({
+      type: RESET_INGREDIENTS,
+    })
+  }
+
+  return (
+    <div className={`${styles.wrapper} ${isHover ? styles.drop : ''}`} ref={dragRef}>
+      <div className="pl-8 mr-4">
+        {bun && (
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        )}
+      </div>
+      <div className={styles.dynamicConstructor}>
+        {ingredientsList.map((el: Ingredients, index: number) => {
+          return <DraggableElement items={el} key={el.id} index={index} />
+        })}
+      </div>
+      <div className="pl-8 mb-10 mr-4">
+        {bun && (
+          <ConstructorElement
+            type="bottom"
+            text={`${bun.name} (низ)`}
+            isLocked={true}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        )}
+      </div>
+      <div>
+        {bun && ingredientsList.length ? null : (
+          <p className="text text_type_main-medium">Добавьте булочку и другие ингредиенты</p>
+        )}
+      </div>
+      <div className={styles.sum}>
+        <div className="mr-10">
+          <span className="text text_type_digits-medium">{priceCounting()}</span>
+          <CurrencyIcon type="primary" />
         </div>
-    )
+        <Button
+          htmlType="button"
+          type="primary"
+          size="large"
+          onClick={getOrder}
+          disabled={!(bun && ingredientsList.length)}
+        >
+          Оформить
+        </Button>
+        {modalState && (
+          <Modal onCloseButtonClick={modalClose}>
+            <OrderDetails order={number} />
+          </Modal>
+        )}
+      </div>
+    </div>
+  )
 }
 
-export default BurgerConstructor;
+export default BurgerConstructor

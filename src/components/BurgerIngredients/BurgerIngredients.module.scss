@@ -44,8 +44,6 @@
 }
 
 .ingredientsWrapper {
-  //height: 730px;
-  //overflow-x: hidden;
   overflow-y: scroll;
 
   &::-webkit-scrollbar { /* 1 - скроллбар */
@@ -68,5 +66,10 @@
 .ingredientsText {
   display: inline-block;
   text-align: center;
-
 }
+
+.tabsWrapper {
+  display: flex;
+  margin-bottom: 40px;
+}
+

@@ -1,9 +1,12 @@
-import style from './Modal.module.scss';
+import style from './Modal.module.scss'
+import React from 'react'
 
-const ModalOverlay = ({onOverlayClick}: any) => {
-    return (
-        <div className={style.overlay} onClick={onOverlayClick}></div>
-    )
+type ModalOverlayProps = {
+  onOverlayClick: () => void
 }
 
-export default ModalOverlay;
+const ModalOverlay: React.FC<ModalOverlayProps> = ({ onOverlayClick }) => {
+  return <div className={style.overlay} onClick={onOverlayClick}></div>
+}
+
+export default ModalOverlay

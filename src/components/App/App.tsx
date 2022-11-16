@@ -1,68 +1,39 @@
-import React, {useState, useEffect} from 'react';
-import AppHeader from '../AppHeader/AppHeader';
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
-import styles from '../App/App.module.scss';
-import {IngredientsContext} from '../../services/IngredientsContext';
-import {API_INGREDIENTS} from '../../const';
+import React, { useEffect } from 'react'
+import AppHeader from '../AppHeader/AppHeader'
+import BurgerIngredients from '../BurgerIngredients/BurgerIngredients'
+import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
+import styles from '../App/App.module.scss'
+import { getIngredients } from '../../services/actions/ingredients'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 const App: React.FC = () => {
-    const [state, setState] = useState({
-        isLoading: false,
-        hasError: false,
-        ingredients: []
-    })
+  const dispatch = useAppDispatch()
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useTypedSelector((store) => store.ingredients)
 
-    useEffect(() => {
-            setState({...state, isLoading: true})
-            fetch(API_INGREDIENTS)
-                .then(res => {
-                    if (res.ok) {
-                        return res.json()
-                    }
-                    return Promise.reject(res.status)
-                })
-                .then(data => {
-                    setState({
-                        isLoading: false,
-                        hasError: false,
-                        ingredients: data.data,
-                    });
-                })
-                .catch((err) => {
-                    setState({
-                        ...state,
-                        hasError: true,
-                    });
-                })
-        }, []
-    )
+  useEffect(() => {
+    dispatch(getIngredients())
+  }, [dispatch])
 
-    const {isLoading, hasError, ingredients} = state;
-
-    return (
-        <>
-            <AppHeader/>
-            <div className={styles.wrapper}>
-                {isLoading && (
-                    <p className="text text_type_main-large">Загрузка...</p>
-                )}
-                {hasError && (
-                    <p className="text text_type_main-large text_color_error">Ошибка</p>
-                )}
-                {
-                    !isLoading && !hasError && (
-                        <main className={styles.mainContent}>
-                            <IngredientsContext.Provider value={ingredients}>
-                                <BurgerIngredients />
-                                <BurgerConstructor />
-                            </IngredientsContext.Provider>
-                        </main>
-                    )
-                }
-            </div>
-        </>
-    );
+  return (
+    <>
+      <AppHeader />
+      <div className={styles.wrapper}>
+        {ingredientsRequest && <p className="text text_type_main-large">Загрузка...</p>}
+        {ingredientsFailed && <p className="text text_type_main-large text_color_error">Ошибка</p>}
+        {!ingredientsFailed && ingredients.length > 0 && (
+          <main className={styles.mainContent}>
+            <DndProvider backend={HTML5Backend}>
+              <BurgerIngredients />
+              <BurgerConstructor />
+            </DndProvider>
+          </main>
+        )}
+      </div>
+    </>
+  )
 }
 
-export default App;
+export default App
