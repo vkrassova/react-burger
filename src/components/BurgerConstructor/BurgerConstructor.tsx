@@ -21,7 +21,7 @@ const BurgerConstructor: React.FC = () => {
   const { number } = useTypedSelector((store) => store.order)
 
   const priceCounting: any = useCallback(() => {
-    const totalIngredientsPrice =  ingredientsList.reduce((acc: number, topping: Ingredients) => {
+    const totalIngredientsPrice = ingredientsList.reduce((acc: number, topping: Ingredients) => {
       return acc + topping.price
     }, 0)
     const totalBunPrice = bun ? bun.price * 2 : 0

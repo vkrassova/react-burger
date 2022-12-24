@@ -1,16 +1,18 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from '../AppHeader/AppHeader.module.scss'
 
-const AppHeader = () => {
+const AppHeader: React.FC = () => {
   return (
     <header className={`${styles.headerContainer} mb-10`}>
       <nav className={`${styles.navigation} pt-4 pb-4`}>
         <ul className={styles.navigation__list}>
           <li>
-            <a className={`${styles.links} pr-5 mr-2`} href="#">
+            <Link className={`${styles.links} pr-5 mr-2`} to={'/'}>
               <BurgerIcon type="primary" />
               <p className="text text_type_main-default pl-2 text_color_primary">Конструктор</p>
-            </a>
+            </Link>
           </li>
           <li>
             <a className={`${styles.links} pr-5 pl-5`} href="#">

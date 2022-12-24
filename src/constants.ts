@@ -9,6 +9,7 @@ export const INGREDIENT_TYPES = {
 export enum AppRoutes {
   Main = '/',
   SignIn = '/login',
+  Register = '/register',
   ForgotPassword = '/forgot-password',
   ResetPassword = '/reset-password',
   Profile = '/profile',
