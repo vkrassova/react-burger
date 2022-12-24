@@ -5,3 +5,12 @@ export const INGREDIENT_TYPES = {
   sauces: 'sauces',
   main: 'main',
 }
+
+export enum AppRoutes {
+  Main = '/',
+  SignIn = '/login',
+  ForgotPassword = '/forgot-password',
+  ResetPassword = '/reset-password',
+  Profile = '/profile',
+  IngredientsId = '/ingredients/:id',
+}

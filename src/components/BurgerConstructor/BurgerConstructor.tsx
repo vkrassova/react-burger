@@ -20,11 +20,13 @@ const BurgerConstructor: React.FC = () => {
 
   const { number } = useTypedSelector((store) => store.order)
 
-  const priceCounting = useCallback(() => {
-    return ingredientsList.reduce((acc: number, topping: Ingredients) => {
-      if (topping.type !== 'bun') return acc + topping.price
-      else return bun ? bun.price * 2 : 0
+  const priceCounting: any = useCallback(() => {
+    const totalIngredientsPrice =  ingredientsList.reduce((acc: number, topping: Ingredients) => {
+      return acc + topping.price
     }, 0)
+    const totalBunPrice = bun ? bun.price * 2 : 0
+
+    return totalIngredientsPrice + totalBunPrice
   }, [ingredientsList, bun])
 
   const [{ isHover }, dragRef] = useDrop<Ingredients, void, { isHover: boolean }>({

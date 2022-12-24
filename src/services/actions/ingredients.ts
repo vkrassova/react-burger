@@ -1,4 +1,4 @@
-import { API_INGREDIENTS } from '../../const'
+import { API_INGREDIENTS } from '../../constants'
 import { checkResponse } from '../../utils/utils'
 import { AppDispatch, AppThunk } from '../index'
 
