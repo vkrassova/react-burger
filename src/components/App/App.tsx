@@ -4,7 +4,7 @@ import AppHeader from '../AppHeader/AppHeader'
 import {getIngredients} from '../../services/actions/ingredients'
 import {useAppDispatch} from '../../hooks/useAppDispatch'
 import {AppRoutes} from '../../constants'
-import {Main, SignIn, Register, Profile, ForgotPassword, ResetPassword, NotFound} from '../../pages'
+import {Main, Login, Register, Profile, ForgotPassword, ResetPassword, NotFound} from '../../pages'
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -18,7 +18,7 @@ const App: React.FC = () => {
             <AppHeader/>
             <Routes>
                 <Route index path={AppRoutes.Main} element={<Main/>}/>
-                <Route path={AppRoutes.SignIn} element={<SignIn/>}/>
+                <Route path={AppRoutes.SignIn} element={<Login/>}/>
                 <Route path={AppRoutes.Register} element={<Register/>}/>
                 <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword/>}/>
                 <Route path={AppRoutes.ResetPassword} element={<ResetPassword/>}/>
