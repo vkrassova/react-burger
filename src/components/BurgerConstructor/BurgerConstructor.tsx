@@ -2,8 +2,6 @@ import styles from '../BurgerConstructor/BurgerConstructor.module.scss'
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useCallback } from 'react'
 import useModal from '../../hooks/useModal'
-import Modal from '../Modal/Modal'
-import OrderDetails from '../OrderDetails/OrderDetails'
 import { Ingredients } from '../../types/data'
 import { useDrop } from 'react-dnd'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
@@ -17,8 +15,6 @@ import { RESET_INGREDIENTS } from '../../services/actions/constructor'
 const BurgerConstructor: React.FC = () => {
   const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)
   const dispatch = useAppDispatch()
-
-  const { number } = useTypedSelector((store) => store.order)
 
   const priceCounting: any = useCallback(() => {
     const totalIngredientsPrice = ingredientsList.reduce((acc: number, topping: Ingredients) => {
@@ -111,11 +107,6 @@ const BurgerConstructor: React.FC = () => {
         >
           Оформить
         </Button>
-        {modalState && (
-          <Modal onCloseButtonClick={modalClose}>
-            <OrderDetails order={number} />
-          </Modal>
-        )}
       </div>
     </div>
   )

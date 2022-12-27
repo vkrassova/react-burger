@@ -106,11 +106,11 @@ const BurgerIngredients: React.FC = () => {
           showDetails={handleClickItem}
         />
       </div>
-      {modalState && (
-        <Modal onCloseButtonClick={toggle} title="Детали ингридиента">
-          <IngredientDetails data={data} />
-        </Modal>
-      )}
+      {/*{modalState && (*/}
+      {/*  <Modal onCloseButtonClick={toggle} title="Детали ингридиента">*/}
+      {/*    <IngredientDetails data={data} />*/}
+      {/*  </Modal>*/}
+      {/*)}*/}
     </section>
   )
 }
