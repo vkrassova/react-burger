@@ -1,14 +1,14 @@
 import React from 'react'
-import {useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import style from './IngredientDetails.module.scss'
-import {useTypedSelector} from '../../hooks/useTypedSelector'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 
 const IngredientDetails: React.FC = () => {
   const { ingredients } = useTypedSelector((store) => store.ingredients)
 
-  const {id} = useParams()
+  const { id } = useParams()
 
-  const data = (ingredients.find((el) => el._id === id))
+  const data = ingredients.find((el) => el._id === id)
 
   return (
     <div className={style.content}>
