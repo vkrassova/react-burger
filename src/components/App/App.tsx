@@ -8,6 +8,8 @@ import {Main, Login, Register, Profile, ForgotPassword, ResetPassword, NotFound}
 import Modal from '../Modal/Modal'
 import IngredientDetails from '../IngredientDetails/IngredientDetails'
 import useModal from '../../hooks/useModal'
+import {MODAL_OPEN} from '../../services/actions/modal';
+import {Ingredients} from '../../types/data';
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -17,28 +19,44 @@ const App: React.FC = () => {
         dispatch(getIngredients())
     }, [dispatch])
 
-    const { state } = useLocation()
+    const location = useLocation()
+    const navigate = useNavigate()
+    let background = location.state && location.state.background;
 
-    console.log(state)
+    const handleModalClose = () => {
+        navigate(-1)
+        dispatch({
+            type: 'MODAL_CLOSE',
+        })
+        toggle()
+    }
 
     return (
         <>
             <AppHeader/>
-            <Routes location={state}>
+            <Routes location={location || background}>
                 <Route index path={AppRoutes.Main} element={<Main/>}/>
                 <Route path={AppRoutes.SignIn} element={<Login/>}/>
                 <Route path={AppRoutes.Register} element={<Register/>}/>
                 <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword/>}/>
                 <Route path={AppRoutes.ResetPassword} element={<ResetPassword/>}/>
                 <Route path={AppRoutes.Profile} element={<Profile/>}/>
-                <Route
-                    path={AppRoutes.IngredientsId}
-                    element={
-                        <Modal onCloseButtonClick={toggle} title="Детали ингридиента">
-                            <IngredientDetails/>
-                        </Modal>
-                    }
-                />
+
+                {
+                    background ? (
+                        <Route
+                            path={AppRoutes.IngredientsId}
+                            element={
+                                <Modal onCloseButtonClick={handleModalClose} title="Детали ингридиента">
+                                    <IngredientDetails/>
+                                </Modal>
+                            }
+                        />
+                    ) : (
+                        <Route path={AppRoutes.IngredientsId} element={<IngredientDetails/>}/>
+                    )
+                }
+
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
         </>

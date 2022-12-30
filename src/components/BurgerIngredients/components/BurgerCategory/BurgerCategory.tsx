@@ -17,8 +17,6 @@ const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(
     ({ingredients, ingredientType, title, showDetails}, ref: React.ForwardedRef<HTMLParagraphElement>) => {
         const location = useLocation()
 
-        const data = location.state?.data;
-
         return (
             <div ref={ref}>
                 <h3 className="text text_type_main-medium mb-6">{title}</h3>
@@ -32,7 +30,7 @@ const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(
                                         to={{
                                             pathname: `/ingredients/${el._id}`,
                                         }}
-                                        state={{ test: 'background' }}
+                                        state={{ background: location }}
                                     >
                                         <IngredientsItem ingredient={el} key={el._id} showDetails={showDetails}
                                                          id={el._id}/>
