@@ -1,23 +1,32 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button, EmailInput, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import style from './Register.module.scss'
+import style from '../styles.module.scss'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '../../constants'
+import { useForm } from '../../hooks/useForm'
 
 export const Register: React.FC = () => {
-  const [form, setValue] = useState({ email: '', password: '', name: '' })
-
-  const onChange = (e: { target: { name: string; value: string } }) => {
-    setValue({ ...form, [e.target.name]: e.target.value })
-  }
-
+  const { userData, updateFields } = useForm()
   return (
     <section className={style.register}>
       <h2 className="text text_type_main-medium mb-6">Регистрация</h2>
       <form>
-        <Input value={form.name} onChange={onChange} extraClass="mb-6" placeholder={'Имя'} />
-        <EmailInput value={form.email} onChange={onChange} extraClass="mb-6" />
-        <PasswordInput value={form.password} onChange={onChange} extraClass="mb-6" />
+        <Input
+          value={userData.name}
+          onChange={(e) => updateFields({ name: e.target.value })}
+          extraClass="mb-6"
+          placeholder={'Имя'}
+        />
+        <EmailInput
+          value={userData.email}
+          onChange={(e) => updateFields({ email: e.target.value })}
+          extraClass="mb-6"
+        />
+        <PasswordInput
+          value={userData.password}
+          onChange={(e) => updateFields({ password: e.target.value })}
+          extraClass="mb-6"
+        />
         <Button htmlType={'button'} extraClass="mb-20">
           Зарегистрироваться
         </Button>

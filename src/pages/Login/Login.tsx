@@ -1,23 +1,28 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import style from './Login.module.scss'
+import style from '../styles.module.scss'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '../../constants'
+import { useForm } from '../../hooks/useForm'
 
 export const Login: React.FC = () => {
-  const [form, setValue] = useState({ email: '', password: '' })
-
-  const onChange = (e: { target: { name: string; value: string } }) => {
-    setValue({ ...form, [e.target.name]: e.target.value })
-  }
+  const { userData, updateFields } = useForm()
 
   return (
-    <section className={style.login}>
+    <section className={style.wrapper}>
       <h2 className="text text_type_main-medium mb-6">Вход</h2>
       <form>
-        <EmailInput value={form.email} onChange={onChange} extraClass="mb-6" />
-        <PasswordInput value={form.password} onChange={onChange} extraClass="mb-6" />
+        <EmailInput
+          value={userData.email}
+          onChange={(e) => updateFields({ email: e.target.value })}
+          extraClass="mb-6"
+        />
+        <PasswordInput
+          value={userData.password}
+          onChange={(e) => updateFields({ password: e.target.value })}
+          extraClass="mb-6"
+        />
         <Button htmlType={'button'} extraClass="mb-20">
           Войти
         </Button>

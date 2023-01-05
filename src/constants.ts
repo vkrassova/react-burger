@@ -13,5 +13,6 @@ export enum AppRoutes {
   ForgotPassword = '/forgot-password',
   ResetPassword = '/reset-password',
   Profile = '/profile',
+  ProfileOrders = '/profile/orders',
   IngredientsId = '/ingredients/:id',
 }
