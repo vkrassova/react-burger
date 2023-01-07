@@ -8,15 +8,21 @@ import { Main, Login, Register, Profile, ForgotPassword, ResetPassword, NotFound
 import Modal from '../Modal/Modal'
 import IngredientDetails from '../IngredientDetails/IngredientDetails'
 import useModal from '../../hooks/useModal'
-import { MODAL_OPEN } from '../../services/actions/modal'
-import { Ingredients } from '../../types/data'
+import {getUser} from '../../services/actions/user'
+import {useSelector} from 'react-redux';
+import {useTypedSelector} from '../../hooks/useTypedSelector';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { modalState, toggle } = useModal()
+  const { toggle } = useModal()
+
+  // const { isAuth } = useTypedSelector((store) => store.user)
+  //
+  // console.log(isAuth)
 
   useEffect(() => {
     dispatch(getIngredients())
+    dispatch(getUser())
   }, [dispatch])
 
   const location = useLocation()

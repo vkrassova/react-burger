@@ -16,3 +16,5 @@ export enum AppRoutes {
   ProfileOrders = '/profile/orders',
   IngredientsId = '/ingredients/:id',
 }
+
+export const BASE_URL = 'https://norma.nomoreparties.space/api'
