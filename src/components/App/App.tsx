@@ -8,9 +8,9 @@ import { Main, Login, Register, Profile, ForgotPassword, ResetPassword, NotFound
 import Modal from '../Modal/Modal'
 import IngredientDetails from '../IngredientDetails/IngredientDetails'
 import useModal from '../../hooks/useModal'
-import {getUser} from '../../services/actions/user'
-import {useSelector} from 'react-redux';
-import {useTypedSelector} from '../../hooks/useTypedSelector';
+import { getUser } from '../../services/actions/user'
+import { useSelector } from 'react-redux'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()

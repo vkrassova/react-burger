@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { FormData } from '../types/form'
-import {UserModel, UserResponse} from '../types/responses';
+import { UserModel } from '../types/responses'
 
 const INITIAL_DATA = {
   name: '',

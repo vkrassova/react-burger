@@ -1,13 +1,8 @@
 import { BASE_URL } from '../constants'
 import { checkResponse } from './utils'
-import { UserModel, UserResponse, FormResponse, LoginResponse} from '../types/responses'
+import { UserModel, UserResponse, LoginResponse } from '../types/responses'
 
-const checkSuccess = <T extends { success: boolean }>(data: T): T | Promise<T> => {
-  return data.success ? data : Promise.reject(data);
-};
-
-
-export const userRegisterRequest = (user: UserModel) => {
+export const userRegisterRequest = (user: UserModel): Promise<UserResponse> => {
   return fetch(`${BASE_URL}/auth/register`, {
     method: 'POST',
     headers: {
@@ -18,21 +13,18 @@ export const userRegisterRequest = (user: UserModel) => {
   }).then(checkResponse)
 }
 
-export const login = async (body: string): Promise<LoginResponse> => {
-  const response = await fetch(`${BASE_URL}/auth/login`, {
+export const login = (user: UserModel): Promise<LoginResponse> => {
+  return fetch(`${BASE_URL}/auth/login`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json;charset=utf-8',
     },
-    body
-  })
-
-  const data = await checkResponse(response)
-  return checkSuccess<LoginResponse>(data)
+    body: JSON.stringify(user),
+  }).then(checkResponse)
 }
 
-export const logOut = () => {
+export const logOut = (): Promise<UserResponse> => {
   return fetch(`${BASE_URL}/auth/logout`, {
     method: 'POST',
     headers: {
@@ -54,7 +46,7 @@ export const refreshToken = () => {
   }).then(checkResponse)
 }
 
-export const getUserRequest = async (): Promise<UserResponse> => {
+export const getUserRequest = (): Promise<UserResponse> => {
   return fetch(`${BASE_URL}/auth/user`, {
     method: 'GET',
     headers: {
