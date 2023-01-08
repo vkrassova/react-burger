@@ -8,7 +8,7 @@ import { useForm } from '../../hooks/useForm'
 export const Register: React.FC = () => {
   const { userData, updateFields } = useForm()
   return (
-    <section className={style.register}>
+    <section className={style.wrapper}>
       <h2 className="text text_type_main-medium mb-6">Регистрация</h2>
       <form>
         <Input
@@ -27,7 +27,7 @@ export const Register: React.FC = () => {
           onChange={(e) => updateFields({ password: e.target.value })}
           extraClass="mb-6"
         />
-        <Button htmlType={'button'} extraClass="mb-20">
+        <Button htmlType="submit" extraClass="mb-20">
           Зарегистрироваться
         </Button>
       </form>

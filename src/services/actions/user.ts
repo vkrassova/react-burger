@@ -1,10 +1,14 @@
 import { AppDispatch, AppThunk } from '../index'
-import { getUserRequest, login } from '../../utils/api'
+import {getUserRequest, login, userRegisterRequest} from '../../utils/api'
 import { UserModel } from '../../types/responses'
 
 export const GET_USER_REQUEST = 'GET_USER_REQUEST'
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
 export const GET_USER_FAILED = 'GET_USER_FAILED'
+
+export const REGISTER_REQUEST = 'REGISTER_REQUEST'
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+export const REGISTER_FAILED = 'REGISTER_FAILED'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_FAILED = 'LOGIN_FAILED'
@@ -66,4 +70,21 @@ export const signIn = (user: UserModel) => (dispatch: AppDispatch) => {
     .catch((err) => {
       console.log(err)
     })
+}
+
+//Регистрация пользователя
+export const signUp = (user: UserModel) => (dispatch: AppDispatch) => {
+  dispatch({
+    type: REGISTER_REQUEST,
+  })
+  return userRegisterRequest(user)
+      .then((res => {
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: res.user
+        })
+
+        localStorage.setItem('refreshToken', res.refreshToken)
+        localStorage.setItem('accessToken', res.accessToken)
+      }))
 }
