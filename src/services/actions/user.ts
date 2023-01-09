@@ -189,8 +189,10 @@ export const forgotPassword = (form: string) => (dispatch: AppDispatch) => {
                     type: FORGOT_PASSWORD_FAILED,
                 })
             }
+
+            return res
         })
-        .catch((err) => {
+        .catch(() => {
             dispatch({
                 type: FORGOT_PASSWORD_FAILED,
             })
