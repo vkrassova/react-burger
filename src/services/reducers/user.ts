@@ -64,7 +64,7 @@ export const userReducer = (state: UserRequestState = initialState, action: User
       return {
         ...state,
         user: action.payload,
-        isAuth: true
+        isAuth: true,
       }
     }
     case 'LOGIN_REQUEST': {

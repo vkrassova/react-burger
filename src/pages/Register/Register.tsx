@@ -1,11 +1,11 @@
-import React, {FormEvent} from 'react'
+import React, { FormEvent } from 'react'
 import { Button, EmailInput, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import style from '../styles.module.scss'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '../../constants'
 import { useForm } from '../../hooks/useForm'
-import {signUp} from '../../services/actions/user';
-import {useAppDispatch} from '../../hooks/useAppDispatch';
+import { signUp } from '../../services/actions/user'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 
 export const Register: React.FC = () => {
   const { userData, updateFields } = useForm()

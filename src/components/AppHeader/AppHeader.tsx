@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from '../AppHeader/AppHeader.module.scss'
+import { AppRoutes } from '../../constants'
 
 const AppHeader: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ const AppHeader: React.FC = () => {
       <nav className={`${styles.navigation} pt-4 pb-4`}>
         <ul className={styles.navigation__list}>
           <li>
-            <Link className={`${styles.links} pr-5 mr-2`} to={'/'}>
+            <Link className={`${styles.links} pr-5 mr-2`} to={AppRoutes.Main}>
               <BurgerIcon type="primary" />
               <p className="text text_type_main-default pl-2 text_color_primary">Конструктор</p>
             </Link>
@@ -22,10 +23,10 @@ const AppHeader: React.FC = () => {
           </li>
         </ul>
         <Logo />
-        <a className={`${styles.links} pl-5 pr-5`} href="#">
+        <Link className={`${styles.links} pl-5 pr-5`} to={AppRoutes.Profile}>
           <ProfileIcon type="secondary" />
           <span className="text text_type_main-default text_color_inactive pl-2">Личный кабинет</span>
-        </a>
+        </Link>
       </nav>
     </header>
   )
