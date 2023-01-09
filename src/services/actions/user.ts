@@ -114,6 +114,8 @@ export const signIn = (user: UserModel) => (dispatch: AppDispatch) => {
                     type: LOGIN_FAILED,
                 })
             }
+
+            return res
         })
         .catch((err) => {
             console.log(err)
