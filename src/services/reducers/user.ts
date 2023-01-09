@@ -20,6 +20,9 @@ import {
     FORGOT_PASSWORD_FAILED,
     FORGOT_PASSWORD_REQUEST,
     FORGOT_PASSWORD_SUCCESS,
+    POST_USER_ERROR,
+    POST_USER_REQUEST,
+    POST_USER_SUCCESS
 } from '../actions/user'
 
 import {UserModel} from '../../types/responses'
@@ -77,6 +80,15 @@ interface UpdateTokenSuccessAction {
     readonly type: 'UPDATE_TOKEN_SUCCESS'
 }
 
+interface UserEditRequestActions {
+    readonly type: 'POST_USER_REQUEST' | 'POST_USER_ERROR'
+}
+
+interface UserEditSuccessActions {
+    readonly type: 'POST_USER_SUCCESS'
+    payload: UserModel
+}
+
 export type UserRequestsActions =
     | GetUserRequestActions
     | GetUserSuccessActions
@@ -90,6 +102,8 @@ export type UserRequestsActions =
     | ForgotPasswordSuccessActions
     | UpdateTokenRequestAction
     | UpdateTokenSuccessAction
+    | UserEditRequestActions
+    | UserEditSuccessActions
 
 type UserRequestState = {
     user: null | UserModel
@@ -238,6 +252,27 @@ export const userReducer = (state: UserRequestState = initialState, action: User
             }
         }
         case 'UPDATE_TOKEN_FAILED': {
+            return {
+                ...state,
+                error: true,
+                request: false
+            }
+        }
+        case 'POST_USER_REQUEST': {
+            return {
+                ...state,
+                request: true
+            }
+        }
+        case 'POST_USER_SUCCESS': {
+            return {
+                ...state,
+                user: action.payload,
+                success: true,
+                request: false
+            }
+        }
+        case 'POST_USER_ERROR': {
             return {
                 ...state,
                 error: true,

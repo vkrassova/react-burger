@@ -1,9 +1,6 @@
 import { BASE_URL } from '../constants'
 import { checkResponse } from './utils'
 import { UserModel, UserResponse, LoginResponse } from '../types/responses'
-type TForgotPasswordForm = {
-  email: string;
-};
 
 export const userRegisterRequest = (user: UserModel): Promise<UserResponse> => {
   return fetch(`${BASE_URL}/auth/register`, {
@@ -60,7 +57,7 @@ export const getUserRequest = async (): Promise<UserResponse> => {
   }).then(checkResponse)
 }
 
-export const patchUser = (form: string) => {
+export const patchUserRequest = (user: UserModel): Promise<UserResponse> => {
   return fetch(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
     headers: {
@@ -68,7 +65,7 @@ export const patchUser = (form: string) => {
       'Content-Type': 'application/json;charset=utf-8',
       Authorization: `${localStorage.getItem('accessToken')}`,
     },
-    body: JSON.stringify(form),
+    body: JSON.stringify(user),
   }).then(checkResponse)
 }
 

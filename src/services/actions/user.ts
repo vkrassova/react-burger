@@ -5,7 +5,7 @@ import {
     userRegisterRequest,
     resetPasswordRequest,
     refreshTokenRequest,
-    forgotPasswordRequest
+    forgotPasswordRequest, patchUserRequest
 } from '../../utils/api'
 import {UserModel} from '../../types/responses'
 
@@ -36,6 +36,10 @@ export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED'
 export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST'
 export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS'
 export const FORGOT_PASSWORD_FAILED = 'FORGOT_PASSWORD_FAILED'
+
+export const POST_USER_REQUEST = 'POST_USER_REQUEST'
+export const POST_USER_SUCCESS = 'POST_USER_SUCCESS'
+export const POST_USER_ERROR = 'POST_USER_ERROR'
 
 const refreshToken = (afterRefresh: AppThunk): AppThunk => (dispatch: AppDispatch) => {
     dispatch({
@@ -171,7 +175,6 @@ export const resetPassword = (form: string) => (dispatch: AppDispatch) => {
         })
 }
 
-//Запрос на восстановление пароля
 export const forgotPassword = (form: string) => (dispatch: AppDispatch) => {
     dispatch({
         type: FORGOT_PASSWORD_REQUEST,
@@ -179,7 +182,7 @@ export const forgotPassword = (form: string) => (dispatch: AppDispatch) => {
 
     return forgotPasswordRequest(form)
         .then((res) => {
-            if(res && res.success) {
+            if (res && res.success) {
                 dispatch({
                     type: FORGOT_PASSWORD_SUCCESS,
                     payload: res.user,
@@ -195,6 +198,31 @@ export const forgotPassword = (form: string) => (dispatch: AppDispatch) => {
         .catch(() => {
             dispatch({
                 type: FORGOT_PASSWORD_FAILED,
+            })
+        })
+}
+
+export const patchUser = (user: UserModel) => (dispatch: AppDispatch) => {
+    dispatch({
+        type: POST_USER_REQUEST
+    })
+
+    return patchUserRequest(user)
+        .then((res) => {
+            if(res && res.success) {
+                dispatch({
+                    type: POST_USER_SUCCESS,
+                    payload: res.user,
+                })
+            } else {
+                dispatch({
+                    type: POST_USER_ERROR
+                })
+            }
+        })
+        .catch(() => {
+            dispatch({
+                type: POST_USER_ERROR
             })
         })
 }
