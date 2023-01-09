@@ -9,16 +9,14 @@ import Modal from '../Modal/Modal'
 import IngredientDetails from '../IngredientDetails/IngredientDetails'
 import useModal from '../../hooks/useModal'
 import { getUser } from '../../services/actions/user'
-import { useSelector } from 'react-redux'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { PrivateRoutes } from '../PrivateRoutes/PrivateRoutes'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
   const { toggle } = useModal()
 
   const { isAuth } = useTypedSelector((store) => store.user)
-
-  console.log(isAuth)
 
   useEffect(() => {
     dispatch(getIngredients())
@@ -46,7 +44,9 @@ const App: React.FC = () => {
         <Route path={AppRoutes.Register} element={<Register />} />
         <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword />} />
         <Route path={AppRoutes.ResetPassword} element={<ResetPassword />} />
-        <Route path={AppRoutes.Profile} element={<Profile />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path={AppRoutes.Profile} element={<Profile />} />
+        </Route>
 
         {background ? (
           <Route

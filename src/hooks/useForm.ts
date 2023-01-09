@@ -20,8 +20,13 @@ export const useForm = () => {
     })
   }
 
+  const clearFields = () => {
+    setUserData(INITIAL_DATA)
+  }
+
   return {
     userData,
     updateFields,
+    clearFields
   }
 }

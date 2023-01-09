@@ -1,6 +1,7 @@
 import { AppDispatch, AppThunk } from '../index'
-import { getUserRequest, login, userRegisterRequest } from '../../utils/api'
+import { getUserRequest, login, userRegisterRequest, resetPasswordRequest } from '../../utils/api'
 import { UserModel } from '../../types/responses'
+import { refreshToken } from '../../utils/utils'
 
 export const GET_USER_REQUEST = 'GET_USER_REQUEST'
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
@@ -22,6 +23,14 @@ export const UPDATE_TOKEN_REQUEST = 'UPDATE_TOKEN_REQUEST'
 export const UPDATE_TOKEN_FAILED = 'UPDATE_TOKEN_FAILED'
 export const UPDATE_TOKEN_SUCCESS = 'UPDATE_TOKEN_SUCCESS'
 
+export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST'
+export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS'
+export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED'
+
+export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST'
+export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS'
+export const FORGOT_PASSWORD_FAILED = 'FORGOT_PASSWORD_FAILED'
+
 //получаем данные о пользователе
 export const getUser = (): AppThunk => (dispatch: AppDispatch) => {
   dispatch({
@@ -37,9 +46,9 @@ export const getUser = (): AppThunk => (dispatch: AppDispatch) => {
       }
     })
     .catch((err) => {
-      console.log(err)
       if (err.message === 'jwt expired') {
-        console.log(111)
+        // @ts-ignore
+        dispatch(refreshToken(getUser()))
       } else {
         dispatch({
           type: GET_USER_FAILED,
@@ -101,6 +110,33 @@ export const signUp = (user: UserModel) => (dispatch: AppDispatch) => {
       dispatch({
         type: REGISTER_FAILED,
       })
-      console.log(err)
     })
 }
+
+//Изменение пароля
+export const resetPassword = (user: UserModel) => (dispatch: AppDispatch) => {
+  dispatch({
+    type: RESET_PASSWORD_REQUEST
+  })
+
+  return resetPasswordRequest(user)
+      .then((res) => {
+        if(res && res.success) {
+          dispatch({
+            type: RESET_PASSWORD_SUCCESS,
+            payload: res.user
+          })
+        } else {
+          dispatch({
+            type: RESET_PASSWORD_FAILED,
+          })
+        }
+      })
+      .catch((err) => {
+        dispatch({
+          type: RESET_PASSWORD_FAILED,
+        })
+      })
+}
+
+//Запрос на восстановление пароля

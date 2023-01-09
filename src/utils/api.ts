@@ -35,7 +35,7 @@ export const logOut = (): Promise<UserResponse> => {
   }).then(checkResponse)
 }
 
-export const refreshToken = () => {
+export const refreshTokenRequest = (): Promise<UserResponse> => {
   return fetch(`${BASE_URL}/auth/token`, {
     method: 'POST',
     headers: {
@@ -64,6 +64,28 @@ export const patchUser = (form: string) => {
       Accept: 'application/json',
       'Content-Type': 'application/json;charset=utf-8',
       Authorization: `${localStorage.getItem('accessToken')}`,
+    },
+    body: JSON.stringify(form),
+  }).then(checkResponse)
+}
+
+export const resetPasswordRequest = (form: UserModel): Promise<UserResponse> => {
+  return fetch(`${BASE_URL}/password-reset/reset`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify(form),
+  }).then(checkResponse)
+}
+
+export const forgotPasswordRequest = (form: UserModel): Promise<UserResponse> => {
+  return fetch(`${BASE_URL}/password-reset`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
     },
     body: JSON.stringify(form),
   }).then(checkResponse)
