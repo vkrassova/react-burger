@@ -16,9 +16,9 @@ const App: React.FC = () => {
   const dispatch = useAppDispatch()
   const { toggle } = useModal()
 
-  // const { isAuth } = useTypedSelector((store) => store.user)
-  //
-  // console.log(isAuth)
+  const { isAuth } = useTypedSelector((store) => store.user)
+
+  console.log(isAuth)
 
   useEffect(() => {
     dispatch(getIngredients())

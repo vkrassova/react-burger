@@ -1,16 +1,25 @@
-import React from 'react'
+import React, {FormEvent} from 'react'
 import { Button, EmailInput, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import style from '../styles.module.scss'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '../../constants'
 import { useForm } from '../../hooks/useForm'
+import {signUp} from '../../services/actions/user';
+import {useAppDispatch} from '../../hooks/useAppDispatch';
 
 export const Register: React.FC = () => {
   const { userData, updateFields } = useForm()
+  const dispatch = useAppDispatch()
+
+  const handleFormSubmit = async (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault()
+    await dispatch(signUp(userData))
+  }
+
   return (
     <section className={style.wrapper}>
       <h2 className="text text_type_main-medium mb-6">Регистрация</h2>
-      <form>
+      <form onSubmit={handleFormSubmit}>
         <Input
           value={userData.name}
           onChange={(e) => updateFields({ name: e.target.value })}

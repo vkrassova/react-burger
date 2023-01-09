@@ -1,8 +1,8 @@
 export interface UserModel {
-  email: string
-  password?: string
-  name?: string
-  code?: string
+  email: string | undefined
+  password?: string | undefined
+  name?: string | undefined
+  code?: string | undefined
 }
 
 export type LoginResponse = {
@@ -12,8 +12,7 @@ export type LoginResponse = {
   user: UserModel
 }
 
-export interface UserResponse  extends LoginResponse{
+export interface UserResponse extends LoginResponse {
   success: boolean
   user: UserModel
 }
-

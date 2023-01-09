@@ -18,7 +18,6 @@ export const Login: React.FC = () => {
   const handleFormSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
     await dispatch(signIn(userData))
-    console.log(isAuth)
   }
 
   return (

@@ -1,5 +1,5 @@
 import { AppDispatch, AppThunk } from '../index'
-import {getUserRequest, login, userRegisterRequest} from '../../utils/api'
+import { getUserRequest, login, userRegisterRequest } from '../../utils/api'
 import { UserModel } from '../../types/responses'
 
 export const GET_USER_REQUEST = 'GET_USER_REQUEST'
@@ -29,10 +29,12 @@ export const getUser = (): AppThunk => (dispatch: AppDispatch) => {
   })
   return getUserRequest()
     .then((res) => {
-      dispatch({
-        type: GET_USER_SUCCESS,
-        payload: res.user,
-      })
+      if (res && res.success) {
+        dispatch({
+          type: GET_USER_SUCCESS,
+          payload: res.user,
+        })
+      }
     })
     .catch((err) => {
       console.log(err)
@@ -53,7 +55,7 @@ export const signIn = (user: UserModel) => (dispatch: AppDispatch) => {
   })
   return login(user)
     .then((res) => {
-      if (res.success) {
+      if (res && res.success) {
         dispatch({
           type: LOGIN_SUCCESS,
           payload: res.user,
@@ -69,6 +71,9 @@ export const signIn = (user: UserModel) => (dispatch: AppDispatch) => {
     })
     .catch((err) => {
       console.log(err)
+      dispatch({
+        type: LOGIN_FAILED,
+      })
     })
 }
 
@@ -78,13 +83,24 @@ export const signUp = (user: UserModel) => (dispatch: AppDispatch) => {
     type: REGISTER_REQUEST,
   })
   return userRegisterRequest(user)
-      .then((res => {
+    .then((res) => {
+      if (res && res.success) {
         dispatch({
           type: REGISTER_SUCCESS,
-          payload: res.user
+          payload: res.user,
         })
-
         localStorage.setItem('refreshToken', res.refreshToken)
         localStorage.setItem('accessToken', res.accessToken)
-      }))
+      } else {
+        dispatch({
+          type: REGISTER_FAILED,
+        })
+      }
+    })
+    .catch((err) => {
+      dispatch({
+        type: REGISTER_FAILED,
+      })
+      console.log(err)
+    })
 }
