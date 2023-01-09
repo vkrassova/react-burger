@@ -13,18 +13,3 @@ export const tabsClickHandler = (ref: React.RefObject<HTMLElement>) => {
   if (ref.current === null) return
   ref.current.scrollIntoView({ behavior: 'smooth' })
 }
-
-export const refreshToken = async () => {
-  return await refreshTokenRequest()
-    .then((res) => {
-      if (res && res.success) {
-        localStorage.setItem('refreshToken', res.refreshToken)
-        localStorage.setItem('accessToken', res.accessToken)
-      }
-
-      return res
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}

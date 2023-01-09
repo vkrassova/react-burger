@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import style from '../styles.module.scss'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '../../constants'
 import { useForm } from '../../hooks/useForm'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 
 export const Profile: React.FC = () => {
   const { userData, updateFields } = useForm()
+  const { user } = useTypedSelector(({ user }) => user)
+
+  const initialUserState = {
+    name: user?.name || '',
+    email: user?.email || '',
+    password: '',
+  }
+
+  const [state, setState] = useState({ ...initialUserState })
 
   return (
     <section className={style.wrapper}>
@@ -34,11 +44,11 @@ export const Profile: React.FC = () => {
         <div>
           <form>
             <Input
-              onChange={(e) => updateFields({ name: e.target.value })}
               error={false}
-              value={userData.name}
+              value={state.name}
               type="text"
               placeholder="Имя"
+              onChange={(e) => updateFields({ name: e.target.value })}
               icon="EditIcon"
               name="name"
               size="default"
@@ -47,7 +57,7 @@ export const Profile: React.FC = () => {
             <Input
               onChange={(e) => updateFields({ email: e.target.value })}
               error={false}
-              value={userData.email}
+              value={state.email}
               type="text"
               placeholder="Логин"
               icon="EditIcon"
@@ -58,7 +68,7 @@ export const Profile: React.FC = () => {
             />
             <PasswordInput
               onChange={(e) => updateFields({ password: e.target.value })}
-              value={userData.password}
+              value={state.password}
               name="password"
             />
 

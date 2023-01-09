@@ -11,6 +11,7 @@ import useModal from '../../hooks/useModal'
 import { getUser } from '../../services/actions/user'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { PrivateRoutes } from '../PrivateRoutes/PrivateRoutes'
+import { MODAL_CLOSE } from '../../services/actions/modal'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -30,7 +31,7 @@ const App: React.FC = () => {
   const handleModalClose = () => {
     navigate(-1)
     dispatch({
-      type: 'MODAL_CLOSE',
+      type: MODAL_CLOSE,
     })
     toggle()
   }

@@ -27,6 +27,6 @@ export const useForm = () => {
   return {
     userData,
     updateFields,
-    clearFields
+    clearFields,
   }
 }

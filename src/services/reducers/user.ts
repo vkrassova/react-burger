@@ -17,36 +17,79 @@ import {
     REGISTER_FAILED,
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
+    FORGOT_PASSWORD_FAILED,
+    FORGOT_PASSWORD_REQUEST,
+    FORGOT_PASSWORD_SUCCESS,
 } from '../actions/user'
 
 import {UserModel} from '../../types/responses'
 
-export type GetUserActions = {
-    type: 'GET_USER_REQUEST' | 'GET_USER_FAILED' | 'GET_USER_SUCCESS'
-    payload?: UserModel
+interface GetUserRequestActions {
+    readonly type: 'GET_USER_REQUEST' | 'GET_USER_FAILED'
 }
 
-export type LoginActions = {
-    type: 'LOGIN_REQUEST' | 'LOGIN_SUCCESS' | 'LOGIN_FAILED'
-    payload?: UserModel
+interface GetUserSuccessActions {
+    readonly type: 'GET_USER_SUCCESS'
+    payload: UserModel
 }
 
-export type SignUpActions = {
-    type: 'REGISTER_REQUEST' | 'REGISTER_SUCCESS' | 'REGISTER_FAILED'
-    payload?: UserModel
+interface LoginSuccessActions {
+    readonly type: 'LOGIN_SUCCESS'
+    payload: UserModel
 }
 
-export type ResetPasswordActions = {
-    type: 'RESET_PASSWORD_REQUEST' | 'RESET_PASSWORD_SUCCESS' | 'RESET_PASSWORD_FAILED'
-    payload?: UserModel
+interface LoginRequestActions {
+    readonly type: 'LOGIN_REQUEST' | 'LOGIN_FAILED'
 }
 
-export type ForgotPasswordActions = {
-    type: ''
-    payload?: UserModel
+interface SignUpSuccessActions {
+    readonly type: 'REGISTER_SUCCESS'
+    payload: UserModel
 }
 
-export type UserRequestsActions = GetUserActions | LoginActions | SignUpActions | ResetPasswordActions
+interface SignUpRequestActions {
+    readonly type: 'REGISTER_REQUEST' | 'REGISTER_FAILED'
+}
+
+interface ResetPasswordSuccessActions {
+    readonly type: 'RESET_PASSWORD_SUCCESS'
+    payload: UserModel
+}
+
+interface ResetPasswordRequestActions {
+    readonly type: 'RESET_PASSWORD_REQUEST' | 'RESET_PASSWORD_FAILED'
+}
+
+interface ForgotPasswordSuccessActions {
+    readonly type: 'FORGOT_PASSWORD_SUCCESS'
+    payload: UserModel
+}
+
+interface ForgotPasswordRequestActions {
+    readonly type: 'FORGOT_PASSWORD_REQUEST' | 'FORGOT_PASSWORD_FAILED'
+}
+
+interface UpdateTokenRequestAction {
+    readonly type: 'UPDATE_TOKEN_REQUEST' | 'UPDATE_TOKEN_FAILED'
+}
+
+interface UpdateTokenSuccessAction {
+    readonly type: 'UPDATE_TOKEN_SUCCESS'
+}
+
+export type UserRequestsActions =
+    | GetUserRequestActions
+    | GetUserSuccessActions
+    | LoginRequestActions
+    | LoginSuccessActions
+    | SignUpSuccessActions
+    | SignUpRequestActions
+    | ResetPasswordRequestActions
+    | ResetPasswordSuccessActions
+    | ForgotPasswordRequestActions
+    | ForgotPasswordSuccessActions
+    | UpdateTokenRequestAction
+    | UpdateTokenSuccessAction
 
 type UserRequestState = {
     user: null | UserModel
@@ -54,6 +97,7 @@ type UserRequestState = {
     success: boolean
     error: boolean
     isAuth: boolean
+    isResetPassword: boolean
 }
 
 const initialState = {
@@ -62,6 +106,7 @@ const initialState = {
     success: false,
     error: false,
     isAuth: false,
+    isResetPassword: false
 }
 
 export const userReducer = (state: UserRequestState = initialState, action: UserRequestsActions) => {
@@ -135,7 +180,7 @@ export const userReducer = (state: UserRequestState = initialState, action: User
             return {
                 ...state,
                 request: true,
-                error: false
+                error: false,
             }
         }
         case 'RESET_PASSWORD_SUCCESS': {
@@ -148,6 +193,51 @@ export const userReducer = (state: UserRequestState = initialState, action: User
             }
         }
         case 'RESET_PASSWORD_FAILED': {
+            return {
+                ...state,
+                error: true,
+                request: false,
+            }
+        }
+        case 'FORGOT_PASSWORD_REQUEST': {
+            return {
+                ...state,
+                request: true,
+                error: false
+            }
+        }
+        case 'FORGOT_PASSWORD_SUCCESS': {
+            return {
+                ...state,
+                request: false,
+                error: false,
+                success: true,
+                isResetPassword: true,
+                user: action.payload,
+            }
+        }
+        case 'FORGOT_PASSWORD_FAILED': {
+            return {
+                ...state,
+                error: true,
+                request: false,
+                isResetPassword: false
+            }
+        }
+        case 'UPDATE_TOKEN_REQUEST': {
+            return {
+                ...state,
+                request: true
+            }
+        }
+        case 'UPDATE_TOKEN_SUCCESS': {
+            return {
+                ...state,
+                request: false,
+                error: false
+            }
+        }
+        case 'UPDATE_TOKEN_FAILED': {
             return {
                 ...state,
                 error: true,

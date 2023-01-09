@@ -11,12 +11,16 @@ import DraggableElement from './components/DraggableElement'
 import { addToConstructor } from '../../services/actions/constructor'
 import { MODAL_CLOSE } from '../../services/actions/modal'
 import { RESET_INGREDIENTS } from '../../services/actions/constructor'
+import Modal from '../Modal/Modal'
+import OrderDetails from '../OrderDetails/OrderDetails'
 
 const BurgerConstructor: React.FC = () => {
   const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)
   const dispatch = useAppDispatch()
 
-  const priceCounting: any = useCallback(() => {
+  const { number } = useTypedSelector((store) => store.order)
+
+  const priceCounting = useCallback(() => {
     const totalIngredientsPrice = ingredientsList.reduce((acc: number, topping: Ingredients) => {
       return acc + topping.price
     }, 0)
@@ -107,6 +111,11 @@ const BurgerConstructor: React.FC = () => {
         >
           Оформить
         </Button>
+        {modalState && (
+          <Modal onCloseButtonClick={modalClose}>
+            <OrderDetails order={number} />
+          </Modal>
+        )}
       </div>
     </div>
   )

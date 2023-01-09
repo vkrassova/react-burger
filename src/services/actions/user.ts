@@ -1,7 +1,13 @@
-import { AppDispatch, AppThunk } from '../index'
-import { getUserRequest, login, userRegisterRequest, resetPasswordRequest } from '../../utils/api'
-import { UserModel } from '../../types/responses'
-import { refreshToken } from '../../utils/utils'
+import {AppDispatch, AppThunk} from '../index'
+import {
+    getUserRequest,
+    login,
+    userRegisterRequest,
+    resetPasswordRequest,
+    refreshTokenRequest,
+    forgotPasswordRequest
+} from '../../utils/api'
+import {UserModel} from '../../types/responses'
 
 export const GET_USER_REQUEST = 'GET_USER_REQUEST'
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
@@ -31,112 +37,162 @@ export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST'
 export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS'
 export const FORGOT_PASSWORD_FAILED = 'FORGOT_PASSWORD_FAILED'
 
-//получаем данные о пользователе
+const refreshToken = (afterRefresh: AppThunk): AppThunk => (dispatch: AppDispatch) => {
+    dispatch({
+        type: UPDATE_TOKEN_REQUEST
+    })
+    return refreshTokenRequest()
+        .then((res) => {
+            if (res && res.success) {
+                dispatch({
+                    type: UPDATE_TOKEN_FAILED
+                })
+
+                dispatch(afterRefresh)
+
+                localStorage.setItem('refreshToken', res.refreshToken)
+                localStorage.setItem('accessToken', res.accessToken)
+            } else {
+                dispatch({
+                    type: UPDATE_TOKEN_FAILED
+                })
+
+                localStorage.removeItem('refreshToken')
+            }
+        })
+        .catch((err) => {
+            dispatch({
+                type: UPDATE_TOKEN_FAILED
+            })
+        })
+}
+
 export const getUser = (): AppThunk => (dispatch: AppDispatch) => {
-  dispatch({
-    type: GET_USER_REQUEST,
-  })
-  return getUserRequest()
-    .then((res) => {
-      if (res && res.success) {
-        dispatch({
-          type: GET_USER_SUCCESS,
-          payload: res.user,
-        })
-      }
+    dispatch({
+        type: GET_USER_REQUEST,
     })
-    .catch((err) => {
-      if (err.message === 'jwt expired') {
-        // @ts-ignore
-        dispatch(refreshToken(getUser()))
-      } else {
-        dispatch({
-          type: GET_USER_FAILED,
+    return getUserRequest()
+        .then((res) => {
+            if (res && res.success) {
+                dispatch({
+                    type: GET_USER_SUCCESS,
+                    payload: res.user,
+                })
+            }
         })
-      }
-    })
+        .catch((err) => {
+            if (err.message === 'jwt expired') {
+                dispatch(refreshToken(getUser()))
+            } else {
+                dispatch({
+                    type: GET_USER_FAILED,
+                })
+            }
+        })
 }
 
-//Авторизация пользователя
 export const signIn = (user: UserModel) => (dispatch: AppDispatch) => {
-  dispatch({
-    type: LOGIN_REQUEST,
-  })
-  return login(user)
-    .then((res) => {
-      if (res && res.success) {
-        dispatch({
-          type: LOGIN_SUCCESS,
-          payload: res.user,
-        })
+    dispatch({
+        type: LOGIN_REQUEST,
+    })
+    return login(user)
+        .then((res) => {
+            if (res && res.success) {
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: res.user,
+                })
 
-        localStorage.setItem('refreshToken', res.refreshToken)
-        localStorage.setItem('accessToken', res.accessToken)
-      } else {
-        dispatch({
-          type: LOGIN_FAILED,
+                localStorage.setItem('refreshToken', res.refreshToken)
+                localStorage.setItem('accessToken', res.accessToken)
+            } else {
+                dispatch({
+                    type: LOGIN_FAILED,
+                })
+            }
         })
-      }
-    })
-    .catch((err) => {
-      console.log(err)
-      dispatch({
-        type: LOGIN_FAILED,
-      })
-    })
+        .catch((err) => {
+            console.log(err)
+            dispatch({
+                type: LOGIN_FAILED,
+            })
+        })
 }
 
-//Регистрация пользователя
 export const signUp = (user: UserModel) => (dispatch: AppDispatch) => {
-  dispatch({
-    type: REGISTER_REQUEST,
-  })
-  return userRegisterRequest(user)
-    .then((res) => {
-      if (res && res.success) {
-        dispatch({
-          type: REGISTER_SUCCESS,
-          payload: res.user,
-        })
-        localStorage.setItem('refreshToken', res.refreshToken)
-        localStorage.setItem('accessToken', res.accessToken)
-      } else {
-        dispatch({
-          type: REGISTER_FAILED,
-        })
-      }
+    dispatch({
+        type: REGISTER_REQUEST,
     })
-    .catch((err) => {
-      dispatch({
-        type: REGISTER_FAILED,
-      })
-    })
+    return userRegisterRequest(user)
+        .then((res) => {
+            if (res && res.success) {
+                dispatch({
+                    type: REGISTER_SUCCESS,
+                    payload: res.user,
+                })
+                localStorage.setItem('refreshToken', res.refreshToken)
+                localStorage.setItem('accessToken', res.accessToken)
+            } else {
+                dispatch({
+                    type: REGISTER_FAILED,
+                })
+            }
+        })
+        .catch((err) => {
+            dispatch({
+                type: REGISTER_FAILED,
+            })
+        })
 }
 
-//Изменение пароля
-export const resetPassword = (user: UserModel) => (dispatch: AppDispatch) => {
-  dispatch({
-    type: RESET_PASSWORD_REQUEST
-  })
+export const resetPassword = (form: string) => (dispatch: AppDispatch) => {
+    dispatch({
+        type: RESET_PASSWORD_REQUEST,
+    })
 
-  return resetPasswordRequest(user)
-      .then((res) => {
-        if(res && res.success) {
-          dispatch({
-            type: RESET_PASSWORD_SUCCESS,
-            payload: res.user
-          })
-        } else {
-          dispatch({
-            type: RESET_PASSWORD_FAILED,
-          })
-        }
-      })
-      .catch((err) => {
-        dispatch({
-          type: RESET_PASSWORD_FAILED,
+    return resetPasswordRequest(form)
+        .then((res) => {
+            if (res && res.success) {
+                dispatch({
+                    type: RESET_PASSWORD_SUCCESS,
+                    payload: res.user,
+                })
+            } else {
+                dispatch({
+                    type: RESET_PASSWORD_FAILED,
+                })
+            }
         })
-      })
+        .catch((err) => {
+            console.log(err)
+            dispatch({
+                type: RESET_PASSWORD_FAILED,
+            })
+        })
 }
 
 //Запрос на восстановление пароля
+export const forgotPassword = (form: string) => (dispatch: AppDispatch) => {
+    dispatch({
+        type: FORGOT_PASSWORD_REQUEST,
+    })
+
+    return forgotPasswordRequest(form)
+        .then((res) => {
+            if(res && res.success) {
+                dispatch({
+                    type: FORGOT_PASSWORD_SUCCESS,
+                    payload: res.user,
+                })
+            } else {
+                dispatch({
+                    type: FORGOT_PASSWORD_FAILED,
+                })
+            }
+        })
+        .catch((err) => {
+            dispatch({
+                type: FORGOT_PASSWORD_FAILED,
+            })
+        })
+}

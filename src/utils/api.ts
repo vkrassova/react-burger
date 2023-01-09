@@ -1,6 +1,9 @@
 import { BASE_URL } from '../constants'
 import { checkResponse } from './utils'
 import { UserModel, UserResponse, LoginResponse } from '../types/responses'
+type TForgotPasswordForm = {
+  email: string;
+};
 
 export const userRegisterRequest = (user: UserModel): Promise<UserResponse> => {
   return fetch(`${BASE_URL}/auth/register`, {
@@ -46,8 +49,8 @@ export const refreshTokenRequest = (): Promise<UserResponse> => {
   }).then(checkResponse)
 }
 
-export const getUserRequest = (): Promise<UserResponse> => {
-  return fetch(`${BASE_URL}/auth/user`, {
+export const getUserRequest = async (): Promise<UserResponse> => {
+  return await fetch(`${BASE_URL}/auth/user`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -69,7 +72,7 @@ export const patchUser = (form: string) => {
   }).then(checkResponse)
 }
 
-export const resetPasswordRequest = (form: UserModel): Promise<UserResponse> => {
+export const resetPasswordRequest = (form: string) => {
   return fetch(`${BASE_URL}/password-reset/reset`, {
     method: 'POST',
     headers: {
@@ -80,13 +83,16 @@ export const resetPasswordRequest = (form: UserModel): Promise<UserResponse> => 
   }).then(checkResponse)
 }
 
-export const forgotPasswordRequest = (form: UserModel): Promise<UserResponse> => {
-  return fetch(`${BASE_URL}/password-reset`, {
+export const forgotPasswordRequest = async (form: string) => {
+  const raw = JSON.stringify({
+    email: form,
+  })
+  return await fetch(`${BASE_URL}/password-reset`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json;charset=utf-8',
     },
-    body: JSON.stringify(form),
+    body: raw,
   }).then(checkResponse)
 }
