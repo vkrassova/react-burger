@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import style from '../styles.module.scss'
 import { ProfileNav } from '../../components/ProfileNav/ProfileNav'
@@ -38,6 +38,16 @@ export const Profile: React.FC = () => {
     })
   }
 
+  const [isChanged, setIsChanged] = useState<boolean>(false)
+
+  useEffect(() => {
+    setIsChanged(
+      fields.name !== initialUserState.name ||
+        fields.email !== initialUserState.email ||
+        fields.password !== initialUserState.password
+    )
+  }, [initialUserState, fields])
+
   return (
     <section className={style.wrapper}>
       <div className={style.container}>
@@ -74,14 +84,16 @@ export const Profile: React.FC = () => {
             />
             <PasswordInput onChange={handleFieldsChange} value={fields.password} name="password" />
 
-            <div className={style.buttonWrapper}>
-              <Button htmlType="button" type="secondary" size="medium" onClick={handleCancel}>
-                Отмена
-              </Button>
-              <Button htmlType="submit" type="primary" size="medium">
-                Сохранить
-              </Button>
-            </div>
+            {isChanged && (
+              <div className={style.buttonWrapper}>
+                <Button htmlType="button" type="secondary" size="medium" onClick={handleCancel}>
+                  Отмена
+                </Button>
+                <Button htmlType="submit" type="primary" size="medium">
+                  Сохранить
+                </Button>
+              </div>
+            )}
           </form>
         </div>
       </div>

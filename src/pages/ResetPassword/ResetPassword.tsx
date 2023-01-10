@@ -2,7 +2,7 @@ import React, { FormEvent } from 'react'
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import style from '../styles.module.scss'
 import { useForm } from '../../hooks/useForm'
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { AppRoutes } from '../../constants'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
@@ -10,10 +10,8 @@ import { resetPassword } from '../../services/actions/user'
 
 export const ResetPassword: React.FC = () => {
   const { userData, updateFields } = useForm()
-  const location = useLocation()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const fromPage = location.state?.from?.pathname || AppRoutes.Main
 
   const handleFormSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault()

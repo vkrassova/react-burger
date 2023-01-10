@@ -1,21 +1,15 @@
 import React, { FormEvent } from 'react'
 import { Button, EmailInput, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import style from '../styles.module.scss'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { AppRoutes } from '../../constants'
 import { useForm } from '../../hooks/useForm'
 import { signUp } from '../../services/actions/user'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
 
 export const Register: React.FC = () => {
   const { userData, updateFields } = useForm()
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-  const location = useLocation()
-  const { isAuth, userRequest } = useTypedSelector(({ user }) => user)
-
-  const state = location.state
 
   const handleFormSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault()

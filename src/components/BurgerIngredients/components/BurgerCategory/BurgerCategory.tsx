@@ -3,7 +3,6 @@ import React, { Key } from 'react'
 import styles from '../../BurgerIngredients.module.scss'
 import IngredientsItem from '../IngredientsItem/IngredientsItem'
 import { Link, useLocation } from 'react-router-dom'
-import { Path } from 'react-router'
 
 interface IngredientsListProps {
   ingredientType: string
