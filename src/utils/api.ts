@@ -72,7 +72,7 @@ export const patchUserRequest = (user: UserModel): Promise<UserResponse> => {
 export const resetPasswordRequest = (user: UserModel) => {
   const raw = JSON.stringify({
     password: user.password,
-    token: user.code
+    token: user.code,
   })
 
   return fetch(`${BASE_URL}/password-reset/reset`, {

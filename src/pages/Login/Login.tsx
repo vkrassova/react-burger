@@ -1,4 +1,4 @@
-import React, { FormEvent} from 'react'
+import React, { FormEvent } from 'react'
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import style from '../styles.module.scss'
@@ -32,7 +32,7 @@ export const Login: React.FC = () => {
   }
 
   if (isAuth) {
-    return <Navigate to={fromPage} replace/>
+    return <Navigate to={fromPage} replace />
   }
 
   return (
