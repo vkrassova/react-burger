@@ -68,7 +68,7 @@ const refreshToken =
           localStorage.removeItem('refreshToken')
         }
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch({
           type: UPDATE_TOKEN_FAILED,
         })
@@ -121,8 +121,7 @@ export const signIn = (user: UserModel) => (dispatch: AppDispatch) => {
 
       return res
     })
-    .catch((err) => {
-      console.log(err)
+    .catch(() => {
       dispatch({
         type: LOGIN_FAILED,
       })
@@ -173,8 +172,7 @@ export const resetPassword = (user: UserModel) => (dispatch: AppDispatch) => {
         })
       }
     })
-    .catch((err) => {
-      console.log(err)
+    .catch(() => {
       dispatch({
         type: RESET_PASSWORD_FAILED,
       })

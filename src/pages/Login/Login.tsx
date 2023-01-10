@@ -22,19 +22,6 @@ export const Login: React.FC = () => {
     })
   }
 
-  const location = useLocation()
-  const fromPage = location.state?.from?.pathname || AppRoutes.Main
-
-  const { isAuth, userRequest } = useTypedSelector(({ user }) => user)
-
-  if (userRequest) {
-    return null
-  }
-
-  if (isAuth) {
-    return <Navigate to={fromPage} replace />
-  }
-
   return (
     <section className={style.wrapper}>
       <h2 className="text text_type_main-medium mb-6">Вход</h2>

@@ -20,6 +20,7 @@ export const ProfileNav: React.FC = () => {
       <li className={style.item}>
         <NavLink
           to={AppRoutes.Profile}
+          end
           className={({ isActive }) => (isActive ? style.activeLink : style.notActiveLink)}
         >
           <p className="text text_type_main-medium">Профиль</p>

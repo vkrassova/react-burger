@@ -22,14 +22,6 @@ export const Register: React.FC = () => {
     await dispatch(signUp(userData))
   }
 
-  if (userRequest) {
-    return null
-  }
-
-  if (isAuth) {
-    navigate(state?.from || AppRoutes.Main)
-  }
-
   return (
     <section className={style.wrapper}>
       <h2 className="text text_type_main-medium mb-6">Регистрация</h2>

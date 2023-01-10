@@ -1,41 +1,20 @@
 import React, { FormEvent, useState } from 'react'
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import style from '../styles.module.scss'
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AppRoutes } from '../../constants'
 import { forgotPassword } from '../../services/actions/user'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { useForm } from '../../hooks/useForm'
 
 export const ForgotPassword: React.FC = () => {
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
 
   const { userData, updateFields } = useForm()
 
   const handleFormSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
-    await dispatch(forgotPassword(userData)).then((res) => {
-      if (res.success) {
-        setTimeout(() => {
-          navigate(AppRoutes.ResetPassword)
-        }, 100)
-      }
-    })
-  }
-
-  const location = useLocation()
-  const fromPage = location.state?.from?.pathname || AppRoutes.Main
-
-  const { isAuth, userRequest } = useTypedSelector(({ user }) => user)
-
-  if (userRequest) {
-    return null
-  }
-
-  if (isAuth) {
-    return <Navigate to={fromPage} replace />
+    await dispatch(forgotPassword(userData))
   }
 
   return (

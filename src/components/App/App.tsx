@@ -9,7 +9,7 @@ import Modal from '../Modal/Modal'
 import IngredientDetails from '../IngredientDetails/IngredientDetails'
 import useModal from '../../hooks/useModal'
 import { getUser } from '../../services/actions/user'
-import { PrivateRoutes } from '../PrivateRoutes/PrivateRoutes'
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute'
 import { MODAL_CLOSE } from '../../services/actions/modal'
 import { Feed } from '../../pages/Feed/Feed'
 import { Orders } from '../../pages/Orders/Orders'
@@ -40,16 +40,16 @@ const App: React.FC = () => {
       <AppHeader />
       <Routes location={location || background}>
         <Route index path={AppRoutes.Main} element={<Main />} />
-        <Route path={AppRoutes.SignIn} element={<Login />} />
-        <Route path={AppRoutes.Register} element={<Register />} />
-        <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword />} />
-        <Route path={AppRoutes.ResetPassword} element={<ResetPassword />} />
-        <Route path={AppRoutes.Feed} element={<Feed />} />
-        <Route element={<PrivateRoutes />}>
+        <Route element={<ProtectedRoute userAuthorized={false} />}>
+          <Route path={AppRoutes.Profile} element={<Profile />} />
+          <Route path={AppRoutes.Feed} element={<Feed />} />
           <Route path={AppRoutes.ProfileOrders} element={<Orders />} />
         </Route>
-        <Route element={<PrivateRoutes />}>
-          <Route path={AppRoutes.Profile} element={<Profile />} />
+        <Route element={<ProtectedRoute userAuthorized={true} />}>
+          <Route path={AppRoutes.SignIn} element={<Login />} />
+          <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword />} />
+          <Route path={AppRoutes.ResetPassword} element={<ResetPassword />} />
+          <Route path={AppRoutes.Register} element={<Register />} />
         </Route>
 
         {background ? (

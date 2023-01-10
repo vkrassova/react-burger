@@ -21,15 +21,7 @@ export const ResetPassword: React.FC = () => {
     navigate(AppRoutes.SignIn)
   }
 
-  const { isAuth, userRequest, isResetPassword } = useTypedSelector(({ user }) => user)
-
-  if (userRequest) {
-    return null
-  }
-
-  if (isAuth) {
-    return <Navigate to={fromPage} replace />
-  }
+  const { isAuth, isResetPassword } = useTypedSelector(({ user }) => user)
 
   if (!isAuth && !isResetPassword) {
     return <Navigate to={AppRoutes.ForgotPassword} replace />
