@@ -14,13 +14,17 @@ export const userRegisterRequest = (user: UserModel): Promise<UserResponse> => {
 }
 
 export const login = (user: UserModel): Promise<LoginResponse> => {
+  const raw = JSON.stringify({
+    email: user.email,
+    password: user.password,
+  })
   return fetch(`${BASE_URL}/auth/login`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json;charset=utf-8',
     },
-    body: JSON.stringify(user),
+    body: raw,
   }).then(checkResponse)
 }
 
@@ -85,9 +89,9 @@ export const resetPasswordRequest = (user: UserModel) => {
   }).then(checkResponse)
 }
 
-export const forgotPasswordRequest = async (form: string) => {
+export const forgotPasswordRequest = async (user: UserModel) => {
   const raw = JSON.stringify({
-    email: form,
+    email: user.email,
   })
   return await fetch(`${BASE_URL}/password-reset`, {
     method: 'POST',

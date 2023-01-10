@@ -181,12 +181,12 @@ export const resetPassword = (user: UserModel) => (dispatch: AppDispatch) => {
     })
 }
 
-export const forgotPassword = (form: string) => (dispatch: AppDispatch) => {
+export const forgotPassword = (user: UserModel) => (dispatch: AppDispatch) => {
   dispatch({
     type: FORGOT_PASSWORD_REQUEST,
   })
 
-  return forgotPasswordRequest(form)
+  return forgotPasswordRequest(user)
     .then((res) => {
       if (res && res.success) {
         dispatch({
