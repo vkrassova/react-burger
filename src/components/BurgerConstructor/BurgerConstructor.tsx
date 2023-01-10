@@ -13,8 +13,8 @@ import { MODAL_CLOSE } from '../../services/actions/modal'
 import { RESET_INGREDIENTS } from '../../services/actions/constructor'
 import Modal from '../Modal/Modal'
 import OrderDetails from '../OrderDetails/OrderDetails'
-import {useNavigate} from 'react-router-dom';
-import {AppRoutes} from '../../constants';
+import { useNavigate } from 'react-router-dom'
+import { AppRoutes } from '../../constants'
 
 const BurgerConstructor: React.FC = () => {
   const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)
@@ -22,7 +22,7 @@ const BurgerConstructor: React.FC = () => {
   const navigate = useNavigate()
 
   const { number } = useTypedSelector((store) => store.order)
-  const {isAuth} = useTypedSelector(({user}) => user)
+  const { isAuth } = useTypedSelector(({ user }) => user)
 
   const priceCounting = useCallback(() => {
     const totalIngredientsPrice = ingredientsList.reduce((acc: number, topping: Ingredients) => {
@@ -51,7 +51,7 @@ const BurgerConstructor: React.FC = () => {
   }
 
   const getOrder = () => {
-    if(isAuth) {
+    if (isAuth) {
       toggle()
       dispatch(postOrder(getIngredientsId()))
     } else {
