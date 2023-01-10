@@ -155,12 +155,12 @@ export const signUp = (user: UserModel) => (dispatch: AppDispatch) => {
     })
 }
 
-export const resetPassword = (form: string) => (dispatch: AppDispatch) => {
+export const resetPassword = (user: UserModel) => (dispatch: AppDispatch) => {
   dispatch({
     type: RESET_PASSWORD_REQUEST,
   })
 
-  return resetPasswordRequest(form)
+  return resetPasswordRequest(user)
     .then((res) => {
       if (res && res.success) {
         dispatch({

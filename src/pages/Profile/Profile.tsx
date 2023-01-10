@@ -5,7 +5,6 @@ import { ProfileNav } from '../../components/ProfileNav/ProfileNav'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { patchUser } from '../../services/actions/user'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
-import { useLocation } from 'react-router-dom'
 
 export const Profile: React.FC = () => {
   const { user } = useTypedSelector(({ user }) => user)

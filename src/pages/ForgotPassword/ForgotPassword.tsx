@@ -51,6 +51,7 @@ export const ForgotPassword: React.FC = () => {
       </form>
       <div className={style.innerText}>
         <p className="text text_color_inactive text_type_main-default ">Вспомнили пароль?</p>
+
         <Link to={AppRoutes.SignIn} className="text text_type_main-default text_color_accent">
           Войти
         </Link>
