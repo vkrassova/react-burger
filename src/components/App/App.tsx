@@ -12,6 +12,7 @@ import { getUser } from '../../services/actions/user'
 import { PrivateRoutes } from '../PrivateRoutes/PrivateRoutes'
 import { MODAL_CLOSE } from '../../services/actions/modal'
 import { Feed } from '../../pages/Feed/Feed'
+import {Orders} from '../../pages/Orders/Orders'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -44,6 +45,9 @@ const App: React.FC = () => {
         <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword />} />
         <Route path={AppRoutes.ResetPassword} element={<ResetPassword />} />
         <Route path={AppRoutes.Feed} element={<Feed />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path={AppRoutes.ProfileOrders} element={<Orders />} />
+        </Route>
         <Route element={<PrivateRoutes />}>
           <Route path={AppRoutes.Profile} element={<Profile />} />
         </Route>

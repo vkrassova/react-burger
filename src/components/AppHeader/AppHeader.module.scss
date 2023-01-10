@@ -32,3 +32,19 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.activeLink {
+  display: flex;
+  padding: 16px 10px;
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+}
+
+.notActiveLink {
+  display: flex;
+  padding: 16px 10px;
+  text-decoration: none;
+  color: #8585AD;
+  cursor: pointer;
+}
