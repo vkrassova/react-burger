@@ -89,6 +89,10 @@ interface UserEditSuccessActions {
   payload: UserModel
 }
 
+interface UserLogoutActions {
+  readonly type: 'LOGOUT_REQUEST' | 'LOGOUT_FAILED' | 'LOGOUT_SUCCESS'
+}
+
 export type UserRequestsActions =
   | GetUserRequestActions
   | GetUserSuccessActions
@@ -104,6 +108,7 @@ export type UserRequestsActions =
   | UpdateTokenSuccessAction
   | UserEditRequestActions
   | UserEditSuccessActions
+  | UserLogoutActions
 
 type UserRequestState = {
   user: null | UserModel
@@ -275,6 +280,30 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         ...state,
         error: true,
         request: false,
+      }
+    }
+    case 'LOGOUT_REQUEST': {
+      return {
+        ...state,
+        error: false,
+        request: true,
+      }
+    }
+    case 'LOGOUT_SUCCESS': {
+      return {
+        ...state,
+        request: false,
+        error: false,
+        isAuth: false,
+      }
+    }
+
+    case 'LOGOUT_FAILED': {
+      return {
+        ...state,
+        error: true,
+        request: false,
+        isAuth: true,
       }
     }
     default: {

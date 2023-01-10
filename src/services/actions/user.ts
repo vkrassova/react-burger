@@ -7,6 +7,7 @@ import {
   refreshTokenRequest,
   forgotPasswordRequest,
   patchUserRequest,
+  logOut,
 } from '../../utils/api'
 import { UserModel } from '../../types/responses'
 
@@ -228,6 +229,35 @@ export const patchUser = (user: UserModel) => (dispatch: AppDispatch) => {
     .catch(() => {
       dispatch({
         type: POST_USER_ERROR,
+      })
+    })
+}
+
+export const signOut = () => (dispatch: AppDispatch) => {
+  dispatch({
+    type: LOGOUT_REQUEST,
+  })
+
+  return logOut()
+    .then((res) => {
+      if (res && res.success) {
+        dispatch({
+          type: LOGOUT_SUCCESS,
+        })
+
+        localStorage.removeItem('refreshToken')
+        localStorage.removeItem('accessToken')
+      } else {
+        dispatch({
+          type: LOGOUT_FAILED,
+        })
+      }
+
+      return res
+    })
+    .catch(() => {
+      dispatch({
+        type: LOGOUT_FAILED,
       })
     })
 }

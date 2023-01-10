@@ -12,7 +12,7 @@ import { getUser } from '../../services/actions/user'
 import { PrivateRoutes } from '../PrivateRoutes/PrivateRoutes'
 import { MODAL_CLOSE } from '../../services/actions/modal'
 import { Feed } from '../../pages/Feed/Feed'
-import {Orders} from '../../pages/Orders/Orders'
+import { Orders } from '../../pages/Orders/Orders'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
