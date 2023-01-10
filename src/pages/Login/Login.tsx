@@ -17,7 +17,7 @@ export const Login: React.FC = () => {
 
   const state = location.state
 
-  const { isAuth } = useTypedSelector(({ user }) => user)
+  const { isAuth, userRequest } = useTypedSelector(({ user }) => user)
 
   const handleFormSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
@@ -26,6 +26,10 @@ export const Login: React.FC = () => {
         clearFields()
       }
     })
+  }
+
+  if (userRequest) {
+    return null
   }
 
   if (isAuth) {

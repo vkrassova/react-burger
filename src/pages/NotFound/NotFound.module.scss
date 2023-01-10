@@ -1,0 +1,33 @@
+.image {
+  display: block;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto 30px;
+}
+
+.notFound {
+  margin-bottom: 20px;
+  color: #8585AD;
+  font-size: 42px;
+  line-height: 1.2;
+  text-align: center;
+  font-weight: bold;
+}
+
+.text {
+  color: #8585AD;
+  font-size: 42px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 62px;
+  line-height: 1.2;
+  color: #8585AD;
+  font-weight: bold;
+}

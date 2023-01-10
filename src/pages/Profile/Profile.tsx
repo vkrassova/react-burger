@@ -1,11 +1,11 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import style from '../styles.module.scss'
-import { Link } from 'react-router-dom'
-import { AppRoutes } from '../../constants'
+import { ProfileNav } from '../../components/ProfileNav/ProfileNav'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { patchUser } from '../../services/actions/user'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useLocation } from 'react-router-dom'
 
 export const Profile: React.FC = () => {
   const { user } = useTypedSelector(({ user }) => user)
@@ -17,24 +17,24 @@ export const Profile: React.FC = () => {
     password: '',
   }
 
-  const [state, setState] = useState({ ...initialUserState })
+  const [fields, setFields] = useState({ ...initialUserState })
 
   const handleFieldsChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { target } = evt
 
-    setState({
-      ...state,
+    setFields({
+      ...fields,
       [target.name]: target.value,
     })
   }
 
   const handleFormSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
-    await dispatch(patchUser(state))
+    await dispatch(patchUser(fields))
   }
 
   const handleCancel = () => {
-    setState({
+    setFields({
       ...initialUserState,
     })
   }
@@ -43,21 +43,7 @@ export const Profile: React.FC = () => {
     <section className={style.wrapper}>
       <div className={style.container}>
         <div className={style.navWrapper}>
-          <ul className={style.list}>
-            <li className={style.item}>
-              <Link to={AppRoutes.Profile}>
-                <p className="text text_type_main-medium">Профиль</p>
-              </Link>
-            </li>
-            <li className={style.item}>
-              <Link to={AppRoutes.ProfileOrders}>
-                <p className="text text_type_main-medium text_color_inactive">История заказов</p>
-              </Link>
-            </li>
-            <li className={style.item}>
-              <p className="text text_type_main-medium text_color_inactive">Выход</p>
-            </li>
-          </ul>
+          <ProfileNav />
           <p className={`${style.description} text text_type_main-default`}>
             В этом разделе вы можете изменить свои персональные данные
           </p>
@@ -66,7 +52,7 @@ export const Profile: React.FC = () => {
           <form onSubmit={handleFormSubmit}>
             <Input
               error={false}
-              value={state.name}
+              value={fields.name}
               type="text"
               placeholder="Имя"
               onChange={handleFieldsChange}
@@ -78,7 +64,7 @@ export const Profile: React.FC = () => {
             <Input
               onChange={handleFieldsChange}
               error={false}
-              value={state.email}
+              value={fields.email}
               type="text"
               placeholder="Логин"
               icon="EditIcon"
@@ -87,7 +73,7 @@ export const Profile: React.FC = () => {
               size="default"
               extraClass="mb-6"
             />
-            <PasswordInput onChange={handleFieldsChange} value={state.password} name="password" />
+            <PasswordInput onChange={handleFieldsChange} value={fields.password} name="password" />
 
             <div className={style.buttonWrapper}>
               <Button htmlType="button" type="secondary" size="medium" onClick={handleCancel}>

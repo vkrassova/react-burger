@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
-import {AppHeader} from '../AppHeader/AppHeader'
+import { AppHeader } from '../AppHeader/AppHeader'
 import { getIngredients } from '../../services/actions/ingredients'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { AppRoutes } from '../../constants'
@@ -9,16 +9,13 @@ import Modal from '../Modal/Modal'
 import IngredientDetails from '../IngredientDetails/IngredientDetails'
 import useModal from '../../hooks/useModal'
 import { getUser } from '../../services/actions/user'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { PrivateRoutes } from '../PrivateRoutes/PrivateRoutes'
 import { MODAL_CLOSE } from '../../services/actions/modal'
-import {Feed} from '../../pages/Feed/Feed';
+import { Feed } from '../../pages/Feed/Feed'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
   const { toggle } = useModal()
-
-  const { isAuth } = useTypedSelector((store) => store.user)
 
   useEffect(() => {
     dispatch(getIngredients())
@@ -46,7 +43,7 @@ const App: React.FC = () => {
         <Route path={AppRoutes.Register} element={<Register />} />
         <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword />} />
         <Route path={AppRoutes.ResetPassword} element={<ResetPassword />} />
-        <Route path={AppRoutes.Feed} element={<Feed/>}/>
+        <Route path={AppRoutes.Feed} element={<Feed />} />
         <Route element={<PrivateRoutes />}>
           <Route path={AppRoutes.Profile} element={<Profile />} />
         </Route>

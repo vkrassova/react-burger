@@ -108,19 +108,19 @@ export type UserRequestsActions =
 type UserRequestState = {
   user: null | UserModel
   request: boolean
-  success: boolean
   error: boolean
   isAuth: boolean
   isResetPassword: boolean
+  userRequest: boolean
 }
 
 const initialState = {
   user: null,
   request: false,
-  success: false,
   error: false,
   isAuth: false,
   isResetPassword: false,
+  userRequest: false,
 }
 
 export const userReducer = (state: UserRequestState = initialState, action: UserRequestsActions) => {
@@ -129,6 +129,7 @@ export const userReducer = (state: UserRequestState = initialState, action: User
       return {
         ...state,
         request: true,
+        userRequest: true,
         error: false,
       }
     }
@@ -136,6 +137,7 @@ export const userReducer = (state: UserRequestState = initialState, action: User
       return {
         ...state,
         user: action.payload,
+        userRequest: false,
         isAuth: true,
       }
     }
@@ -143,6 +145,7 @@ export const userReducer = (state: UserRequestState = initialState, action: User
       return {
         ...state,
         error: true,
+        userRequest: false,
         isAuth: false,
       }
     }
@@ -163,7 +166,6 @@ export const userReducer = (state: UserRequestState = initialState, action: User
     case 'LOGIN_FAILED': {
       return {
         ...state,
-        success: false,
         error: true,
       }
     }
@@ -179,7 +181,6 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         ...state,
         user: action.payload,
         request: false,
-        success: true,
         error: false,
       }
     }
@@ -201,7 +202,6 @@ export const userReducer = (state: UserRequestState = initialState, action: User
       return {
         ...state,
         request: false,
-        success: true,
         error: false,
         user: action.payload,
       }
@@ -225,7 +225,6 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         ...state,
         request: false,
         error: false,
-        success: true,
         isResetPassword: true,
         user: action.payload,
       }
@@ -268,7 +267,6 @@ export const userReducer = (state: UserRequestState = initialState, action: User
       return {
         ...state,
         user: action.payload,
-        success: true,
         request: false,
       }
     }
