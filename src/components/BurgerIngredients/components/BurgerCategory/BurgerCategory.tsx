@@ -1,7 +1,8 @@
 import { Ingredients } from '../../../../types/data'
-import React from 'react'
+import React, { Key } from 'react'
 import styles from '../../BurgerIngredients.module.scss'
 import IngredientsItem from '../IngredientsItem/IngredientsItem'
+import { Link, useLocation } from 'react-router-dom'
 
 interface IngredientsListProps {
   ingredientType: string
@@ -13,6 +14,8 @@ interface IngredientsListProps {
 
 const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(
   ({ ingredients, ingredientType, title, showDetails }, ref: React.ForwardedRef<HTMLParagraphElement>) => {
+    const location = useLocation()
+
     return (
       <div ref={ref}>
         <h3 className="text text_type_main-medium mb-6">{title}</h3>
@@ -20,7 +23,17 @@ const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(
           {ingredients &&
             ingredients.map((el) => {
               if (el.type === ingredientType) {
-                return <IngredientsItem ingredient={el} key={el._id} showDetails={showDetails} id={el._id} />
+                return (
+                  <Link
+                    key={el._id}
+                    to={{
+                      pathname: `/ingredients/${el._id}`,
+                    }}
+                    state={{ background: location }}
+                  >
+                    <IngredientsItem ingredient={el} key={el._id} showDetails={showDetails} id={el._id} />
+                  </Link>
+                )
               }
               return null
             })}

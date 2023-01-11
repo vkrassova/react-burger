@@ -46,6 +46,11 @@
 .ingredientsWrapper {
   overflow-y: scroll;
 
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
   &::-webkit-scrollbar { /* 1 - скроллбар */
     position: absolute;
     width: 8px;

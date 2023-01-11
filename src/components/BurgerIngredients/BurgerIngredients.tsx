@@ -1,11 +1,9 @@
 import React, { useRef } from 'react'
 import BurgerCategory from './components/BurgerCategory/BurgerCategory'
 import useModal from '../../hooks/useModal'
-import Modal from '../Modal/Modal'
-import IngredientDetails from '../IngredientDetails/IngredientDetails'
 import styles from '../BurgerIngredients/BurgerIngredients.module.scss'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import { INGREDIENT_TYPES } from '../../const'
+import { INGREDIENT_TYPES } from '../../constants'
 import { getRect, tabsClickHandler } from '../../utils/utils'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
@@ -19,11 +17,9 @@ const BurgerIngredients: React.FC = () => {
 
   const [current, setCurrent] = React.useState(INGREDIENT_TYPES.buns)
 
-  const data = useTypedSelector((store) => store.modal.item)
-
   const dispatch = useAppDispatch()
 
-  const { modalState, toggle } = useModal()
+  const { toggle } = useModal()
 
   const handleClickItem = (ingredient: Ingredients) => {
     toggle()
@@ -106,11 +102,6 @@ const BurgerIngredients: React.FC = () => {
           showDetails={handleClickItem}
         />
       </div>
-      {modalState && (
-        <Modal onCloseButtonClick={toggle} title="Детали ингридиента">
-          <IngredientDetails data={data} />
-        </Modal>
-      )}
     </section>
   )
 }

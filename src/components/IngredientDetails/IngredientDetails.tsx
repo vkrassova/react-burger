@@ -1,12 +1,15 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import style from './IngredientDetails.module.scss'
-import { Ingredients } from '../../types/data'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 
-type DetailsProps = {
-  data: Ingredients | null
-}
+const IngredientDetails: React.FC = () => {
+  const { ingredients } = useTypedSelector((store) => store.ingredients)
 
-const IngredientDetails: React.FC<DetailsProps> = ({ data }) => {
+  const { id } = useParams()
+
+  const data = ingredients.find((el) => el._id === id)
+
   return (
     <div className={style.content}>
       <div className={style.imgWrapper}>

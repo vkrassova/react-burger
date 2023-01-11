@@ -16,6 +16,6 @@ export const store = createStore(rootReducer, enhancer)
 
 export type RootState = ReturnType<typeof store.getState>
 
-export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>
+export type AppDispatch = ThunkDispatch<RootState, unknown, TApplicationActions>
 
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, never, TApplicationActions>
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, TApplicationActions>

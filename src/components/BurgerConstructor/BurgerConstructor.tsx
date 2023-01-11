@@ -2,8 +2,6 @@ import styles from '../BurgerConstructor/BurgerConstructor.module.scss'
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useCallback } from 'react'
 import useModal from '../../hooks/useModal'
-import Modal from '../Modal/Modal'
-import OrderDetails from '../OrderDetails/OrderDetails'
 import { Ingredients } from '../../types/data'
 import { useDrop } from 'react-dnd'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
@@ -13,18 +11,26 @@ import DraggableElement from './components/DraggableElement'
 import { addToConstructor } from '../../services/actions/constructor'
 import { MODAL_CLOSE } from '../../services/actions/modal'
 import { RESET_INGREDIENTS } from '../../services/actions/constructor'
+import Modal from '../Modal/Modal'
+import OrderDetails from '../OrderDetails/OrderDetails'
+import { useNavigate } from 'react-router-dom'
+import { AppRoutes } from '../../constants'
 
 const BurgerConstructor: React.FC = () => {
   const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const { number } = useTypedSelector((store) => store.order)
+  const { isAuth } = useTypedSelector(({ user }) => user)
 
   const priceCounting = useCallback(() => {
-    return ingredientsList.reduce((acc: number, topping: Ingredients) => {
-      if (topping.type !== 'bun') return acc + topping.price
-      else return bun ? bun.price * 2 : 0
+    const totalIngredientsPrice = ingredientsList.reduce((acc: number, topping: Ingredients) => {
+      return acc + topping.price
     }, 0)
+    const totalBunPrice = bun ? bun.price * 2 : 0
+
+    return totalIngredientsPrice + totalBunPrice
   }, [ingredientsList, bun])
 
   const [{ isHover }, dragRef] = useDrop<Ingredients, void, { isHover: boolean }>({
@@ -45,8 +51,12 @@ const BurgerConstructor: React.FC = () => {
   }
 
   const getOrder = () => {
-    toggle()
-    dispatch(postOrder(getIngredientsId()))
+    if (isAuth) {
+      toggle()
+      dispatch(postOrder(getIngredientsId()))
+    } else {
+      navigate(AppRoutes.SignIn)
+    }
   }
 
   const modalClose = () => {

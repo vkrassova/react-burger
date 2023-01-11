@@ -1,4 +1,4 @@
-import { API_ORDER } from '../../const'
+import { API_ORDER } from '../../constants'
 import { checkResponse } from '../../utils/utils'
 import { AppDispatch, AppThunk } from '../index'
 

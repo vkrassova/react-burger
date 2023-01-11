@@ -1,0 +1,23 @@
+.list {
+  padding: 0;
+  list-style: none;
+  margin: 0 0 80px;
+
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+.item {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.activeLink {
+ color: white ;
+}
+
+.notActiveLink {
+  color: #8585AD;
+}
