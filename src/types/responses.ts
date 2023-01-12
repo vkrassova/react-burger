@@ -5,14 +5,9 @@ export interface UserModel {
   code?: string | undefined
 }
 
-export type LoginResponse = {
+export interface UserResponse {
   success: boolean
+  user: UserModel
   accessToken: string
   refreshToken: string
-  user: UserModel
-}
-
-export interface UserResponse extends LoginResponse {
-  success: boolean
-  user: UserModel
 }

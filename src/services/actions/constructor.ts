@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Ingredients } from '../../types/data'
-import { TApplicationActions } from '../reducers'
+import { TApplicationActions } from '../../types/reducerActions'
 
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT'
 export const RESET_INGREDIENTS = 'RESET_INGREDIENTS'

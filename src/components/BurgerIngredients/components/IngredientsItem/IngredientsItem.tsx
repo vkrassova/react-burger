@@ -7,7 +7,7 @@ import styles from '../../BurgerIngredients.module.scss'
 
 type IngredientsItemProps = {
   ingredient: Ingredients
-  showDetails: Function
+  showDetails: (ingrediens: Ingredients) => void
   id: string
 }
 
@@ -30,7 +30,7 @@ export const IngredientsItem: React.FC<IngredientsItemProps> = ({ ingredient, sh
       count = 2
     }
     return count
-  }, [ingredientsList, bun])
+  }, [ingredientsList, bun, element])
 
   const [{ opacity }, dragRef] = useDrag({
     type: 'ingredients',

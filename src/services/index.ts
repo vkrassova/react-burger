@@ -1,6 +1,7 @@
 import { applyMiddleware, compose, createStore } from 'redux'
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk'
-import { rootReducer, TApplicationActions } from './reducers'
+import { TApplicationActions } from '../types/reducerActions'
+import { rootReducer } from './reducers'
 
 declare global {
   interface Window {

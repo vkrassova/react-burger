@@ -1,24 +1,9 @@
 import { MODAL_OPEN, MODAL_CLOSE } from '../actions/modal'
-import { Ingredients } from '../../types/data'
-
-type initialStateAction = {
-  item: Ingredients | null
-}
-
-type ModalOpenAction = {
-  type: 'MODAL_OPEN'
-  item: Ingredients
-}
-
-type ModalCloseAction = {
-  type: 'MODAL_CLOSE'
-}
+import {initialStateAction, ModalBaseAction} from '../../types/modalActions'
 
 const initialState = {
   item: null,
 }
-
-export type ModalBaseAction = ModalOpenAction | ModalCloseAction
 
 export const modalReducer = (state: initialStateAction = initialState, action: ModalBaseAction) => {
   switch (action.type) {

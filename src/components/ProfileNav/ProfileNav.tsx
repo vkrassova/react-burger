@@ -35,9 +35,9 @@ export const ProfileNav: React.FC = () => {
         </NavLink>
       </li>
       <li className={style.item}>
-        <a className="text text_type_main-medium text_color_inactive" onClick={handleLogOut}>
+        <button className="text text_type_main-medium text_color_inactive" onClick={handleLogOut}>
           Выход
-        </a>
+        </button>
       </li>
     </ul>
   )

@@ -1,23 +1,5 @@
 import { GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED } from '../actions/ingredients'
-
-import { Ingredients } from '../../types/data'
-
-type IngredientsSuccessAction = {
-  type: 'GET_INGREDIENTS_SUCCESS'
-  ingredients: Ingredients[]
-}
-
-type IngredientsBaseAction = {
-  type: 'GET_INGREDIENTS_REQUEST' | 'GET_INGREDIENTS_FAILED'
-}
-
-type IngredientsState = {
-  ingredients: Ingredients[]
-  ingredientsRequest: boolean
-  ingredientsFailed: boolean
-}
-
-export type IngredientsActions = IngredientsBaseAction | IngredientsSuccessAction
+import { IngredientsActions, IngredientsState } from '../../types/ingredientsActions'
 
 const initialState = {
   ingredients: [],

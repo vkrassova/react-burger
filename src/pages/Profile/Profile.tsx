@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react'
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ProfileNav } from '../../components/ProfileNav/ProfileNav'
 import { patchUser } from '../../services/actions/user'
@@ -15,11 +15,14 @@ export const Profile: React.FC = () => {
     password: string
   }
 
-  const initialUserState = {
-    name: user?.name || '',
-    email: user?.email || '',
-    password: '',
-  }
+  const initialUserState = useMemo(
+    () => ({
+      name: user?.name || '',
+      email: user?.email || '',
+      password: '',
+    }),
+    [user]
+  )
 
   const [fields, setFields] = useState<initialUserStateProps>({ ...initialUserState })
 

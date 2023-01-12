@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 export const useModal = () => {
   const [modalState, setModalState] = useState<boolean>(false)
 
-  const toggle = () => {
+  const toggle = useCallback(() => {
     setModalState(!modalState)
-  }
+  }, [modalState])
 
   useEffect(() => {
     const closeModalPressEsc = (e: KeyboardEvent) => {

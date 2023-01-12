@@ -45,7 +45,7 @@ const App: React.FC = () => {
       type: MODAL_CLOSE,
     })
     toggle()
-  }, [])
+  }, [dispatch, navigate, toggle])
 
   return (
     <>

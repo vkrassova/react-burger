@@ -85,7 +85,7 @@ export const DraggableElement: React.FC<DraggableElementProps> = ({ items, index
 
   const deleteIng = () => {
     dispatch({
-      type: 'DELETE_INGREDIENT',
+      type: DELETE_INGREDIENT,
       id: items.id,
     })
   }
