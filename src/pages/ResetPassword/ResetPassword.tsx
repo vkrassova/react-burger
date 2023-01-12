@@ -1,12 +1,10 @@
 import React, { FormEvent } from 'react'
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import style from '../styles.module.scss'
-import { useForm } from '../../hooks/useForm'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { AppRoutes } from '../../constants'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { resetPassword } from '../../services/actions/user'
+import { useAppDispatch, useForm, useTypedSelector } from '../../hooks'
+import style from '../styles.module.scss'
 
 export const ResetPassword: React.FC = () => {
   const { userData, updateFields } = useForm()

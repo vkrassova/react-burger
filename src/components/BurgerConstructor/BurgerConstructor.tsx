@@ -1,23 +1,22 @@
-import styles from '../BurgerConstructor/BurgerConstructor.module.scss'
-import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useCallback } from 'react'
-import useModal from '../../hooks/useModal'
+import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { useModal, useAppDispatch, useTypedSelector } from '../../hooks'
 import { Ingredients } from '../../types/data'
 import { useDrop } from 'react-dnd'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { postOrder } from '../../services/actions/order'
-import DraggableElement from './components/DraggableElement'
+import { DraggableElement } from './components/DraggableElement'
 import { addToConstructor } from '../../services/actions/constructor'
 import { MODAL_CLOSE } from '../../services/actions/modal'
 import { RESET_INGREDIENTS } from '../../services/actions/constructor'
-import Modal from '../Modal/Modal'
-import OrderDetails from '../OrderDetails/OrderDetails'
 import { useNavigate } from 'react-router-dom'
 import { AppRoutes } from '../../constants'
+import styles from '../BurgerConstructor/BurgerConstructor.module.scss'
+import { OrderDetails } from '../OrderDetails/OrderDetails'
+import { Modal } from '../Modal/Modal'
 
-const BurgerConstructor: React.FC = () => {
+export const BurgerConstructor: React.FC = () => {
   const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)
+  const { orderRequest, orderFailed } = useTypedSelector((store) => store.order)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -121,12 +120,11 @@ const BurgerConstructor: React.FC = () => {
         </Button>
         {modalState && (
           <Modal onCloseButtonClick={modalClose}>
-            <OrderDetails order={number} />
+            {orderRequest && <p className="text text_type_main-large">Загрузка...</p>}
+            {!orderFailed && !orderRequest && <OrderDetails order={number} />}
           </Modal>
         )}
       </div>
     </div>
   )
 }
-
-export default BurgerConstructor

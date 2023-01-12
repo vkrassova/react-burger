@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
 import { getIngredients } from '../../services/actions/ingredients'
-import { useAppDispatch } from '../../hooks/useAppDispatch'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { useAppDispatch, useTypedSelector } from '../../hooks'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import { BurgerConstructor } from '../../components/BurgerConstructor/BurgerConstructor'
+import { BurgerIngredients } from '../../components/BurgerIngredients/BurgerIngredients'
 import styles from '../../components/App/App.module.scss'
-import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients'
-import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor'
 
 export const Main: React.FC = () => {
   const dispatch = useAppDispatch()

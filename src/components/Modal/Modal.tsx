@@ -1,8 +1,8 @@
 import React, { PropsWithChildren } from 'react'
 import ReactDOM from 'react-dom'
-import style from './Modal.module.scss'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import ModalOverlay from './ModalOverlay'
+import { ModalOverlay } from './ModalOverlay'
+import style from './Modal.module.scss'
 
 const modalRoot = document.getElementById('react-modals') as HTMLElement
 
@@ -11,7 +11,7 @@ interface ModalsProps extends PropsWithChildren {
   onCloseButtonClick: () => void
 }
 
-const Modal: React.FC<ModalsProps> = ({ title, onCloseButtonClick, children }) => {
+export const Modal: React.FC<ModalsProps> = ({ title, onCloseButtonClick, children }) => {
   return ReactDOM.createPortal(
     <>
       <ModalOverlay onOverlayClick={onCloseButtonClick} />
@@ -32,5 +32,3 @@ const Modal: React.FC<ModalsProps> = ({ title, onCloseButtonClick, children }) =
     modalRoot
   )
 }
-
-export default Modal

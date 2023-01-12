@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 
-const useModal = () => {
-  const [modalState, setModalState] = useState(false)
+export const useModal = () => {
+  const [modalState, setModalState] = useState<boolean>(false)
 
   const toggle = () => {
     setModalState(!modalState)
   }
 
   useEffect(() => {
-    const closeModalPressEsc = (e: { key: string }) => {
+    const closeModalPressEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         toggle()
       }
@@ -26,5 +26,3 @@ const useModal = () => {
     toggle,
   }
 }
-
-export default useModal

@@ -1,10 +1,10 @@
 import styles from '../BurgerConstructor.module.scss'
-import { ConstructorElement, DragIcon, DeleteIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useRef } from 'react'
 import { Ingredients } from '../../../types/data'
 import type { Identifier } from 'dnd-core'
 import { useDrop, useDrag, DropTargetMonitor } from 'react-dnd'
-import { useAppDispatch } from '../../../hooks/useAppDispatch'
+import { useAppDispatch } from '../../../hooks'
 import { MOVE_CARD } from '../../../services/actions/constructor'
 import { DELETE_INGREDIENT } from '../../../services/actions/constructor'
 
@@ -19,7 +19,7 @@ interface DragItem {
   type: string
 }
 
-const DraggableElement: React.FC<DraggableElementProps> = ({ items, index }) => {
+export const DraggableElement: React.FC<DraggableElementProps> = ({ items, index }) => {
   const { image, price, name } = items
   const dispatch = useAppDispatch()
   const ref = useRef<HTMLDivElement | null>(null)
@@ -103,5 +103,3 @@ const DraggableElement: React.FC<DraggableElementProps> = ({ items, index }) => 
     </div>
   )
 }
-
-export default DraggableElement

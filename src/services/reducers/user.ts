@@ -130,7 +130,7 @@ const initialState = {
 
 export const userReducer = (state: UserRequestState = initialState, action: UserRequestsActions) => {
   switch (action.type) {
-    case 'GET_USER_REQUEST': {
+    case GET_USER_REQUEST: {
       return {
         ...state,
         request: true,
@@ -138,7 +138,7 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         error: false,
       }
     }
-    case 'GET_USER_SUCCESS': {
+    case GET_USER_SUCCESS: {
       return {
         ...state,
         user: action.payload,
@@ -146,7 +146,7 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         isAuth: true,
       }
     }
-    case 'GET_USER_FAILED': {
+    case GET_USER_FAILED: {
       return {
         ...state,
         error: true,
@@ -154,13 +154,13 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         isAuth: false,
       }
     }
-    case 'LOGIN_REQUEST': {
+    case LOGIN_REQUEST: {
       return {
         ...state,
         request: true,
       }
     }
-    case 'LOGIN_SUCCESS': {
+    case LOGIN_SUCCESS: {
       return {
         ...state,
         success: true,
@@ -168,20 +168,20 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         user: action.payload,
       }
     }
-    case 'LOGIN_FAILED': {
+    case LOGIN_FAILED: {
       return {
         ...state,
         error: true,
       }
     }
-    case 'REGISTER_REQUEST': {
+    case REGISTER_REQUEST: {
       return {
         ...state,
         request: true,
         error: false,
       }
     }
-    case 'REGISTER_SUCCESS': {
+    case REGISTER_SUCCESS: {
       return {
         ...state,
         user: action.payload,
@@ -189,21 +189,21 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         error: false,
       }
     }
-    case 'REGISTER_FAILED': {
+    case REGISTER_FAILED: {
       return {
         ...state,
         request: false,
         error: true,
       }
     }
-    case 'RESET_PASSWORD_REQUEST': {
+    case RESET_PASSWORD_REQUEST: {
       return {
         ...state,
         request: true,
         error: false,
       }
     }
-    case 'RESET_PASSWORD_SUCCESS': {
+    case RESET_PASSWORD_SUCCESS: {
       return {
         ...state,
         request: false,
@@ -211,21 +211,21 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         user: action.payload,
       }
     }
-    case 'RESET_PASSWORD_FAILED': {
+    case RESET_PASSWORD_FAILED: {
       return {
         ...state,
         error: true,
         request: false,
       }
     }
-    case 'FORGOT_PASSWORD_REQUEST': {
+    case FORGOT_PASSWORD_REQUEST: {
       return {
         ...state,
         request: true,
         error: false,
       }
     }
-    case 'FORGOT_PASSWORD_SUCCESS': {
+    case FORGOT_PASSWORD_SUCCESS: {
       return {
         ...state,
         request: false,
@@ -234,7 +234,7 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         user: action.payload,
       }
     }
-    case 'FORGOT_PASSWORD_FAILED': {
+    case FORGOT_PASSWORD_FAILED: {
       return {
         ...state,
         error: true,
@@ -242,54 +242,54 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         isResetPassword: false,
       }
     }
-    case 'UPDATE_TOKEN_REQUEST': {
+    case UPDATE_TOKEN_REQUEST: {
       return {
         ...state,
         request: true,
       }
     }
-    case 'UPDATE_TOKEN_SUCCESS': {
+    case UPDATE_TOKEN_SUCCESS: {
       return {
         ...state,
         request: false,
         error: false,
       }
     }
-    case 'UPDATE_TOKEN_FAILED': {
+    case UPDATE_TOKEN_FAILED: {
       return {
         ...state,
         error: true,
         request: false,
       }
     }
-    case 'POST_USER_REQUEST': {
+    case POST_USER_REQUEST: {
       return {
         ...state,
         request: true,
       }
     }
-    case 'POST_USER_SUCCESS': {
+    case POST_USER_SUCCESS: {
       return {
         ...state,
         user: action.payload,
         request: false,
       }
     }
-    case 'POST_USER_ERROR': {
+    case POST_USER_ERROR: {
       return {
         ...state,
         error: true,
         request: false,
       }
     }
-    case 'LOGOUT_REQUEST': {
+    case LOGOUT_REQUEST: {
       return {
         ...state,
         error: false,
         request: true,
       }
     }
-    case 'LOGOUT_SUCCESS': {
+    case LOGOUT_SUCCESS: {
       return {
         ...state,
         request: false,
@@ -298,7 +298,7 @@ export const userReducer = (state: UserRequestState = initialState, action: User
       }
     }
 
-    case 'LOGOUT_FAILED': {
+    case LOGOUT_FAILED: {
       return {
         ...state,
         error: true,

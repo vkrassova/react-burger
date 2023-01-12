@@ -2,7 +2,7 @@ import React from 'react'
 import style from './ProfileNav.module.scss'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { AppRoutes } from '../../constants'
-import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useAppDispatch } from '../../hooks'
 import { signOut } from '../../services/actions/user'
 
 export const ProfileNav: React.FC = () => {

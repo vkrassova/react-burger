@@ -1,18 +1,18 @@
+import React from 'react'
 import { Ingredients } from '../../../../types/data'
-import React, { Key } from 'react'
-import styles from '../../BurgerIngredients.module.scss'
-import IngredientsItem from '../IngredientsItem/IngredientsItem'
+import { IngredientsItem } from '../IngredientsItem/IngredientsItem'
 import { Link, useLocation } from 'react-router-dom'
+import styles from '../../BurgerIngredients.module.scss'
 
 interface IngredientsListProps {
   ingredientType: string
   title: string
   ingredients: Ingredients[]
   ref: React.ForwardedRef<HTMLParagraphElement>
-  showDetails: Function
+  showDetails: (ingredients: Ingredients) => void
 }
 
-const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(
+export const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(
   ({ ingredients, ingredientType, title, showDetails }, ref: React.ForwardedRef<HTMLParagraphElement>) => {
     const location = useLocation()
 
@@ -42,5 +42,3 @@ const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(
     )
   }
 )
-
-export default BurgerCategory

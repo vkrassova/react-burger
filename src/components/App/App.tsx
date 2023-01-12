@@ -1,18 +1,29 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { AppHeader } from '../AppHeader/AppHeader'
 import { getIngredients } from '../../services/actions/ingredients'
-import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { AppRoutes } from '../../constants'
 import { Main, Login, Register, Profile, ForgotPassword, ResetPassword, NotFound } from '../../pages'
-import Modal from '../Modal/Modal'
-import IngredientDetails from '../IngredientDetails/IngredientDetails'
-import useModal from '../../hooks/useModal'
+import { useModal, useAppDispatch } from '../../hooks'
 import { getUser } from '../../services/actions/user'
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute'
 import { MODAL_CLOSE } from '../../services/actions/modal'
 import { Feed } from '../../pages/Feed/Feed'
 import { Orders } from '../../pages/Orders/Orders'
+import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
+import { Modal } from '../Modal/Modal'
+
+export interface LocationParams<T> {
+  pathname: string
+  state: T
+  search: string
+  hash: string
+  key: string
+}
+
+interface LocationState {
+  background: boolean
+}
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -23,17 +34,18 @@ const App: React.FC = () => {
     dispatch(getUser())
   }, [dispatch])
 
-  const location = useLocation()
+  const location = useLocation() as LocationParams<LocationState>
   const navigate = useNavigate()
-  let background = location.state && location.state.background
 
-  const handleModalClose = () => {
+  const background = location.state && location.state.background
+
+  const handleModalClose = useCallback(() => {
     navigate(-1)
     dispatch({
       type: MODAL_CLOSE,
     })
     toggle()
-  }
+  }, [])
 
   return (
     <>

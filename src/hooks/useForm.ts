@@ -1,7 +1,14 @@
 import { useState } from 'react'
 import { UserModel } from '../types/responses'
 
-const INITIAL_DATA = {
+type TInitialForm = {
+  name: string
+  email: string
+  password: string
+  code: string
+}
+
+const INITIAL_FORM_DATA = {
   name: '',
   email: '',
   password: '',
@@ -9,7 +16,7 @@ const INITIAL_DATA = {
 }
 
 export const useForm = () => {
-  const [userData, setUserData] = useState(INITIAL_DATA)
+  const [userData, setUserData] = useState<TInitialForm>(INITIAL_FORM_DATA)
 
   const updateFields = (fields: Partial<UserModel>) => {
     setUserData((prevState) => {
@@ -21,7 +28,7 @@ export const useForm = () => {
   }
 
   const clearFields = () => {
-    setUserData(INITIAL_DATA)
+    setUserData(INITIAL_FORM_DATA)
   }
 
   return {
