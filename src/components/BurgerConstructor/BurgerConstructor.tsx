@@ -20,7 +20,7 @@ export const BurgerConstructor: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const { number } = useTypedSelector((store) => store.order)
+  const { order } = useTypedSelector((store) => store.order)
   const { isAuth } = useTypedSelector(({ user }) => user)
 
   const priceCounting = useCallback(() => {
@@ -44,7 +44,7 @@ export const BurgerConstructor: React.FC = () => {
 
   const { modalState, toggle } = useModal()
 
-  const getIngredientsId = () => {
+  const getIngredientsId = (): (string | undefined)[] => {
     const toppingId = ingredientsList?.map((el) => el._id)
     return [bun?._id, ...toppingId, bun?._id]
   }
@@ -121,7 +121,7 @@ export const BurgerConstructor: React.FC = () => {
         {modalState && (
           <Modal onCloseButtonClick={modalClose}>
             {orderRequest && <p className="text text_type_main-large">Загрузка...</p>}
-            {!orderFailed && !orderRequest && <OrderDetails order={number} />}
+            {!orderFailed && !orderRequest && <OrderDetails number={order?.number} />}
           </Modal>
         )}
       </div>

@@ -1,24 +1,28 @@
 import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_FAILED } from '../actions/order'
 
 type OrderBaseAction = {
-  type: 'GET_ORDER_REQUEST' | 'GET_ORDER_FAILED'
+  readonly type: 'GET_ORDER_REQUEST' | 'GET_ORDER_FAILED'
+}
+
+export type OrderNumber = {
+  number: number | undefined
 }
 
 type OrderSuccessAction = {
-  type: 'GET_ORDER_SUCCESS'
-  number: number
+  readonly type: 'GET_ORDER_SUCCESS'
+  payload: OrderNumber
 }
 
 export type OrderActions = OrderBaseAction | OrderSuccessAction
 
 type OrderSate = {
-  number: number | string
+  order: null | OrderNumber
   orderRequest: boolean
   orderFailed: boolean
 }
 
 const initialState = {
-  number: '',
+  order: null,
   orderRequest: false,
   orderFailed: false,
 }
@@ -34,7 +38,7 @@ export const orderReducer = (state: OrderSate = initialState, action: OrderActio
     case GET_ORDER_SUCCESS: {
       return {
         ...state,
-        number: action.number,
+        order: action.payload,
         orderRequest: false,
         orderFailed: false,
       }

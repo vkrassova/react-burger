@@ -1,5 +1,5 @@
 import { MODAL_OPEN, MODAL_CLOSE } from '../actions/modal'
-import {initialStateAction, ModalBaseAction} from '../../types/modalActions'
+import { initialStateAction, ModalBaseAction } from '../../types/modalActions'
 
 const initialState = {
   item: null,

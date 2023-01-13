@@ -111,6 +111,8 @@ export const signIn = (user: UserModel) => (dispatch: AppDispatch) => {
           payload: res.user,
         })
 
+        console.log(res)
+
         localStorage.setItem('refreshToken', res.refreshToken)
         localStorage.setItem('accessToken', res.accessToken)
       } else {
