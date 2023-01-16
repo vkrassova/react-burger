@@ -1,8 +1,7 @@
 import React from 'react'
 import style from './OrderDetails.module.scss'
 import IconDone from './../../images/done.png'
-
-import { OrderNumber } from '../../services/reducers/order'
+import { OrderNumber } from '../../types/responses'
 
 export const OrderDetails: React.FC<OrderNumber> = ({ number }) => {
   return (

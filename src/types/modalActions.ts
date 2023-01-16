@@ -5,12 +5,12 @@ export type initialStateAction = {
 }
 
 type ModalOpenAction = {
-  type: 'MODAL_OPEN'
+  readonly type: 'MODAL_OPEN'
   item: Ingredients
 }
 
 export type ModalCloseAction = {
-  type: 'MODAL_CLOSE'
+  readonly type: 'MODAL_CLOSE'
 }
 
 export type ModalBaseAction = ModalOpenAction | ModalCloseAction

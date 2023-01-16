@@ -14,7 +14,6 @@ export const postOrder =
 
     return getOrderRequest(data)
       .then((res) => {
-        console.log(res)
         dispatch({
           type: GET_ORDER_SUCCESS,
           payload: res.order,

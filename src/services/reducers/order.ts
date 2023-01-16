@@ -1,25 +1,5 @@
 import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_FAILED } from '../actions/order'
-
-type OrderBaseAction = {
-  readonly type: 'GET_ORDER_REQUEST' | 'GET_ORDER_FAILED'
-}
-
-export type OrderNumber = {
-  number: number | undefined
-}
-
-type OrderSuccessAction = {
-  readonly type: 'GET_ORDER_SUCCESS'
-  payload: OrderNumber
-}
-
-export type OrderActions = OrderBaseAction | OrderSuccessAction
-
-type OrderSate = {
-  order: null | OrderNumber
-  orderRequest: boolean
-  orderFailed: boolean
-}
+import { OrderActions, OrderSate } from '../../types/order'
 
 const initialState = {
   order: null,

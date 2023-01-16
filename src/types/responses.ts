@@ -11,3 +11,12 @@ export interface UserResponse {
   accessToken: string
   refreshToken: string
 }
+
+export interface OrderNumber {
+  number: number | undefined
+}
+
+export interface OrderResponse {
+  order: OrderNumber
+  success: boolean
+}

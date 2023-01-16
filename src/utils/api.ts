@@ -1,13 +1,6 @@
 import { BASE_URL } from '../constants'
 import { checkResponse } from './utils'
-import { UserModel, UserResponse } from '../types/responses'
-
-import { OrderNumber } from '../services/reducers/order'
-
-type OrderResponse = {
-  order: OrderNumber
-  success: boolean
-}
+import { OrderResponse, UserModel, UserResponse } from '../types/responses'
 
 export const getOrderRequest = (data: (string | undefined)[]): Promise<OrderResponse> => {
   const raw = JSON.stringify({
