@@ -1,86 +1,88 @@
-import React, {useCallback, useEffect} from 'react'
-import {Routes, Route, useNavigate, useLocation} from 'react-router-dom'
-import {AppHeader} from '../AppHeader/AppHeader'
-import {getIngredients} from '../../services/actions/ingredients'
-import {AppRoutes} from '../../constants'
-import {Main, Login, Register, Profile, ForgotPassword, ResetPassword, NotFound} from '../../pages'
-import {useModal, useAppDispatch} from '../../hooks'
-import {getUser} from '../../services/actions/user'
-import {ProtectedRoute} from '../ProtectedRoute/ProtectedRoute'
-import {MODAL_CLOSE} from '../../services/actions/modal'
-import {Feed} from '../../pages/Feed/Feed'
-import {Orders} from '../../pages/Orders/Orders'
-import {IngredientDetails} from '../IngredientDetails/IngredientDetails'
-import {Modal} from '../Modal/Modal'
+import React, { useCallback, useEffect } from 'react'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { AppHeader } from '../AppHeader/AppHeader'
+import { getIngredients } from '../../services/actions/ingredients'
+import { AppRoutes } from '../../constants'
+import { Main, Login, Register, Profile, ForgotPassword, ResetPassword, NotFound } from '../../pages'
+import { useModal, useAppDispatch, useTypedSelector } from '../../hooks'
+import { getUser } from '../../services/actions/user'
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute'
+import { MODAL_CLOSE } from '../../services/actions/modal'
+import { Feed } from '../../pages/Feed/Feed'
+import { Orders } from '../../pages/Orders/Orders'
+import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
+import { Modal } from '../Modal/Modal'
 
 export interface LocationParams<T> {
-    pathname: string
-    state: T
-    search: string
-    hash: string
-    key: string
+  pathname: string
+  state: T
+  search: string
+  hash: string
+  key: string
 }
 
 interface LocationState {
-    background: string
+  background: string
 }
 
 const App: React.FC = () => {
-    const dispatch = useAppDispatch()
-    const {toggle} = useModal()
+  const dispatch = useAppDispatch()
+  const { toggle } = useModal()
 
-    useEffect(() => {
-        dispatch(getIngredients())
-        dispatch(getUser())
-    }, [dispatch])
+  const { isActive } = useTypedSelector((store) => store.modal)
 
-    const location = useLocation() as LocationParams<LocationState>
-    const navigate = useNavigate()
+  useEffect(() => {
+    dispatch(getIngredients())
+    dispatch(getUser())
+  }, [dispatch])
 
-    const background = location.state && location.state.background
+  const location = useLocation() as LocationParams<LocationState>
+  const navigate = useNavigate()
 
-    const handleModalClose = useCallback(() => {
-        navigate(-1)
-        dispatch({
-            type: MODAL_CLOSE,
-        })
-        toggle()
-    }, [dispatch, navigate, toggle])
+  const background = location.state && location.state.background
 
-    return (
-        <>
-            <AppHeader/>
-            <Routes location={background || location}>
-                <Route index path={AppRoutes.Main} element={<Main/>}/>
-                <Route path={AppRoutes.IngredientsId} element={<IngredientDetails/>}/>
-                <Route element={<ProtectedRoute userAuthorized={false}/>}>
-                    <Route path={AppRoutes.Profile} element={<Profile/>}/>
-                    <Route path={AppRoutes.Feed} element={<Feed/>}/>
-                    <Route path={AppRoutes.ProfileOrders} element={<Orders/>}/>
-                </Route>
-                <Route element={<ProtectedRoute userAuthorized={true}/>}>
-                    <Route path={AppRoutes.SignIn} element={<Login/>}/>
-                    <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword/>}/>
-                    <Route path={AppRoutes.ResetPassword} element={<ResetPassword/>}/>
-                    <Route path={AppRoutes.Register} element={<Register/>}/>
-                    <Route path="*" element={<NotFound/>}/>
-                </Route>
-            </Routes>
+  const handleModalClose = useCallback(() => {
+    navigate(-1)
+    dispatch({
+      type: MODAL_CLOSE,
+    })
+    toggle()
+  }, [dispatch, navigate, toggle])
 
-            {background && (
-                <Routes>
-                    <Route
-                        path={AppRoutes.IngredientsId}
-                        element={
-                            <Modal onCloseButtonClick={handleModalClose} title="Детали ингридиента">
-                                <IngredientDetails/>
-                            </Modal>
-                        }
-                    />
-                </Routes>
-            )}
-        </>
-    )
+  return (
+    <>
+      <AppHeader />
+      <Routes location={background || location}>
+        <Route index path={AppRoutes.Main} element={<Main />} />
+        <Route path={AppRoutes.IngredientsId} element={<IngredientDetails />} />
+        <Route element={<ProtectedRoute userAuthorized={false} />}>
+          <Route path={AppRoutes.Profile} element={<Profile />} />
+          <Route path={AppRoutes.Feed} element={<Feed />} />
+          <Route path={AppRoutes.ProfileOrders} element={<Orders />} />
+        </Route>
+        <Route element={<ProtectedRoute userAuthorized={true} />}>
+          <Route path={AppRoutes.SignIn} element={<Login />} />
+          <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword />} />
+          <Route path={AppRoutes.ResetPassword} element={<ResetPassword />} />
+          <Route path={AppRoutes.Register} element={<Register />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+
+      {background && isActive && (
+        <Routes>
+          <Route
+            path={AppRoutes.IngredientsId}
+            element={
+              <Modal onCloseButtonClick={handleModalClose} title="Детали ингридиента">
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+    </>
+  )
 }
 
 export default App

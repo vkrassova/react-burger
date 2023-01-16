@@ -16,11 +16,10 @@ import { Modal } from '../Modal/Modal'
 
 export const BurgerConstructor: React.FC = () => {
   const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)
-  const { orderRequest, orderFailed } = useTypedSelector((store) => store.order)
+  const { orderRequest, orderFailed, order } = useTypedSelector((store) => store.order)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const { order } = useTypedSelector((store) => store.order)
   const { isAuth } = useTypedSelector(({ user }) => user)
 
   const priceCounting = useCallback(() => {

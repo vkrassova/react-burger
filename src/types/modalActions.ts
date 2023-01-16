@@ -1,12 +1,11 @@
 import { Ingredients } from './data'
 
 export type initialStateAction = {
-  item: Ingredients | null
+  isActive: boolean
 }
 
 type ModalOpenAction = {
   readonly type: 'MODAL_OPEN'
-  item: Ingredients
 }
 
 export type ModalCloseAction = {

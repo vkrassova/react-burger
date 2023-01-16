@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
-import { getIngredients } from '../../services/actions/ingredients'
-import { useAppDispatch, useTypedSelector } from '../../hooks'
+import React from 'react'
+import { useTypedSelector } from '../../hooks'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { BurgerConstructor } from '../../components/BurgerConstructor/BurgerConstructor'
@@ -8,12 +7,7 @@ import { BurgerIngredients } from '../../components/BurgerIngredients/BurgerIngr
 import styles from '../../components/App/App.module.scss'
 
 export const Main: React.FC = () => {
-  const dispatch = useAppDispatch()
   const { ingredients, ingredientsRequest, ingredientsFailed } = useTypedSelector((store) => store.ingredients)
-
-  useEffect(() => {
-    dispatch(getIngredients())
-  }, [dispatch])
 
   return (
     <div className={styles.wrapper}>

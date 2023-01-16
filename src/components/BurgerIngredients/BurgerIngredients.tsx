@@ -1,10 +1,9 @@
 import React, { useRef } from 'react'
-import { useModal, useTypedSelector, useAppDispatch } from '../../hooks'
+import { useTypedSelector, useAppDispatch } from '../../hooks'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { INGREDIENT_TYPES } from '../../constants'
 import { getRect, tabsClickHandler } from '../../utils/utils'
 import { MODAL_OPEN } from '../../services/actions/modal'
-import { Ingredients } from '../../types/data'
 import styles from '../BurgerIngredients/BurgerIngredients.module.scss'
 import { BurgerCategory } from './components/BurgerCategory/BurgerCategory'
 
@@ -17,13 +16,9 @@ export const BurgerIngredients: React.FC = () => {
 
   const dispatch = useAppDispatch()
 
-  const { toggle } = useModal()
-
-  const handleClickItem = (ingredient: Ingredients) => {
-    toggle()
+  const handleClickItem = () => {
     dispatch({
       type: MODAL_OPEN,
-      item: ingredient,
     })
   }
 
