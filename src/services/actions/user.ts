@@ -1,4 +1,5 @@
 import { AppDispatch, AppThunk } from '../index'
+import { UserModel } from '../../types/responses'
 import {
   getUserRequest,
   login,
@@ -9,7 +10,20 @@ import {
   patchUserRequest,
   logOut,
 } from '../../utils/api'
-import { UserModel } from '../../types/responses'
+
+import {
+  getUserRequestActions,
+  getUserSuccessAction,
+  loginRequestActions,
+  loginSuccessAction,
+  loginFailedActions,
+  registerFailedAction,
+  registerRequestAction,
+  registerSuccessAction,
+  resetPasswordSuccessAction,
+  resetPasswordFailedAction,
+  resetPasswordRequestAction,
+} from '../../types/user'
 
 export const GET_USER_REQUEST = 'GET_USER_REQUEST'
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
@@ -52,9 +66,7 @@ const refreshToken =
     return refreshTokenRequest()
       .then((res) => {
         if (res && res.success) {
-          dispatch({
-            type: UPDATE_TOKEN_FAILED,
-          })
+          dispatch(getUserRequestActions)
 
           dispatch(afterRefresh)
 
@@ -76,106 +88,72 @@ const refreshToken =
   }
 
 export const getUser = (): AppThunk => (dispatch: AppDispatch) => {
-  dispatch({
-    type: GET_USER_REQUEST,
-  })
+  dispatch(getUserRequestActions)
   return getUserRequest()
     .then((res) => {
       if (res && res.success) {
-        dispatch({
-          type: GET_USER_SUCCESS,
-          payload: res.user,
-        })
+        dispatch(getUserSuccessAction(res.user))
       }
     })
     .catch((err) => {
       if (err.message === 'jwt expired') {
         dispatch(refreshToken(getUser()))
       } else {
-        dispatch({
-          type: GET_USER_FAILED,
-        })
+        dispatch(getUserRequestActions)
       }
     })
 }
 
 export const signIn = (user: UserModel) => (dispatch: AppDispatch) => {
-  dispatch({
-    type: LOGIN_REQUEST,
-  })
+  dispatch(loginRequestActions)
   return login(user)
     .then((res) => {
       if (res && res.success) {
-        dispatch({
-          type: LOGIN_SUCCESS,
-          payload: res.user,
-        })
+        dispatch(loginSuccessAction(res.user))
 
         localStorage.setItem('refreshToken', res.refreshToken)
         localStorage.setItem('accessToken', res.accessToken)
       } else {
-        dispatch({
-          type: LOGIN_FAILED,
-        })
+        dispatch(loginRequestActions)
       }
 
       return res
     })
     .catch(() => {
-      dispatch({
-        type: LOGIN_FAILED,
-      })
+      dispatch(loginFailedActions)
     })
 }
 
 export const signUp = (user: UserModel) => (dispatch: AppDispatch) => {
-  dispatch({
-    type: REGISTER_REQUEST,
-  })
+  dispatch(registerRequestAction)
   return userRegisterRequest(user)
     .then((res) => {
       if (res && res.success) {
-        dispatch({
-          type: REGISTER_SUCCESS,
-          payload: res.user,
-        })
+        dispatch(registerSuccessAction(res.user))
         localStorage.setItem('refreshToken', res.refreshToken)
         localStorage.setItem('accessToken', res.accessToken)
       } else {
-        dispatch({
-          type: REGISTER_FAILED,
-        })
+        dispatch(registerFailedAction)
       }
     })
-    .catch((err) => {
-      dispatch({
-        type: REGISTER_FAILED,
-      })
+    .catch(() => {
+      dispatch(registerFailedAction)
     })
 }
 
 export const resetPassword = (user: UserModel) => (dispatch: AppDispatch) => {
-  dispatch({
-    type: RESET_PASSWORD_REQUEST,
-  })
+  dispatch(resetPasswordRequestAction)
 
   return resetPasswordRequest(user)
     .then((res) => {
       if (res && res.success) {
-        dispatch({
-          type: RESET_PASSWORD_SUCCESS,
-          payload: res.user,
-        })
+        dispatch(resetPasswordSuccessAction(res.user))
       } else {
-        dispatch({
-          type: RESET_PASSWORD_FAILED,
-        })
+        dispatch(resetPasswordFailedAction)
       }
     })
     .catch(() => {
-      dispatch({
-        type: RESET_PASSWORD_FAILED,
-      })
+      dispatch(resetPasswordFailedAction)
     })
 }
 
