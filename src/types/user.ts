@@ -1,32 +1,24 @@
 import { UserModel } from './responses'
-
-export enum userActions {
-  GET_USER_REQUEST = 'GET_USER_REQUEST',
-  GET_USER_SUCCESS = 'GET_USER_SUCCESS',
-  GET_USER_FAILED = 'GET_USER_FAILED',
-}
-
-export enum loginActions {
-  LOGIN_SUCCESS = 'LOGIN_SUCCESS',
-  LOGIN_REQUEST = 'LOGIN_REQUEST',
-  LOGIN_FAILED = 'LOGIN_FAILED',
-}
-
-export enum registerActions {
-  REGISTER_REQUEST = 'REGISTER_REQUEST',
-  REGISTER_SUCCESS = 'REGISTER_SUCCESS',
-  REGISTER_FAILED = 'REGISTER_FAILED',
-}
-
-export enum resetPasswordActions {
-  RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST',
-  RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS',
-  RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED',
-}
+import {
+  forgotPasswordActions,
+  loginActions,
+  postUserActions,
+  registerActions,
+  resetPasswordActions,
+  updateTokenActions,
+  userActions,
+  logoutActions,
+} from '../constants'
 
 export const getUserRequestActions = () => {
   return {
-    type: userActions.GET_USER_FAILED || userActions.GET_USER_REQUEST,
+    type: userActions.GET_USER_REQUEST,
+  }
+}
+
+export const getUserFailedAction = () => {
+  return {
+    type: userActions.GET_USER_FAILED,
   }
 }
 
@@ -53,6 +45,24 @@ export const loginSuccessAction = (payload: UserModel) => {
   return {
     type: loginActions.LOGIN_SUCCESS,
     payload,
+  }
+}
+
+export const logoutRequestActions = () => {
+  return {
+    type: logoutActions.LOGOUT_REQUEST,
+  }
+}
+
+export const logoutFailedActions = () => {
+  return {
+    type: logoutActions.LOGOUT_FAILED,
+  }
+}
+
+export const logoutSuccessAction = () => {
+  return {
+    type: logoutActions.LOGOUT_SUCCESS,
   }
 }
 
@@ -94,6 +104,56 @@ export const resetPasswordSuccessAction = (payload: UserModel) => {
   }
 }
 
+export const forgotPasswordRequestAction = () => {
+  return {
+    type: forgotPasswordActions.FORGOT_PASSWORD_REQUEST,
+  }
+}
+
+export const forgotPasswordFailedAction = () => {
+  return {
+    type: forgotPasswordActions.FORGOT_PASSWORD_FAILED,
+  }
+}
+
+export const forgotPasswordSuccessAction = (payload: UserModel) => {
+  return {
+    type: forgotPasswordActions.FORGOT_PASSWORD_SUCCESS,
+    payload,
+  }
+}
+
+export const updateTokenRequestAction = () => {
+  return {
+    type: updateTokenActions.UPDATE_TOKEN_REQUEST,
+  }
+}
+
+export const updateTokenFailedAction = () => {
+  return {
+    type: updateTokenActions.UPDATE_TOKEN_FAILED,
+  }
+}
+
+export const postUserSuccessAction = (payload: UserModel) => {
+  return {
+    type: postUserActions.POST_USER_SUCCESS,
+    payload,
+  }
+}
+
+export const postUserRequestAction = () => {
+  return {
+    type: postUserActions.POST_USER_REQUEST,
+  }
+}
+
+export const postUserFailedAction = () => {
+  return {
+    type: postUserActions.POST_USER_FAILED,
+  }
+}
+
 interface GetUserRequestActions {
   readonly type: userActions
   payload: UserModel
@@ -114,34 +174,22 @@ interface ResetPasswordRequestActions {
   payload: UserModel
 }
 
-interface ForgotPasswordSuccessActions {
-  readonly type: 'FORGOT_PASSWORD_SUCCESS'
+interface ForgotPasswordRequestActions {
+  readonly type: forgotPasswordActions
   payload: UserModel
 }
 
-interface ForgotPasswordRequestActions {
-  readonly type: 'FORGOT_PASSWORD_REQUEST' | 'FORGOT_PASSWORD_FAILED'
-}
-
 interface UpdateTokenRequestAction {
-  readonly type: 'UPDATE_TOKEN_REQUEST' | 'UPDATE_TOKEN_FAILED'
+  readonly type: updateTokenActions
 }
 
-interface UpdateTokenSuccessAction {
-  readonly type: 'UPDATE_TOKEN_SUCCESS'
-}
-
-interface UserEditRequestActions {
-  readonly type: 'POST_USER_REQUEST' | 'POST_USER_ERROR'
-}
-
-interface UserEditSuccessActions {
-  readonly type: 'POST_USER_SUCCESS'
+interface postRequestActions {
+  readonly type: postUserActions
   payload: UserModel
 }
 
 interface UserLogoutActions {
-  readonly type: 'LOGOUT_REQUEST' | 'LOGOUT_FAILED' | 'LOGOUT_SUCCESS'
+  readonly type: logoutActions
 }
 
 export type UserRequestsActions =
@@ -150,11 +198,8 @@ export type UserRequestsActions =
   | RegisterRequestActions
   | ResetPasswordRequestActions
   | ForgotPasswordRequestActions
-  | ForgotPasswordSuccessActions
+  | postRequestActions
   | UpdateTokenRequestAction
-  | UpdateTokenSuccessAction
-  | UserEditRequestActions
-  | UserEditSuccessActions
   | UserLogoutActions
 
 export type UserRequestState = {
