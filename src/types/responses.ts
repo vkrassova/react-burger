@@ -1,3 +1,5 @@
+import { Ingredients } from './data'
+
 export interface UserModel {
   email: string | undefined
   password?: string | undefined
@@ -10,6 +12,11 @@ export interface UserResponse {
   user: UserModel
   accessToken: string
   refreshToken: string
+}
+
+export interface IngredientsResponse {
+  success: boolean
+  data: Ingredients[]
 }
 
 export interface OrderNumber {

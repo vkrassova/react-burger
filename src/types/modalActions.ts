@@ -1,15 +1,11 @@
-import { Ingredients } from './data'
+import { modalActions } from '../services/actions/modal'
 
 export type initialStateAction = {
   isActive: boolean
 }
 
-type ModalOpenAction = {
-  readonly type: 'MODAL_OPEN'
+type ModalAction = {
+  readonly type: modalActions
 }
 
-export type ModalCloseAction = {
-  readonly type: 'MODAL_CLOSE'
-}
-
-export type ModalBaseAction = ModalOpenAction | ModalCloseAction
+export type ModalBaseAction = ModalAction

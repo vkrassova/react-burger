@@ -2,7 +2,7 @@ import { Ingredients } from './data'
 
 type IngredientsSuccessAction = {
   readonly type: 'GET_INGREDIENTS_SUCCESS'
-  ingredients: Ingredients[]
+  payload: Ingredients[]
 }
 
 type IngredientsBaseAction = {

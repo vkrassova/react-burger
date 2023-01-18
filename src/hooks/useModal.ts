@@ -1,8 +1,8 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTypedSelector } from './useTypedSelector'
-import { MODAL_CLOSE } from '../services/actions/modal'
 import { useAppDispatch } from './useAppDispatch'
 import { useNavigate } from 'react-router-dom'
+import { modalActions } from '../services/actions/modal'
 
 export const useModal = () => {
   const [modalState, setModalState] = useState<boolean>(false)
@@ -19,7 +19,7 @@ export const useModal = () => {
       if (e.key === 'Escape') {
         setModalState(false)
         dispatch({
-          type: MODAL_CLOSE,
+          type: modalActions.MODAL_CLOSE,
         })
 
         if (isActive) {

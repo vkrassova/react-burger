@@ -8,7 +8,7 @@ import {
   resetPasswordActions,
   updateTokenActions,
   userActions,
-} from '../../constants'
+} from '../actions/user'
 
 const initialState = {
   user: null,

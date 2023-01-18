@@ -11,31 +11,196 @@ import {
   logOut,
 } from '../../utils/api'
 
-import {
-  getUserRequestActions,
-  getUserFailedAction,
-  getUserSuccessAction,
-  loginRequestActions,
-  loginSuccessAction,
-  loginFailedActions,
-  registerFailedAction,
-  registerRequestAction,
-  registerSuccessAction,
-  resetPasswordSuccessAction,
-  resetPasswordFailedAction,
-  resetPasswordRequestAction,
-  forgotPasswordRequestAction,
-  forgotPasswordSuccessAction,
-  forgotPasswordFailedAction,
-  updateTokenRequestAction,
-  updateTokenFailedAction,
-  postUserRequestAction,
-  postUserSuccessAction,
-  postUserFailedAction,
-  logoutRequestActions,
-  logoutFailedActions,
-  logoutSuccessAction,
-} from '../../types/user'
+export enum userActions {
+  GET_USER_REQUEST = 'GET_USER_REQUEST',
+  GET_USER_SUCCESS = 'GET_USER_SUCCESS',
+  GET_USER_FAILED = 'GET_USER_FAILED',
+}
+
+export enum loginActions {
+  LOGIN_SUCCESS = 'LOGIN_SUCCESS',
+  LOGIN_REQUEST = 'LOGIN_REQUEST',
+  LOGIN_FAILED = 'LOGIN_FAILED',
+}
+
+export enum registerActions {
+  REGISTER_REQUEST = 'REGISTER_REQUEST',
+  REGISTER_SUCCESS = 'REGISTER_SUCCESS',
+  REGISTER_FAILED = 'REGISTER_FAILED',
+}
+
+export enum resetPasswordActions {
+  RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST',
+  RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS',
+  RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED',
+}
+
+export enum forgotPasswordActions {
+  FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST',
+  FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS',
+  FORGOT_PASSWORD_FAILED = 'FORGOT_PASSWORD_FAILED',
+}
+
+export enum updateTokenActions {
+  UPDATE_TOKEN_REQUEST = 'UPDATE_TOKEN_REQUEST',
+  UPDATE_TOKEN_FAILED = 'UPDATE_TOKEN_FAILED',
+}
+
+export enum postUserActions {
+  POST_USER_REQUEST = 'POST_USER_REQUEST',
+  POST_USER_FAILED = 'POST_USER_FAILED',
+  POST_USER_SUCCESS = 'POST_USER_SUCCESS',
+}
+
+export enum logoutActions {
+  LOGOUT_REQUEST = 'LOGOUT_REQUEST',
+  LOGOUT_FAILED = 'LOGOUT_FAILED',
+  LOGOUT_SUCCESS = 'LOGOUT_SUCCESS',
+}
+
+export const getUserRequestActions = () => {
+  return {
+    type: userActions.GET_USER_REQUEST,
+  }
+}
+
+export const getUserFailedAction = () => {
+  return {
+    type: userActions.GET_USER_FAILED,
+  }
+}
+
+export const getUserSuccessAction = (payload: UserModel) => {
+  return {
+    type: userActions.GET_USER_SUCCESS,
+    payload,
+  }
+}
+
+export const loginRequestActions = () => {
+  return {
+    type: loginActions.LOGIN_REQUEST,
+  }
+}
+
+export const loginFailedActions = () => {
+  return {
+    type: loginActions.LOGIN_FAILED,
+  }
+}
+
+export const loginSuccessAction = (payload: UserModel) => {
+  return {
+    type: loginActions.LOGIN_SUCCESS,
+    payload,
+  }
+}
+
+export const logoutRequestActions = () => {
+  return {
+    type: logoutActions.LOGOUT_REQUEST,
+  }
+}
+
+export const logoutFailedActions = () => {
+  return {
+    type: logoutActions.LOGOUT_FAILED,
+  }
+}
+
+export const logoutSuccessAction = () => {
+  return {
+    type: logoutActions.LOGOUT_SUCCESS,
+  }
+}
+
+export const registerRequestAction = () => {
+  return {
+    type: registerActions.REGISTER_REQUEST,
+  }
+}
+
+export const registerFailedAction = () => {
+  return {
+    type: registerActions.REGISTER_FAILED,
+  }
+}
+
+export const registerSuccessAction = (payload: UserModel) => {
+  return {
+    type: registerActions.REGISTER_SUCCESS,
+    payload,
+  }
+}
+
+export const resetPasswordRequestAction = () => {
+  return {
+    type: resetPasswordActions.RESET_PASSWORD_REQUEST,
+  }
+}
+
+export const resetPasswordFailedAction = () => {
+  return {
+    type: resetPasswordActions.RESET_PASSWORD_FAILED,
+  }
+}
+
+export const resetPasswordSuccessAction = (payload: UserModel) => {
+  return {
+    type: resetPasswordActions.RESET_PASSWORD_SUCCESS,
+    payload,
+  }
+}
+
+export const forgotPasswordRequestAction = () => {
+  return {
+    type: forgotPasswordActions.FORGOT_PASSWORD_REQUEST,
+  }
+}
+
+export const forgotPasswordFailedAction = () => {
+  return {
+    type: forgotPasswordActions.FORGOT_PASSWORD_FAILED,
+  }
+}
+
+export const forgotPasswordSuccessAction = (payload: UserModel) => {
+  return {
+    type: forgotPasswordActions.FORGOT_PASSWORD_SUCCESS,
+    payload,
+  }
+}
+
+export const updateTokenRequestAction = () => {
+  return {
+    type: updateTokenActions.UPDATE_TOKEN_REQUEST,
+  }
+}
+
+export const updateTokenFailedAction = () => {
+  return {
+    type: updateTokenActions.UPDATE_TOKEN_FAILED,
+  }
+}
+
+export const postUserSuccessAction = (payload: UserModel) => {
+  return {
+    type: postUserActions.POST_USER_SUCCESS,
+    payload,
+  }
+}
+
+export const postUserRequestAction = () => {
+  return {
+    type: postUserActions.POST_USER_REQUEST,
+  }
+}
+
+export const postUserFailedAction = () => {
+  return {
+    type: postUserActions.POST_USER_FAILED,
+  }
+}
 
 const refreshToken =
   (afterRefresh: AppThunk): AppThunk =>

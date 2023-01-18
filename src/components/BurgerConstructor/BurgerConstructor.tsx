@@ -1,18 +1,17 @@
 import React, { useCallback } from 'react'
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useModal, useAppDispatch, useTypedSelector } from '../../hooks'
+import { useAppDispatch, useModal, useTypedSelector } from '../../hooks'
 import { Ingredients } from '../../types/data'
 import { useDrop } from 'react-dnd'
 import { postOrder } from '../../services/actions/order'
 import { DraggableElement } from './components/DraggableElement'
-import { addToConstructor } from '../../services/actions/constructor'
-import { MODAL_CLOSE } from '../../services/actions/modal'
-import { RESET_INGREDIENTS } from '../../services/actions/constructor'
-import { useNavigate } from 'react-router-dom'
+import { addToConstructor, constructorActions } from '../../services/actions/constructor'
 import { AppRoutes } from '../../constants'
+import { useNavigate } from 'react-router-dom'
 import styles from '../BurgerConstructor/BurgerConstructor.module.scss'
 import { OrderDetails } from '../OrderDetails/OrderDetails'
 import { Modal } from '../Modal/Modal'
+import { modalActions } from '../../services/actions/modal'
 
 export const BurgerConstructor: React.FC = () => {
   const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)
@@ -61,11 +60,11 @@ export const BurgerConstructor: React.FC = () => {
     toggle()
 
     dispatch({
-      type: MODAL_CLOSE,
+      type: modalActions.MODAL_CLOSE,
     })
 
     dispatch({
-      type: RESET_INGREDIENTS,
+      type: constructorActions.RESET_INGREDIENTS,
     })
   }
 

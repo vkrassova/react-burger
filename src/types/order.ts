@@ -1,15 +1,12 @@
 import { OrderNumber } from './responses'
+import { orderActions } from '../services/actions/order'
 
 type OrderBaseAction = {
-  readonly type: 'GET_ORDER_REQUEST' | 'GET_ORDER_FAILED'
-}
-
-type OrderSuccessAction = {
-  readonly type: 'GET_ORDER_SUCCESS'
+  readonly type: orderActions
   payload: OrderNumber
 }
 
-export type OrderActions = OrderBaseAction | OrderSuccessAction
+export type OrderActions = OrderBaseAction
 
 export type OrderSate = {
   order: null | OrderNumber

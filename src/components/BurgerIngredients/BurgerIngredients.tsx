@@ -1,11 +1,11 @@
 import React, { useRef } from 'react'
-import { useTypedSelector, useAppDispatch } from '../../hooks'
+import { useAppDispatch, useTypedSelector } from '../../hooks'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { INGREDIENT_TYPES } from '../../constants'
 import { getRect, tabsClickHandler } from '../../utils/utils'
-import { MODAL_OPEN } from '../../services/actions/modal'
 import styles from '../BurgerIngredients/BurgerIngredients.module.scss'
 import { BurgerCategory } from './components/BurgerCategory/BurgerCategory'
+import { modalActions } from '../../services/actions/modal'
 
 const PADDING_BOTTOM = 50
 
@@ -18,7 +18,7 @@ export const BurgerIngredients: React.FC = () => {
 
   const handleClickItem = () => {
     dispatch({
-      type: MODAL_OPEN,
+      type: modalActions.MODAL_OPEN,
     })
   }
 

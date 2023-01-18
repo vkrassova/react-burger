@@ -3,10 +3,9 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import React, { useRef } from 'react'
 import { Ingredients } from '../../../types/data'
 import type { Identifier } from 'dnd-core'
-import { useDrop, useDrag, DropTargetMonitor } from 'react-dnd'
+import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd'
 import { useAppDispatch } from '../../../hooks'
-import { MOVE_CARD } from '../../../services/actions/constructor'
-import { DELETE_INGREDIENT } from '../../../services/actions/constructor'
+import { constructorActions } from '../../../services/actions/constructor'
 
 interface DraggableElementProps {
   items: Ingredients
@@ -60,7 +59,7 @@ export const DraggableElement: React.FC<DraggableElementProps> = ({ items, index
       }
 
       dispatch({
-        type: MOVE_CARD,
+        type: constructorActions.MOVE_CARD,
         dragIndex: dragIndex,
         hoverIndex: hoverIndex,
       })
@@ -85,7 +84,7 @@ export const DraggableElement: React.FC<DraggableElementProps> = ({ items, index
 
   const deleteIng = () => {
     dispatch({
-      type: DELETE_INGREDIENT,
+      type: constructorActions.DELETE_INGREDIENT,
       id: items.id,
     })
   }

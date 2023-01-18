@@ -1,6 +1,6 @@
 import { BASE_URL } from '../constants'
 import { checkResponse } from './utils'
-import { OrderResponse, UserModel, UserResponse } from '../types/responses'
+import { OrderResponse, UserModel, UserResponse, IngredientsResponse } from '../types/responses'
 
 export const getOrderRequest = (data: (string | undefined)[]): Promise<OrderResponse> => {
   const raw = JSON.stringify({
@@ -12,6 +12,16 @@ export const getOrderRequest = (data: (string | undefined)[]): Promise<OrderResp
       'Content-Type': 'application/json',
     },
     body: raw,
+  }).then(checkResponse)
+}
+
+export const getIngredientsRequest = (): Promise<IngredientsResponse> => {
+  return fetch(`${BASE_URL}/ingredients`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
+    },
   }).then(checkResponse)
 }
 

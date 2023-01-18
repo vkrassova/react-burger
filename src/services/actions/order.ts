@@ -1,27 +1,42 @@
 import { AppDispatch, AppThunk } from '../index'
 import { getOrderRequest } from '../../utils/api'
+import { OrderNumber } from '../../types/responses'
 
-export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST'
-export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS'
-export const GET_ORDER_FAILED = 'GET_ORDER_FAILED'
+export enum orderActions {
+  GET_ORDER_REQUEST = 'GET_ORDER_REQUEST',
+  GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS',
+  GET_ORDER_FAILED = 'GET_ORDER_FAILED',
+}
+
+export const orderRequestActions = () => {
+  return {
+    type: orderActions.GET_ORDER_REQUEST,
+  }
+}
+
+export const orderSuccessActions = (payload: OrderNumber) => {
+  return {
+    type: orderActions.GET_ORDER_SUCCESS,
+    payload,
+  }
+}
+
+export const orderFailedActions = () => {
+  return {
+    type: orderActions.GET_ORDER_FAILED,
+  }
+}
 
 export const postOrder =
   (data: (string | undefined)[]): AppThunk =>
   (dispatch: AppDispatch) => {
-    dispatch({
-      type: GET_ORDER_REQUEST,
-    })
+    dispatch(orderRequestActions)
 
     return getOrderRequest(data)
       .then((res) => {
-        dispatch({
-          type: GET_ORDER_SUCCESS,
-          payload: res.order,
-        })
+        dispatch(orderSuccessActions(res.order))
       })
       .catch(() => {
-        dispatch({
-          type: GET_ORDER_FAILED,
-        })
+        dispatch(orderFailedActions)
       })
   }

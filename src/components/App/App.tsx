@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect } from 'react'
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { AppHeader } from '../AppHeader/AppHeader'
 import { getIngredients } from '../../services/actions/ingredients'
 import { AppRoutes } from '../../constants'
-import { Main, Login, Register, Profile, ForgotPassword, ResetPassword, NotFound } from '../../pages'
-import { useModal, useAppDispatch, useTypedSelector } from '../../hooks'
+import { ForgotPassword, Login, Main, NotFound, Profile, Register, ResetPassword } from '../../pages'
+import { useAppDispatch, useModal, useTypedSelector } from '../../hooks'
 import { getUser } from '../../services/actions/user'
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute'
-import { MODAL_CLOSE } from '../../services/actions/modal'
 import { Feed } from '../../pages/Feed/Feed'
 import { Orders } from '../../pages/Orders/Orders'
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
 import { Modal } from '../Modal/Modal'
+import { modalActions } from '../../services/actions/modal'
 
 export interface LocationParams<T> {
   pathname: string
@@ -44,7 +44,7 @@ const App: React.FC = () => {
   const handleModalClose = useCallback(() => {
     navigate(-1)
     dispatch({
-      type: MODAL_CLOSE,
+      type: modalActions.MODAL_CLOSE,
     })
     toggle()
   }, [dispatch, navigate, toggle])
