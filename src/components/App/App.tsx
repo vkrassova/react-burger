@@ -11,7 +11,6 @@ import { Feed } from '../../pages/Feed/Feed'
 import { Orders } from '../../pages/Orders/Orders'
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
 import { Modal } from '../Modal/Modal'
-import { modalActions } from '../../services/actions/modal'
 
 export interface LocationParams<T> {
   pathname: string
@@ -27,9 +26,6 @@ interface LocationState {
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { toggle } = useModal()
-
-  const { isActive } = useTypedSelector((store) => store.modal)
 
   useEffect(() => {
     dispatch(getIngredients())
@@ -43,11 +39,7 @@ const App: React.FC = () => {
 
   const handleModalClose = useCallback(() => {
     navigate(-1)
-    dispatch({
-      type: modalActions.MODAL_CLOSE,
-    })
-    toggle()
-  }, [dispatch, navigate, toggle])
+  }, [navigate])
 
   return (
     <>
@@ -69,12 +61,12 @@ const App: React.FC = () => {
         </Route>
       </Routes>
 
-      {background && isActive && (
+      {background && (
         <Routes>
           <Route
             path={AppRoutes.IngredientsId}
             element={
-              <Modal onCloseButtonClick={handleModalClose} title="Детали ингридиента">
+              <Modal onClose={handleModalClose} title="Детали ингридиента">
                 <IngredientDetails />
               </Modal>
             }

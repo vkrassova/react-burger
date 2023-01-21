@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useAppDispatch, useModal, useTypedSelector } from '../../hooks'
 import { Ingredients } from '../../types/data'
@@ -117,7 +117,7 @@ export const BurgerConstructor: React.FC = () => {
           Оформить
         </Button>
         {modalState && (
-          <Modal onCloseButtonClick={modalClose}>
+          <Modal onClose={modalClose}>
             {orderRequest && <p className="text text_type_main-large">Загрузка...</p>}
             {!orderFailed && !orderRequest && <OrderDetails number={order?.number} />}
           </Modal>

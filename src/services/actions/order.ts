@@ -34,7 +34,11 @@ export const postOrder =
 
     return getOrderRequest(data)
       .then((res) => {
-        dispatch(orderSuccessActions(res.order))
+        if (res && res.success) {
+          dispatch(orderSuccessActions(res.order))
+        } else {
+          dispatch(orderFailedActions)
+        }
       })
       .catch(() => {
         dispatch(orderFailedActions)
