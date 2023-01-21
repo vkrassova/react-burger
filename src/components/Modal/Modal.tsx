@@ -23,7 +23,7 @@ export const Modal: React.FC<ModalsProps> = ({ title, onClose, children }) => {
     document.addEventListener('keydown', handleEscKeyPress)
 
     return () => {
-      document.removeEventListener('keydown', handleEscKeyPress!)
+      document.removeEventListener('keydown', handleEscKeyPress)
     }
   }, [onClose])
 
