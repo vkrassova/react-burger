@@ -1,6 +1,29 @@
 import { BASE_URL } from '../constants'
 import { checkResponse } from './utils'
-import { UserModel, UserResponse, LoginResponse } from '../types/responses'
+import { OrderResponse, UserModel, UserResponse, IngredientsResponse } from '../types/responses'
+
+export const getOrderRequest = (data: (string | undefined)[]): Promise<OrderResponse> => {
+  const raw = JSON.stringify({
+    ingredients: data,
+  })
+  return fetch(`${BASE_URL}/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: raw,
+  }).then(checkResponse)
+}
+
+export const getIngredientsRequest = (): Promise<IngredientsResponse> => {
+  return fetch(`${BASE_URL}/ingredients`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+  }).then(checkResponse)
+}
 
 export const userRegisterRequest = (user: UserModel): Promise<UserResponse> => {
   return fetch(`${BASE_URL}/auth/register`, {
@@ -13,7 +36,7 @@ export const userRegisterRequest = (user: UserModel): Promise<UserResponse> => {
   }).then(checkResponse)
 }
 
-export const login = (user: UserModel): Promise<LoginResponse> => {
+export const login = (user: UserModel): Promise<UserResponse> => {
   const raw = JSON.stringify({
     email: user.email,
     password: user.password,
@@ -73,7 +96,7 @@ export const patchUserRequest = (user: UserModel): Promise<UserResponse> => {
   }).then(checkResponse)
 }
 
-export const resetPasswordRequest = (user: UserModel) => {
+export const resetPasswordRequest = (user: UserModel): Promise<UserResponse> => {
   const raw = JSON.stringify({
     password: user.password,
     token: user.code,
@@ -89,7 +112,7 @@ export const resetPasswordRequest = (user: UserModel) => {
   }).then(checkResponse)
 }
 
-export const forgotPasswordRequest = async (user: UserModel) => {
+export const forgotPasswordRequest = async (user: UserModel): Promise<UserResponse> => {
   const raw = JSON.stringify({
     email: user.email,
   })

@@ -1,26 +1,42 @@
-import { API_INGREDIENTS } from '../../constants'
-import { checkResponse } from '../../utils/utils'
 import { AppDispatch, AppThunk } from '../index'
+import { getIngredientsRequest } from '../../utils/api'
+import { Ingredients } from '../../types/data'
 
-export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST'
-export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS'
-export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED'
+export enum getIngredientsActions {
+  GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST',
+  GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS',
+  GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED',
+}
+
+export const getIngredientsSuccessActions = (payload: Ingredients[]) => {
+  return {
+    type: getIngredientsActions.GET_INGREDIENTS_SUCCESS,
+    payload,
+  }
+}
+
+export const getIngredientsRequestActions = () => {
+  return {
+    type: getIngredientsActions.GET_INGREDIENTS_REQUEST,
+  }
+}
+
+export const getIngredientsFailedActions = () => {
+  return {
+    type: getIngredientsActions.GET_INGREDIENTS_FAILED,
+  }
+}
 
 export const getIngredients = (): AppThunk => (dispatch: AppDispatch) => {
-  dispatch({
-    type: GET_INGREDIENTS_REQUEST,
-  })
-  fetch(API_INGREDIENTS)
-    .then(checkResponse)
+  dispatch(getIngredientsRequestActions)
+
+  return getIngredientsRequest()
     .then((res) => {
-      dispatch({
-        type: GET_INGREDIENTS_SUCCESS,
-        ingredients: res.data,
-      })
+      if (res && res.success) {
+        dispatch(getIngredientsSuccessActions(res.data))
+      }
     })
-    .catch((error) => {
-      dispatch({
-        type: GET_INGREDIENTS_FAILED,
-      })
+    .catch(() => {
+      dispatch(getIngredientsFailedActions)
     })
 }

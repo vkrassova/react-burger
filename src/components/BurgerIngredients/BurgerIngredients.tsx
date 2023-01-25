@@ -1,38 +1,31 @@
 import React, { useRef } from 'react'
-import BurgerCategory from './components/BurgerCategory/BurgerCategory'
-import useModal from '../../hooks/useModal'
-import styles from '../BurgerIngredients/BurgerIngredients.module.scss'
+import { useAppDispatch, useTypedSelector } from '../../hooks'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { INGREDIENT_TYPES } from '../../constants'
 import { getRect, tabsClickHandler } from '../../utils/utils'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { useAppDispatch } from '../../hooks/useAppDispatch'
-import { MODAL_OPEN } from '../../services/actions/modal'
-import { Ingredients } from '../../types/data'
+import styles from '../BurgerIngredients/BurgerIngredients.module.scss'
+import { BurgerCategory } from './components/BurgerCategory/BurgerCategory'
+import { modalActions } from '../../services/actions/modal'
 
 const PADDING_BOTTOM = 50
 
-const BurgerIngredients: React.FC = () => {
+export const BurgerIngredients: React.FC = () => {
   const { ingredients } = useTypedSelector((store) => store.ingredients)
 
-  const [current, setCurrent] = React.useState(INGREDIENT_TYPES.buns)
+  const [current, setCurrent] = React.useState<string>(INGREDIENT_TYPES.buns)
 
   const dispatch = useAppDispatch()
 
-  const { toggle } = useModal()
-
-  const handleClickItem = (ingredient: Ingredients) => {
-    toggle()
+  const handleClickItem = () => {
     dispatch({
-      type: MODAL_OPEN,
-      item: ingredient,
+      type: modalActions.MODAL_OPEN,
     })
   }
 
-  const bunRef = useRef(null)
-  const sauceRef = useRef(null)
-  const mainRef = useRef(null)
-  const tabsRef = useRef(null)
+  const bunRef = useRef<HTMLDivElement | null>(null)
+  const sauceRef = useRef<HTMLDivElement | null>(null)
+  const mainRef = useRef<HTMLDivElement | null>(null)
+  const tabsRef = useRef<HTMLDivElement | null>(null)
 
   const scroll = () => {
     const tabsBottom = Math.abs(Math.round(getRect(tabsRef?.current).bottom - PADDING_BOTTOM))
@@ -105,5 +98,3 @@ const BurgerIngredients: React.FC = () => {
     </section>
   )
 }
-
-export default BurgerIngredients

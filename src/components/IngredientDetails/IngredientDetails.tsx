@@ -1,12 +1,12 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { useTypedSelector } from '../../hooks'
 import style from './IngredientDetails.module.scss'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
 
-const IngredientDetails: React.FC = () => {
+export const IngredientDetails: React.FC = () => {
   const { ingredients } = useTypedSelector((store) => store.ingredients)
 
-  const { id } = useParams()
+  const { id } = useParams() as { id: string }
 
   const data = ingredients.find((el) => el._id === id)
 
@@ -37,5 +37,3 @@ const IngredientDetails: React.FC = () => {
     </div>
   )
 }
-
-export default IngredientDetails

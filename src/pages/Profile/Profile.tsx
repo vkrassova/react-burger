@@ -1,22 +1,30 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react'
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import style from '../styles.module.scss'
 import { ProfileNav } from '../../components/ProfileNav/ProfileNav'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { patchUser } from '../../services/actions/user'
-import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useTypedSelector, useAppDispatch } from '../../hooks'
+import style from '../styles.module.scss'
 
 export const Profile: React.FC = () => {
   const { user } = useTypedSelector(({ user }) => user)
   const dispatch = useAppDispatch()
 
-  const initialUserState = {
-    name: user?.name || '',
-    email: user?.email || '',
-    password: '',
+  type initialUserStateProps = {
+    name: string
+    email: string
+    password: string
   }
 
-  const [fields, setFields] = useState({ ...initialUserState })
+  const initialUserState = useMemo(
+    () => ({
+      name: user?.name || '',
+      email: user?.email || '',
+      password: '',
+    }),
+    [user]
+  )
+
+  const [fields, setFields] = useState<initialUserStateProps>({ ...initialUserState })
 
   const handleFieldsChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { target } = evt

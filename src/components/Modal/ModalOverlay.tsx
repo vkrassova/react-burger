@@ -5,8 +5,6 @@ type ModalOverlayProps = {
   onOverlayClick: () => void
 }
 
-const ModalOverlay: React.FC<ModalOverlayProps> = ({ onOverlayClick }) => {
+export const ModalOverlay: React.FC<ModalOverlayProps> = ({ onOverlayClick }) => {
   return <div className={style.overlay} onClick={onOverlayClick}></div>
 }
-
-export default ModalOverlay

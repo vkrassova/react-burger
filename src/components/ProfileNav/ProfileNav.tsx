@@ -2,7 +2,7 @@ import React from 'react'
 import style from './ProfileNav.module.scss'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { AppRoutes } from '../../constants'
-import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useAppDispatch } from '../../hooks'
 import { signOut } from '../../services/actions/user'
 
 export const ProfileNav: React.FC = () => {
@@ -35,9 +35,9 @@ export const ProfileNav: React.FC = () => {
         </NavLink>
       </li>
       <li className={style.item}>
-        <a className="text text_type_main-medium text_color_inactive" onClick={handleLogOut}>
+        <button className="text text_type_main-medium text_color_inactive" onClick={handleLogOut}>
           Выход
-        </a>
+        </button>
       </li>
     </ul>
   )

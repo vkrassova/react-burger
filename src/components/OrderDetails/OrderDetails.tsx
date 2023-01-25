@@ -1,15 +1,12 @@
+import React from 'react'
 import style from './OrderDetails.module.scss'
 import IconDone from './../../images/done.png'
-import React from 'react'
+import { OrderNumber } from '../../types/responses'
 
-type orderProps = {
-  order: string | number
-}
-
-const OrderDetails: React.FC<orderProps> = ({ order }) => {
+export const OrderDetails: React.FC<OrderNumber> = ({ number }) => {
   return (
     <>
-      <span className={`${style.orderCount} text text_type_digits-large mb-8`}>{order}</span>
+      <span className={`${style.orderCount} text text_type_digits-large mb-8`}>{number}</span>
       <p className="text text_type_main-default mb-15">идентификатор заказа</p>
       <div className={style.icon}>
         <img src={IconDone} alt="done" />
@@ -21,5 +18,3 @@ const OrderDetails: React.FC<orderProps> = ({ order }) => {
     </>
   )
 }
-
-export default OrderDetails

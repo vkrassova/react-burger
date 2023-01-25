@@ -1,35 +1,20 @@
-import { MODAL_OPEN, MODAL_CLOSE } from '../actions/modal'
-import { Ingredients } from '../../types/data'
-
-type initialStateAction = {
-  item: Ingredients | null
-}
-
-type ModalOpenAction = {
-  type: 'MODAL_OPEN'
-  item: Ingredients
-}
-
-type ModalCloseAction = {
-  type: 'MODAL_CLOSE'
-}
+import { initialStateAction, ModalBaseAction } from '../../types/modalActions'
+import { modalActions } from '../actions/modal'
 
 const initialState = {
-  item: null,
+  isActive: false,
 }
-
-export type ModalBaseAction = ModalOpenAction | ModalCloseAction
 
 export const modalReducer = (state: initialStateAction = initialState, action: ModalBaseAction) => {
   switch (action.type) {
-    case MODAL_OPEN: {
+    case modalActions.MODAL_OPEN: {
       return {
-        item: action.item,
+        isActive: true,
       }
     }
-    case MODAL_CLOSE: {
+    case modalActions.MODAL_CLOSE: {
       return {
-        item: null,
+        isActive: false,
       }
     }
     default: {

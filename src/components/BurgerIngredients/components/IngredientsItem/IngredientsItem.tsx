@@ -1,17 +1,17 @@
-import styles from '../../BurgerIngredients.module.scss'
-import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import React from 'react'
+import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDrag } from 'react-dnd'
 import { Ingredients } from '../../../../types/data'
-import { useTypedSelector } from '../../../../hooks/useTypedSelector'
+import { useTypedSelector } from '../../../../hooks'
+import styles from '../../BurgerIngredients.module.scss'
 
 type IngredientsItemProps = {
   ingredient: Ingredients
-  showDetails: Function
+  showDetails: (ingrediens: Ingredients) => void
   id: string
 }
 
-const IngredientsItem: React.FC<IngredientsItemProps> = ({ ingredient, showDetails, id }) => {
+export const IngredientsItem: React.FC<IngredientsItemProps> = ({ ingredient, showDetails, id }) => {
   const { ingredients } = useTypedSelector((store) => store.ingredients)
   const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)
 
@@ -30,7 +30,7 @@ const IngredientsItem: React.FC<IngredientsItemProps> = ({ ingredient, showDetai
       count = 2
     }
     return count
-  }, [ingredientsList, bun])
+  }, [ingredientsList, bun, element])
 
   const [{ opacity }, dragRef] = useDrag({
     type: 'ingredients',
@@ -54,5 +54,3 @@ const IngredientsItem: React.FC<IngredientsItemProps> = ({ ingredient, showDetai
     </li>
   )
 }
-
-export default IngredientsItem

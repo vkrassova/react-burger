@@ -1,12 +1,11 @@
 import styles from '../BurgerConstructor.module.scss'
-import { ConstructorElement, DragIcon, DeleteIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useRef } from 'react'
 import { Ingredients } from '../../../types/data'
 import type { Identifier } from 'dnd-core'
-import { useDrop, useDrag, DropTargetMonitor } from 'react-dnd'
-import { useAppDispatch } from '../../../hooks/useAppDispatch'
-import { MOVE_CARD } from '../../../services/actions/constructor'
-import { DELETE_INGREDIENT } from '../../../services/actions/constructor'
+import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd'
+import { useAppDispatch } from '../../../hooks'
+import { constructorActions } from '../../../services/actions/constructor'
 
 interface DraggableElementProps {
   items: Ingredients
@@ -19,7 +18,7 @@ interface DragItem {
   type: string
 }
 
-const DraggableElement: React.FC<DraggableElementProps> = ({ items, index }) => {
+export const DraggableElement: React.FC<DraggableElementProps> = ({ items, index }) => {
   const { image, price, name } = items
   const dispatch = useAppDispatch()
   const ref = useRef<HTMLDivElement | null>(null)
@@ -60,7 +59,7 @@ const DraggableElement: React.FC<DraggableElementProps> = ({ items, index }) => 
       }
 
       dispatch({
-        type: MOVE_CARD,
+        type: constructorActions.MOVE_CARD,
         dragIndex: dragIndex,
         hoverIndex: hoverIndex,
       })
@@ -85,7 +84,7 @@ const DraggableElement: React.FC<DraggableElementProps> = ({ items, index }) => 
 
   const deleteIng = () => {
     dispatch({
-      type: 'DELETE_INGREDIENT',
+      type: constructorActions.DELETE_INGREDIENT,
       id: items.id,
     })
   }
@@ -103,5 +102,3 @@ const DraggableElement: React.FC<DraggableElementProps> = ({ items, index }) => 
     </div>
   )
 }
-
-export default DraggableElement

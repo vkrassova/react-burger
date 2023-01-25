@@ -1,38 +1,46 @@
-import { API_ORDER } from '../../constants'
-import { checkResponse } from '../../utils/utils'
 import { AppDispatch, AppThunk } from '../index'
+import { getOrderRequest } from '../../utils/api'
+import { OrderNumber } from '../../types/responses'
 
-export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST'
-export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS'
-export const GET_ORDER_FAILED = 'GET_ORDER_FAILED'
+export enum orderActions {
+  GET_ORDER_REQUEST = 'GET_ORDER_REQUEST',
+  GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS',
+  GET_ORDER_FAILED = 'GET_ORDER_FAILED',
+}
+
+export const orderRequestActions = () => {
+  return {
+    type: orderActions.GET_ORDER_REQUEST,
+  }
+}
+
+export const orderSuccessActions = (payload: OrderNumber) => {
+  return {
+    type: orderActions.GET_ORDER_SUCCESS,
+    payload,
+  }
+}
+
+export const orderFailedActions = () => {
+  return {
+    type: orderActions.GET_ORDER_FAILED,
+  }
+}
 
 export const postOrder =
   (data: (string | undefined)[]): AppThunk =>
   (dispatch: AppDispatch) => {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ingredients: data,
-      }),
-    }
+    dispatch(orderRequestActions)
 
-    dispatch({
-      type: GET_ORDER_REQUEST,
-    })
-    fetch(API_ORDER, options)
-      .then(checkResponse)
+    return getOrderRequest(data)
       .then((res) => {
-        dispatch({
-          type: GET_ORDER_SUCCESS,
-          number: res.order.number,
-        })
+        if (res && res.success) {
+          dispatch(orderSuccessActions(res.order))
+        } else {
+          dispatch(orderFailedActions)
+        }
       })
-      .catch((error) => {
-        dispatch({
-          type: GET_ORDER_FAILED,
-        })
+      .catch(() => {
+        dispatch(orderFailedActions)
       })
   }

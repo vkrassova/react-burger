@@ -1,30 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useCallback, useState } from 'react'
 
-const useModal = () => {
-  const [modalState, setModalState] = useState(false)
+export const useModal = () => {
+  const [modalState, setModalState] = useState<boolean>(false)
 
-  const toggle = () => {
+  const toggle = useCallback(() => {
     setModalState(!modalState)
-  }
-
-  useEffect(() => {
-    const closeModalPressEsc = (e: { key: string }) => {
-      if (e.key === 'Escape') {
-        toggle()
-      }
-    }
-    if (modalState) {
-      document.addEventListener('keyup', closeModalPressEsc)
-      return () => {
-        document.removeEventListener('keyup', closeModalPressEsc)
-      }
-    }
-  }, [modalState, toggle])
+  }, [modalState])
 
   return {
     modalState,
     toggle,
   }
 }
-
-export default useModal
