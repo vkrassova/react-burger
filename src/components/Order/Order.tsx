@@ -3,6 +3,8 @@ import style from './Order.module.scss'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, useLocation } from 'react-router-dom'
 import { Orders } from '../../types/data'
+import {useSelector} from 'react-redux';
+import {useTypedSelector} from '../../hooks';
 
 type TOrder = {
   order: Orders
@@ -10,6 +12,9 @@ type TOrder = {
 
 export const Order: React.FC<TOrder> = ({ order }) => {
   const location = useLocation()
+  const { messages } = useTypedSelector((store) => store.ws)
+
+  console.log(messages)
 
   return (
     <Link key={order._id} to={'/'} state={{ background: location }} className={style.link}>

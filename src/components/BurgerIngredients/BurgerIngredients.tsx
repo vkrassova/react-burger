@@ -5,7 +5,6 @@ import { INGREDIENT_TYPES } from '../../constants'
 import { getRect, tabsClickHandler } from '../../utils/utils'
 import styles from '../BurgerIngredients/BurgerIngredients.module.scss'
 import { BurgerCategory } from './components/BurgerCategory/BurgerCategory'
-import { modalActions } from '../../services/actions/modal'
 
 const PADDING_BOTTOM = 50
 
@@ -16,11 +15,11 @@ export const BurgerIngredients: React.FC = () => {
 
   const dispatch = useAppDispatch()
 
-  const handleClickItem = () => {
-    dispatch({
-      type: modalActions.MODAL_OPEN,
-    })
-  }
+  // const handleClickItem = () => {
+  //   dispatch({
+  //     type: modalActions.MODAL_OPEN,
+  //   })
+  // }
 
   const bunRef = useRef<HTMLDivElement | null>(null)
   const sauceRef = useRef<HTMLDivElement | null>(null)
@@ -73,27 +72,9 @@ export const BurgerIngredients: React.FC = () => {
         </Tab>
       </div>
       <div className={styles.ingredientsWrapper} onScroll={scroll}>
-        <BurgerCategory
-          title={'Булки'}
-          ingredientType={'bun'}
-          ingredients={ingredients}
-          ref={bunRef}
-          showDetails={handleClickItem}
-        />
-        <BurgerCategory
-          title={'Соусы'}
-          ingredientType={'sauce'}
-          ingredients={ingredients}
-          ref={sauceRef}
-          showDetails={handleClickItem}
-        />
-        <BurgerCategory
-          title={'Начинки'}
-          ingredientType={'main'}
-          ingredients={ingredients}
-          ref={mainRef}
-          showDetails={handleClickItem}
-        />
+        <BurgerCategory title={'Булки'} ingredientType={'bun'} ingredients={ingredients} ref={bunRef} />
+        <BurgerCategory title={'Соусы'} ingredientType={'sauce'} ingredients={ingredients} ref={sauceRef} />
+        <BurgerCategory title={'Начинки'} ingredientType={'main'} ingredients={ingredients} ref={mainRef} />
       </div>
     </section>
   )

@@ -1,4 +1,5 @@
 export const BASE_URL = 'https://norma.nomoreparties.space/api'
+export const wsUrl = 'wss://norma.nomoreparties.space'
 export const INGREDIENT_TYPES = {
   buns: 'buns',
   sauces: 'sauces',

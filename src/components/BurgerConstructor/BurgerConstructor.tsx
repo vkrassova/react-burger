@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom'
 import styles from '../BurgerConstructor/BurgerConstructor.module.scss'
 import { OrderDetails } from '../OrderDetails/OrderDetails'
 import { Modal } from '../Modal/Modal'
-import { modalActions } from '../../services/actions/modal'
 
 export const BurgerConstructor: React.FC = () => {
   const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)
@@ -58,10 +57,6 @@ export const BurgerConstructor: React.FC = () => {
 
   const modalClose = () => {
     toggle()
-
-    dispatch({
-      type: modalActions.MODAL_CLOSE,
-    })
 
     dispatch({
       type: constructorActions.RESET_INGREDIENTS,

@@ -7,11 +7,10 @@ import styles from '../../BurgerIngredients.module.scss'
 
 type IngredientsItemProps = {
   ingredient: Ingredients
-  showDetails: (ingredients: Ingredients) => void
   id: string
 }
 
-export const IngredientsItem: React.FC<IngredientsItemProps> = ({ ingredient, showDetails, id }) => {
+export const IngredientsItem: React.FC<IngredientsItemProps> = ({ ingredient, id }) => {
   const { ingredients } = useTypedSelector((store) => store.ingredients)
   const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)
 
@@ -41,7 +40,7 @@ export const IngredientsItem: React.FC<IngredientsItemProps> = ({ ingredient, sh
   })
 
   return (
-    <li className={styles.item} ref={dragRef} style={{ opacity }} onClick={() => showDetails(ingredient)}>
+    <li className={styles.item} ref={dragRef} style={{ opacity }}>
       <div className={styles.img__wrapper}>
         {counter > 0 && <Counter count={counter} size="default" />}
         <img src={ingredient.image} alt={ingredient.name} />

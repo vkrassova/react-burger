@@ -1,5 +1,6 @@
 import type { Middleware, MiddlewareAPI } from 'redux'
 import { RootState, AppDispatch } from '../index'
+import {wsActions} from '../constants/ws';
 
 import {
   wsConnectionSuccess,
@@ -21,22 +22,18 @@ export type wsActionsType = {
   onMessage: typeof wsGetMessage
 }
 
-export const socketMiddleware = (wsActions: wsActionsType): Middleware => {
+export const socketMiddleware = (wsUrl: string, wsActions: wsActionsType): Middleware => {
   return (store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null
+
 
     return (next) => (action) => {
       const { dispatch } = store
       const { type, payload } = action
       const { wsConnect, wsDisconnect, onOpen, onError, onClose, onMessage, wsSendMessage } = wsActions
 
-      if (type === wsConnect(payload).type) {
-        if (action.payload.token) {
-          let accessToken = action.payload.token
-          socket = new WebSocket(`${action.payload.url}?token=${accessToken}`)
-        } else {
-          socket = new WebSocket(action.payload.url)
-        }
+      if (type === wsConnect().type) {
+        socket = new WebSocket(`${wsUrl}${payload}`)
       }
       if (socket) {
         socket.onopen = () => {

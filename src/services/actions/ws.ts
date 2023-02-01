@@ -10,10 +10,10 @@ import {
 import { wsActions } from '../constants/ws'
 import { FeedResponse } from '../../types/responses'
 
-export const wsConnectionStart = (payload: string): WSConnectionStart => {
+export const wsConnectionStart = (): WSConnectionStart => {
   return {
     type: wsActions.WS_CONNECTION_START,
-    payload,
+    payload: '/all',
   }
 }
 

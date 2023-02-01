@@ -5,7 +5,7 @@ import { FeedResponse } from '../../types/responses'
 type WSState = {
   wsConnected: boolean
   messages: null | FeedResponse
-  error?: Event
+  error?: null | Event
 }
 
 const initialState = {
@@ -20,14 +20,14 @@ export const wsReducer = (state: WSState = initialState, action: WSActions) => {
         ...state,
         wsConnected: false,
         messages: null,
-        error: undefined,
+        error: null,
       }
     }
     case wsActions.WS_CONNECTION_SUCCESS: {
       return {
         ...state,
         wsConnected: true,
-        error: undefined,
+        error: null,
       }
     }
     case wsActions.WS_CONNECTION_ERROR: {
@@ -46,7 +46,7 @@ export const wsReducer = (state: WSState = initialState, action: WSActions) => {
     case wsActions.WS_GET_MESSAGE: {
       return {
         ...state,
-        error: undefined,
+        error: null,
         messages: { ...action.payload },
       }
     }

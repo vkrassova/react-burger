@@ -9,11 +9,10 @@ interface IngredientsListProps {
   title: string
   ingredients: Ingredients[]
   ref: React.ForwardedRef<HTMLParagraphElement>
-  showDetails: (ingredients: Ingredients) => void
 }
 
 export const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(
-  ({ ingredients, ingredientType, title, showDetails }, ref: React.ForwardedRef<HTMLParagraphElement>) => {
+  ({ ingredients, ingredientType, title }, ref: React.ForwardedRef<HTMLParagraphElement>) => {
     const location = useLocation()
 
     return (
@@ -31,7 +30,7 @@ export const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(
                     }}
                     state={{ background: location }}
                   >
-                    <IngredientsItem ingredient={el} key={el._id} showDetails={showDetails} id={el._id} />
+                    <IngredientsItem ingredient={el} key={el._id} id={el._id} />
                   </Link>
                 )
               }
