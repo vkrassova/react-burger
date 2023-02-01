@@ -15,3 +15,19 @@ export interface Ingredients {
   key?: number
   index?: number
 }
+
+export enum StatusCodes {
+  created = 'created',
+  pending = 'pending',
+  done = 'done',
+}
+
+export interface Orders {
+  ingredients: string[]
+  _id: string
+  status: StatusCodes
+  number: number
+  createdAt: string
+  updatedAt: string
+  name: string
+}

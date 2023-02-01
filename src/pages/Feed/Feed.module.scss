@@ -54,29 +54,6 @@
   height: 100vh;
 }
 
-.statusInfo {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.statusColumn {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 50%;
-}
-
-.statusList {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #00CCCC;
-}
-
 .text {
   text-shadow: 0 0 16px rgba(51, 51, 255, 0.25), 0 0 8px rgba(51, 51, 255, 0.25), 0 4px 32px rgba(51, 51, 255, 0.5);
 }

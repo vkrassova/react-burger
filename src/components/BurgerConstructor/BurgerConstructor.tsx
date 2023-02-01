@@ -1,4 +1,4 @@
-import React, { useCallback} from 'react'
+import React, { useCallback } from 'react'
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useAppDispatch, useModal, useTypedSelector } from '../../hooks'
 import { Ingredients } from '../../types/data'

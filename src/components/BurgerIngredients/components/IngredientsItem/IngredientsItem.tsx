@@ -7,7 +7,7 @@ import styles from '../../BurgerIngredients.module.scss'
 
 type IngredientsItemProps = {
   ingredient: Ingredients
-  showDetails: (ingrediens: Ingredients) => void
+  showDetails: (ingredients: Ingredients) => void
   id: string
 }
 

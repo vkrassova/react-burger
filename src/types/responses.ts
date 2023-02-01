@@ -1,4 +1,4 @@
-import { Ingredients } from './data'
+import { Ingredients, Orders } from './data'
 
 export interface UserModel {
   email: string | undefined
@@ -26,4 +26,11 @@ export interface OrderNumber {
 export interface OrderResponse {
   order: OrderNumber
   success: boolean
+}
+
+export interface FeedResponse {
+  success: boolean
+  orders: ReadonlyArray<Orders>
+  total: number
+  totalToday: number
 }
