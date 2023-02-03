@@ -1,6 +1,6 @@
 import type { Middleware, MiddlewareAPI } from 'redux'
 import { RootState, AppDispatch } from '../index'
-import {wsActions} from '../constants/ws';
+import { wsActions } from '../constants/ws'
 
 import {
   wsConnectionSuccess,
@@ -25,7 +25,6 @@ export type wsActionsType = {
 export const socketMiddleware = (wsUrl: string, wsActions: wsActionsType): Middleware => {
   return (store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null
-
 
     return (next) => (action) => {
       const { dispatch } = store

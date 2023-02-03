@@ -21,7 +21,7 @@ export interface LocationParams<T> {
 }
 
 interface LocationState {
-  background: string
+  background: Location
 }
 
 const App: React.FC = () => {

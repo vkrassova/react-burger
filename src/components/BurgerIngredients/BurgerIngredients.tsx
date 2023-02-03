@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { useAppDispatch, useTypedSelector } from '../../hooks'
+import { useTypedSelector } from '../../hooks'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { INGREDIENT_TYPES } from '../../constants'
 import { getRect, tabsClickHandler } from '../../utils/utils'
@@ -12,14 +12,6 @@ export const BurgerIngredients: React.FC = () => {
   const { ingredients } = useTypedSelector((store) => store.ingredients)
 
   const [current, setCurrent] = React.useState<string>(INGREDIENT_TYPES.buns)
-
-  const dispatch = useAppDispatch()
-
-  // const handleClickItem = () => {
-  //   dispatch({
-  //     type: modalActions.MODAL_OPEN,
-  //   })
-  // }
 
   const bunRef = useRef<HTMLDivElement | null>(null)
   const sauceRef = useRef<HTMLDivElement | null>(null)
