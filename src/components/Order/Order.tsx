@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import style from './Order.module.scss'
 import {CurrencyIcon, FormattedDate} from '@ya.praktikum/react-developer-burger-ui-components'
 import {OrderImage} from '../OrderImage/OrderImage'
 import {Link, useLocation} from 'react-router-dom'
-import {Orders} from '../../types/data'
+import {Ingredients, Orders} from '../../types/data'
 import {useTypedSelector} from '../../hooks'
 
 type TOrder = {
@@ -22,7 +22,25 @@ export const Order: React.FC<TOrder> = ({order}) => {
         return <FormattedDate date={new Date(serverDate)} />
     }
 
-    const maxLength = orderArr.length - 5
+    const totalPrice = useCallback(() => {
+        let totalToppingsPrice = 0
+        if(orderArr.length > 0) {
+            totalToppingsPrice = orderArr.reduce((acc: number, curr: Ingredients) => {
+                return acc + curr.price
+            }, 0)
+        }
+
+        const bun = orderArr.find((el) => {
+            return el.type === 'bun'
+        })
+
+        const totalBunPrice = bun ? bun.price * 2 : 0
+
+        return totalBunPrice + totalToppingsPrice
+
+    }, [orderArr])
+
+    const maxLength = 6
 
     return (
         <Link key={order._id}
@@ -52,7 +70,9 @@ export const Order: React.FC<TOrder> = ({order}) => {
                             }
                     </ul>
                     <div className={style.price}>
-                        <p className="text text_type_digits-default text_color_primary mr-2">400</p>
+                        <p className="text text_type_digits-default text_color_primary mr-2">
+                            <span>{totalPrice()}</span>
+                        </p>
                         <CurrencyIcon type="primary"/>
                     </div>
                 </div>
