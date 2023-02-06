@@ -34,7 +34,7 @@ export const Order: React.FC<TOrder> = ({order}) => {
             return el.type === 'bun'
         })
 
-        const totalBunPrice = bun ? bun.price * 2 : 0
+        const totalBunPrice = bun ? bun.price : 0
 
         return totalBunPrice + totalToppingsPrice
 
@@ -45,7 +45,7 @@ export const Order: React.FC<TOrder> = ({order}) => {
     return (
         <Link key={order._id}
               to={{
-                  pathname: `/feed/${order._id}`,
+                  pathname: `${location.pathname}/${order._id}`,
               }}
               state={{background: location}}
               className={style.link}>

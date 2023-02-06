@@ -11,6 +11,7 @@ import { Feed } from '../../pages/Feed/Feed'
 import { Orders } from '../../pages/Orders/Orders'
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
 import { Modal } from '../Modal/Modal'
+import {FeedOrder} from '../../pages/FeedOrder/FeedOrder'
 
 export interface LocationParams<T> {
   pathname: string
@@ -47,6 +48,7 @@ const App: React.FC = () => {
       <Routes location={background || location}>
         <Route index path={AppRoutes.Main} element={<Main />} />
         <Route path={AppRoutes.IngredientsId} element={<IngredientDetails />} />
+        <Route path={AppRoutes.FeedId} element={<FeedOrder />} />
         <Route element={<ProtectedRoute userAuthorized={false} />}>
           <Route path={AppRoutes.Profile} element={<Profile />} />
           <Route path={AppRoutes.Feed} element={<Feed />} />

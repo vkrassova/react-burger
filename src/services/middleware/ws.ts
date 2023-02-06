@@ -22,7 +22,7 @@ export type wsActionsType = {
   onMessage: typeof wsGetMessage
 }
 
-export const socketMiddleware = (wsUrl: string, wsActions: wsActionsType): Middleware => {
+export const socketMiddleware = (wsActions: wsActionsType): Middleware => {
   return (store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null
 
@@ -31,8 +31,8 @@ export const socketMiddleware = (wsUrl: string, wsActions: wsActionsType): Middl
       const { type, payload } = action
       const { wsConnect, wsDisconnect, onOpen, onError, onClose, onMessage, wsSendMessage } = wsActions
 
-      if (type === wsConnect().type) {
-        socket = new WebSocket(`${wsUrl}${payload}`)
+      if (type === wsConnect(payload).type) {
+        socket = new WebSocket(payload)
       }
       if (socket) {
         socket.onopen = () => {

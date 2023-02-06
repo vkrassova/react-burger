@@ -30,7 +30,7 @@ export const OrderStatus: React.FC = () => {
                         {
                             doneOrders.map((el) => {
                                 return (
-                                    <li className={'text text_type_digits-default mb-2'}>
+                                    <li className={'text text_type_digits-default mb-2'} key={el._id}>
                                         {el.number}
                                     </li>
                                 )
@@ -39,12 +39,12 @@ export const OrderStatus: React.FC = () => {
                     </ul>
                 </div>
                 <div className={status.column}>
-                    <h3 className="text text_type_main-medium mb-6">В работе:</h3>
+                    <h3 className={`text text_type_main-medium mb-6`}>В работе:</h3>
                     <ul className={status.list}>
                         {
                             pendingOrders.map((el) => {
                                 return(
-                                    <li className={'text text_type_digits-default mb-2'}>
+                                    <li className={'text text_type_digits-default mb-2'} key={el._id}>
                                         {el.number}
                                     </li>
                                 )

@@ -12,3 +12,7 @@ export const tabsClickHandler = (ref: React.RefObject<HTMLElement>) => {
   if (ref.current === null) return
   ref.current.scrollIntoView({ behavior: 'smooth' })
 }
+
+export function getAccessToken() {
+  return window.localStorage.getItem('accessToken')
+}

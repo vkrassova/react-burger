@@ -9,7 +9,8 @@ export const getOrderRequest = (data: (string | undefined)[]): Promise<OrderResp
   return fetch(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: `${localStorage.getItem('accessToken')}`,
     },
     body: raw,
   }).then(checkResponse)
