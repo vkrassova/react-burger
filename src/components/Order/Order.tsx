@@ -63,7 +63,8 @@ export const Order: React.FC<TOrder> = ({order}) => {
                                         <OrderImage
                                             src={el.image}
                                             key={index}
-                                            {...(maxLength > 0  ? {count: order.ingredients.length - 6 + 1} : {})}
+                                            {...(order.ingredients.length > maxLength && index === maxLength - 1
+                                                ? { count: order.ingredients.length - maxLength + 1 } : {})}
                                             />
                                     )
                                 ))
