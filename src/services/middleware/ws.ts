@@ -1,6 +1,5 @@
 import type { Middleware, MiddlewareAPI } from 'redux'
 import { RootState, AppDispatch } from '../index'
-import { wsActions } from '../constants/ws'
 
 import {
   wsConnectionSuccess,
@@ -24,7 +23,10 @@ export type wsActionsType = {
 
 export const socketMiddleware = (wsActions: wsActionsType): Middleware => {
   return (store: MiddlewareAPI<AppDispatch, RootState>) => {
-    let socket: WebSocket | null = null
+    let socket: null | WebSocket = null
+    let isConnected: boolean = false
+    let reconnectTimer: number = 0
+    let timeout: number = 5000
 
     return (next) => (action) => {
       const { dispatch } = store
@@ -33,7 +35,9 @@ export const socketMiddleware = (wsActions: wsActionsType): Middleware => {
 
       if (type === wsConnect(payload).type) {
         socket = new WebSocket(payload)
+        isConnected = true
       }
+
       if (socket) {
         socket.onopen = () => {
           dispatch(onOpen())
@@ -43,15 +47,26 @@ export const socketMiddleware = (wsActions: wsActionsType): Middleware => {
           dispatch(onError(event))
         }
 
-        socket.onclose = (event) => {
-          event.code !== 1000 ? dispatch(onError(event)) : dispatch(onClose())
-        }
-
         socket.onmessage = (event) => {
           const { data } = event
           const parsedData = JSON.parse(data)
           const { success, ...restParsedData } = parsedData
+
           dispatch(onMessage(restParsedData))
+        }
+
+        socket.onclose = (event) => {
+          if (event.code !== 1000) {
+            dispatch(onError(event))
+          }
+
+          dispatch(onClose())
+
+          if (isConnected) {
+            reconnectTimer = window.setTimeout(() => {
+              dispatch(wsConnect(payload))
+            }, timeout)
+          }
         }
 
         if (type === wsSendMessage(payload).type) {
@@ -59,8 +74,13 @@ export const socketMiddleware = (wsActions: wsActionsType): Middleware => {
         }
 
         if (type === wsDisconnect().type) {
-          socket.close()
-          dispatch(onClose())
+          if (socket.readyState === 1) {
+            clearTimeout(reconnectTimer)
+            isConnected = false
+            reconnectTimer = 0
+            socket.close()
+            dispatch(onClose())
+          }
         }
       }
 

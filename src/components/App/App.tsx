@@ -11,7 +11,8 @@ import { Feed } from '../../pages/Feed/Feed'
 import { Orders } from '../../pages/Orders/Orders'
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
 import { Modal } from '../Modal/Modal'
-import {FeedOrder} from '../../pages/FeedOrder/FeedOrder'
+import { FeedOrder } from '../../pages/FeedOrder/FeedOrder'
+import { FeedOrderDetail } from '../FeedOrderDetail/FeedOrderDetail'
 
 export interface LocationParams<T> {
   pathname: string
@@ -70,6 +71,14 @@ const App: React.FC = () => {
             element={
               <Modal onClose={handleModalClose} title="Детали ингридиента">
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path={AppRoutes.FeedId}
+            element={
+              <Modal onClose={handleModalClose}>
+                <FeedOrderDetail />
               </Modal>
             }
           />
