@@ -48,12 +48,13 @@ const App: React.FC = () => {
       <AppHeader />
       <Routes location={background || location}>
         <Route index path={AppRoutes.Main} element={<Main />} />
-        <Route path={AppRoutes.IngredientsId} element={<IngredientDetails />} />
+        <Route path={AppRoutes.Feed} element={<Feed />} />
         <Route path={AppRoutes.FeedId} element={<FeedOrder />} />
+        <Route path={AppRoutes.IngredientsId} element={<IngredientDetails />} />
         <Route element={<ProtectedRoute userAuthorized={false} />}>
           <Route path={AppRoutes.Profile} element={<Profile />} />
-          <Route path={AppRoutes.Feed} element={<Feed />} />
           <Route path={AppRoutes.ProfileOrders} element={<Orders />} />
+          <Route path={AppRoutes.ProfileOrdersId} element={<FeedOrder/>}/>
         </Route>
         <Route element={<ProtectedRoute userAuthorized={true} />}>
           <Route path={AppRoutes.SignIn} element={<Login />} />
@@ -74,6 +75,14 @@ const App: React.FC = () => {
               </Modal>
             }
           />
+            <Route
+                path={AppRoutes.ProfileOrdersId}
+                element={
+                  <Modal onClose={handleModalClose} title="Детали ингридиента">
+                    <FeedOrderDetail />
+                  </Modal>
+                }
+            />
           <Route
             path={AppRoutes.FeedId}
             element={

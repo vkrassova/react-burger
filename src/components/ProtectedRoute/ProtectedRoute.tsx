@@ -12,16 +12,14 @@ interface LocationParams<T> {
   state: T
 }
 interface LocationState {
-  from: {
-    pathname: string
-  }
+  from: string
 }
 
-export const ProtectedRoute = ({ userAuthorized }: PrivateRoutesProps) => {
+export const ProtectedRoute = ({ userAuthorized = false }: PrivateRoutesProps) => {
   const location = useLocation() as LocationParams<LocationState>
 
   const { isAuth, userRequest } = useTypedSelector(({ user }) => user)
-  const fromPage = location.state?.from?.pathname || AppRoutes.Main
+  const fromPage = location.state?.from || AppRoutes.Main
 
   if (userRequest) {
     return null
@@ -32,7 +30,7 @@ export const ProtectedRoute = ({ userAuthorized }: PrivateRoutesProps) => {
   }
 
   if (userAuthorized && isAuth) {
-    return <Navigate to={fromPage} replace />
+    return <Navigate to={fromPage} state={{from: location}} />
   }
 
   return <Outlet />

@@ -13,7 +13,6 @@ export const Orders: React.FC = () => {
   let accessToken = String(getAccessToken()).replace(/^Bearer\s/, '')
 
   useEffect(() => {
-    console.log(accessToken)
     dispatch(wsConnectionStart(`${wsUrl}/orders?token=${accessToken}`))
 
     return () => {
