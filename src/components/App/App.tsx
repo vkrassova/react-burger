@@ -4,7 +4,7 @@ import { AppHeader } from '../AppHeader/AppHeader'
 import { getIngredients } from '../../services/actions/ingredients'
 import { AppRoutes } from '../../constants'
 import { ForgotPassword, Login, Main, NotFound, Profile, Register, ResetPassword } from '../../pages'
-import { useAppDispatch } from '../../hooks'
+import {useAppDispatch, useTypedSelector} from '../../hooks'
 import { getUser } from '../../services/actions/user'
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute'
 import { Feed } from '../../pages/Feed/Feed'
@@ -29,9 +29,12 @@ interface LocationState {
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
 
+  const { user } = useTypedSelector(({ user }) => user)
+
   useEffect(() => {
     dispatch(getIngredients())
     dispatch(getUser())
+    console.log(user)
   }, [dispatch])
 
   const location = useLocation() as LocationParams<LocationState>
@@ -48,15 +51,16 @@ const App: React.FC = () => {
       <AppHeader />
       <Routes location={background || location}>
         <Route index path={AppRoutes.Main} element={<Main />} />
-        <Route path={AppRoutes.Feed} element={<Feed />} />
-        <Route path={AppRoutes.FeedId} element={<FeedOrder />} />
-        <Route path={AppRoutes.IngredientsId} element={<IngredientDetails />} />
-        <Route element={<ProtectedRoute userAuthorized={false} />}>
+
+        <Route element={<ProtectedRoute />}>
+          <Route path={AppRoutes.Feed} element={<Feed />} />
           <Route path={AppRoutes.Profile} element={<Profile />} />
           <Route path={AppRoutes.ProfileOrders} element={<Orders />} />
           <Route path={AppRoutes.ProfileOrdersId} element={<FeedOrder/>}/>
+          <Route path={AppRoutes.FeedId} element={<FeedOrder />} />
+          <Route path={AppRoutes.IngredientsId} element={<IngredientDetails />} />
         </Route>
-        <Route element={<ProtectedRoute userAuthorized={true} />}>
+        <Route element={<ProtectedRoute />}>
           <Route path={AppRoutes.SignIn} element={<Login />} />
           <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword />} />
           <Route path={AppRoutes.ResetPassword} element={<ResetPassword />} />

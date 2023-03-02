@@ -1,164 +1,102 @@
-import { AppDispatch, AppThunk } from '../index'
-import { UserModel } from '../../types/responses'
+import {AppDispatch, AppThunk} from '../index'
+import {UserModel} from '../../types/responses'
+import {UserRequestsActions} from '../../types/user'
 import {
+  forgotPasswordRequest,
   getUserRequest,
   login,
-  userRegisterRequest,
-  resetPasswordRequest,
-  refreshTokenRequest,
-  forgotPasswordRequest,
-  patchUserRequest,
   logOut,
+  patchUserRequest,
+  refreshTokenRequest,
+  resetPasswordRequest,
+  userRegisterRequest,
 } from '../../utils/api'
+import {
+  forgotPasswordActions,
+  loginActions,
+  logoutActions,
+  postUserActions,
+  registerActions,
+  resetPasswordActions,
+  updateTokenActions,
+  userActions
+} from '../constants/user'
 
-export enum userActions {
-  GET_USER_REQUEST = 'GET_USER_REQUEST',
-  GET_USER_SUCCESS = 'GET_USER_SUCCESS',
-  GET_USER_FAILED = 'GET_USER_FAILED',
-}
+export const getUserRequestActions = (): UserRequestsActions => ({
+  type: userActions.GET_USER_REQUEST
+})
 
-export enum loginActions {
-  LOGIN_SUCCESS = 'LOGIN_SUCCESS',
-  LOGIN_REQUEST = 'LOGIN_REQUEST',
-  LOGIN_FAILED = 'LOGIN_FAILED',
-}
-
-export enum registerActions {
-  REGISTER_REQUEST = 'REGISTER_REQUEST',
-  REGISTER_SUCCESS = 'REGISTER_SUCCESS',
-  REGISTER_FAILED = 'REGISTER_FAILED',
-}
-
-export enum resetPasswordActions {
-  RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST',
-  RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS',
-  RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED',
-}
-
-export enum forgotPasswordActions {
-  FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST',
-  FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS',
-  FORGOT_PASSWORD_FAILED = 'FORGOT_PASSWORD_FAILED',
-}
-
-export enum updateTokenActions {
-  UPDATE_TOKEN_REQUEST = 'UPDATE_TOKEN_REQUEST',
-  UPDATE_TOKEN_FAILED = 'UPDATE_TOKEN_FAILED',
-}
-
-export enum postUserActions {
-  POST_USER_REQUEST = 'POST_USER_REQUEST',
-  POST_USER_FAILED = 'POST_USER_FAILED',
-  POST_USER_SUCCESS = 'POST_USER_SUCCESS',
-}
-
-export enum logoutActions {
-  LOGOUT_REQUEST = 'LOGOUT_REQUEST',
-  LOGOUT_FAILED = 'LOGOUT_FAILED',
-  LOGOUT_SUCCESS = 'LOGOUT_SUCCESS',
-}
-
-export const getUserRequestActions = () => {
-  return {
-    type: userActions.GET_USER_REQUEST,
-  }
-}
-
-export const getUserFailedAction = () => {
-  return {
+export const getUserFailedAction = (): UserRequestsActions => ({
     type: userActions.GET_USER_FAILED,
-  }
-}
+})
 
-export const getUserSuccessAction = (payload: UserModel) => {
-  return {
+export const getUserSuccessAction = (payload: UserModel): UserRequestsActions => ({
     type: userActions.GET_USER_SUCCESS,
     payload,
-  }
-}
+})
 
-export const loginRequestActions = () => {
-  return {
+export const loginRequestActions = (): UserRequestsActions => ({
     type: loginActions.LOGIN_REQUEST,
-  }
-}
+})
 
-export const loginFailedActions = () => {
-  return {
+export const loginFailedActions = (): UserRequestsActions => ({
     type: loginActions.LOGIN_FAILED,
-  }
-}
+})
 
-export const loginSuccessAction = (payload: UserModel) => {
-  return {
+export const loginSuccessAction = (payload: UserModel): UserRequestsActions => ({
     type: loginActions.LOGIN_SUCCESS,
     payload,
-  }
-}
+})
 
-export const logoutRequestActions = () => {
+export const logoutRequestActions = (): UserRequestsActions => {
   return {
     type: logoutActions.LOGOUT_REQUEST,
   }
 }
 
-export const logoutFailedActions = () => {
-  return {
+export const logoutFailedActions = (): UserRequestsActions => ({
     type: logoutActions.LOGOUT_FAILED,
-  }
-}
+})
 
-export const logoutSuccessAction = () => {
-  return {
+export const logoutSuccessAction = (): UserRequestsActions => ({
     type: logoutActions.LOGOUT_SUCCESS,
-  }
-}
+})
 
-export const registerRequestAction = () => {
-  return {
+export const registerRequestAction = (): UserRequestsActions => ({
     type: registerActions.REGISTER_REQUEST,
-  }
-}
+})
 
-export const registerFailedAction = () => {
-  return {
+export const registerFailedAction = (): UserRequestsActions => ({
     type: registerActions.REGISTER_FAILED,
-  }
-}
+})
 
-export const registerSuccessAction = (payload: UserModel) => {
-  return {
+export const registerSuccessAction = (payload: UserModel): UserRequestsActions => ({
     type: registerActions.REGISTER_SUCCESS,
     payload,
-  }
-}
+})
 
-export const resetPasswordRequestAction = () => {
-  return {
+export const resetPasswordRequestAction = (): UserRequestsActions => ({
     type: resetPasswordActions.RESET_PASSWORD_REQUEST,
-  }
-}
+})
 
-export const resetPasswordFailedAction = () => {
-  return {
+export const resetPasswordFailedAction = (): UserRequestsActions => ({
     type: resetPasswordActions.RESET_PASSWORD_FAILED,
-  }
-}
+})
 
-export const resetPasswordSuccessAction = (payload: UserModel) => {
+export const resetPasswordSuccessAction = (payload: UserModel): UserRequestsActions => {
   return {
     type: resetPasswordActions.RESET_PASSWORD_SUCCESS,
     payload,
   }
 }
 
-export const forgotPasswordRequestAction = () => {
+export const forgotPasswordRequestAction = (): UserRequestsActions => {
   return {
     type: forgotPasswordActions.FORGOT_PASSWORD_REQUEST,
   }
 }
 
-export const forgotPasswordFailedAction = () => {
+export const forgotPasswordFailedAction = (): UserRequestsActions => {
   return {
     type: forgotPasswordActions.FORGOT_PASSWORD_FAILED,
   }
@@ -171,32 +109,32 @@ export const forgotPasswordSuccessAction = (payload: UserModel) => {
   }
 }
 
-export const updateTokenRequestAction = () => {
+export const updateTokenRequestAction = (): UserRequestsActions => {
   return {
     type: updateTokenActions.UPDATE_TOKEN_REQUEST,
   }
 }
 
-export const updateTokenFailedAction = () => {
+export const updateTokenFailedAction = (): UserRequestsActions => {
   return {
     type: updateTokenActions.UPDATE_TOKEN_FAILED,
   }
 }
 
-export const postUserSuccessAction = (payload: UserModel) => {
+export const postUserSuccessAction = (payload: UserModel): UserRequestsActions => {
   return {
     type: postUserActions.POST_USER_SUCCESS,
     payload,
   }
 }
 
-export const postUserRequestAction = () => {
+export const postUserRequestAction = (): UserRequestsActions => {
   return {
     type: postUserActions.POST_USER_REQUEST,
   }
 }
 
-export const postUserFailedAction = () => {
+export const postUserFailedAction = (): UserRequestsActions => {
   return {
     type: postUserActions.POST_USER_FAILED,
   }
@@ -205,29 +143,29 @@ export const postUserFailedAction = () => {
 const refreshToken =
   (afterRefresh: AppThunk): AppThunk =>
   (dispatch: AppDispatch) => {
-    dispatch(updateTokenRequestAction)
+    dispatch(updateTokenRequestAction())
     return refreshTokenRequest()
       .then((res) => {
         if (res && res.success) {
-          dispatch(getUserRequestActions)
+          dispatch(getUserRequestActions())
 
           dispatch(afterRefresh)
 
           localStorage.setItem('refreshToken', res.refreshToken)
           localStorage.setItem('accessToken', res.accessToken)
         } else {
-          dispatch(updateTokenFailedAction)
+          dispatch(updateTokenFailedAction())
 
           localStorage.removeItem('refreshToken')
         }
       })
       .catch(() => {
-        dispatch(updateTokenFailedAction)
+        dispatch(updateTokenFailedAction())
       })
   }
 
 export const getUser = (): AppThunk => (dispatch: AppDispatch) => {
-  dispatch(getUserRequestActions)
+  dispatch(getUserRequestActions())
   return getUserRequest()
     .then((res) => {
       if (res && res.success) {
@@ -238,13 +176,13 @@ export const getUser = (): AppThunk => (dispatch: AppDispatch) => {
       if (err.message === 'jwt expired') {
         dispatch(refreshToken(getUser()))
       } else {
-        dispatch(getUserFailedAction)
+        dispatch(getUserFailedAction())
       }
     })
 }
 
 export const signIn = (user: UserModel) => (dispatch: AppDispatch) => {
-  dispatch(loginRequestActions)
+  dispatch(loginRequestActions())
   return login(user)
     .then((res) => {
       if (res && res.success) {
@@ -253,18 +191,18 @@ export const signIn = (user: UserModel) => (dispatch: AppDispatch) => {
         localStorage.setItem('refreshToken', res.refreshToken)
         localStorage.setItem('accessToken', res.accessToken)
       } else {
-        dispatch(loginRequestActions)
+        dispatch(loginRequestActions())
       }
 
       return res
     })
     .catch(() => {
-      dispatch(loginFailedActions)
+      dispatch(loginFailedActions())
     })
 }
 
 export const signUp = (user: UserModel) => (dispatch: AppDispatch) => {
-  dispatch(registerRequestAction)
+  dispatch(registerRequestAction())
   return userRegisterRequest(user)
     .then((res) => {
       if (res && res.success) {
@@ -272,11 +210,11 @@ export const signUp = (user: UserModel) => (dispatch: AppDispatch) => {
         localStorage.setItem('refreshToken', res.refreshToken)
         localStorage.setItem('accessToken', res.accessToken)
       } else {
-        dispatch(registerFailedAction)
+        dispatch(registerFailedAction())
       }
     })
     .catch(() => {
-      dispatch(registerFailedAction)
+      dispatch(registerFailedAction())
     })
 }
 
@@ -315,38 +253,38 @@ export const forgotPassword = (user: UserModel) => (dispatch: AppDispatch) => {
 }
 
 export const patchUser = (user: UserModel) => (dispatch: AppDispatch) => {
-  dispatch(postUserRequestAction)
+  dispatch(postUserRequestAction())
 
   return patchUserRequest(user)
     .then((res) => {
       if (res && res.success) {
         dispatch(postUserSuccessAction(res.user))
       } else {
-        dispatch(postUserFailedAction)
+        dispatch(postUserFailedAction())
       }
     })
     .catch(() => {
-      dispatch(postUserFailedAction)
+      dispatch(postUserFailedAction())
     })
 }
 
 export const signOut = () => (dispatch: AppDispatch) => {
-  dispatch(logoutRequestActions)
+  dispatch(logoutRequestActions())
 
   return logOut()
     .then((res) => {
       if (res && res.success) {
-        dispatch(logoutSuccessAction)
+        dispatch(logoutSuccessAction())
 
         localStorage.removeItem('refreshToken')
         localStorage.removeItem('accessToken')
       } else {
-        dispatch(logoutFailedActions)
+        dispatch(logoutFailedActions())
       }
 
       return res
     })
     .catch(() => {
-      dispatch(logoutFailedActions)
+      dispatch(logoutFailedActions())
     })
 }

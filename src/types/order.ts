@@ -1,12 +1,20 @@
 import { OrderNumber } from './responses'
-import { orderActions } from '../services/actions/order'
+import {orderActions} from '../services/constants/order'
 
-type OrderBaseAction = {
-  readonly type: orderActions
+interface OrderRequest {
+  type: orderActions.GET_ORDER_REQUEST
+}
+
+interface OrderSuccess {
+  readonly type: orderActions.GET_ORDER_SUCCESS
   payload: OrderNumber
 }
 
-export type OrderActions = OrderBaseAction
+interface OrderFailed {
+  readonly type: orderActions.GET_ORDER_FAILED
+}
+
+export type OrderActions = OrderRequest | OrderSuccess | OrderFailed
 
 export type OrderSate = {
   order: null | OrderNumber
