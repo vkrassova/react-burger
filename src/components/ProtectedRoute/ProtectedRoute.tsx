@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { Navigate, Outlet } from 'react-router'
-import { useTypedSelector } from '../../hooks'
+import {useAppDispatch, useTypedSelector} from '../../hooks'
 import { AppRoutes } from '../../constants'
 import { useLocation } from 'react-router-dom'
+import {getIngredients} from '../../services/actions/ingredients';
+import {getUser} from '../../services/actions/user';
 
 interface PrivateRoutesProps {
   userAuthorized?: boolean
@@ -12,25 +14,36 @@ interface LocationParams<T> {
   state: T
 }
 interface LocationState {
-  from: string
+  from: {
+    pathname: string
+  }
 }
 
 export const ProtectedRoute = ({ userAuthorized}: PrivateRoutesProps) => {
   const location = useLocation() as LocationParams<LocationState>
+  const dispatch = useAppDispatch()
 
-  const { isAuth, userRequest } = useTypedSelector(({ user }) => user)
-  const fromPage = location.state?.from || AppRoutes.Main
+  const { user } = useTypedSelector(({ user }) => user)
+  const fromPage = location.state?.from?.pathname || AppRoutes.Main
 
-  if (userRequest) {
+  const [isAuth, setAuth] = useState(false)
+
+  useEffect(() => {
+    dispatch(getUser()).finally(() => {
+      setAuth(true)
+    })
+  }, [dispatch])
+
+  if(!isAuth) {
     return null
   }
 
-  if (!userAuthorized && !isAuth) {
+  if (!userAuthorized && !user) {
     return <Navigate to={AppRoutes.SignIn} state={{ from: location }} />
   }
 
-  if (userAuthorized && isAuth) {
-    return <Navigate to={fromPage} state={{from: location}} />
+  if (userAuthorized && user) {
+    return <Navigate to={fromPage} replace />
   }
 
   return <Outlet />

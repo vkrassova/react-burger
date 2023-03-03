@@ -92,7 +92,7 @@ export const Profile: React.FC = () => {
             />
             <PasswordInput
               onChange={handleFieldsChange}
-              value={fields.password}
+              value={''}
               autoComplete={'false'}
               name="password"
             />

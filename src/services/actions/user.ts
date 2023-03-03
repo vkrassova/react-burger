@@ -165,7 +165,7 @@ const refreshToken =
                 })
         }
 
-export const getUser = (): AppThunk => (dispatch: AppDispatch) => {
+export const getUser = (): AppThunk<Promise<void>> => (dispatch: AppDispatch) => {
   dispatch(getUserRequestActions())
   return getUserRequest()
     .then((res) => {
