@@ -15,7 +15,7 @@ interface LocationState {
   from: string
 }
 
-export const ProtectedRoute = ({ userAuthorized = false }: PrivateRoutesProps) => {
+export const ProtectedRoute = ({ userAuthorized}: PrivateRoutesProps) => {
   const location = useLocation() as LocationParams<LocationState>
 
   const { isAuth, userRequest } = useTypedSelector(({ user }) => user)
