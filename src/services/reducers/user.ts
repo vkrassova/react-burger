@@ -11,7 +11,6 @@ const initialState = {
   user: null,
   request: false,
   error: false,
-  isAuth: false,
   isResetPassword: false,
   userRequest: false,
 }
@@ -31,7 +30,6 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         ...state,
         user: action.payload,
         userRequest: false,
-        isAuth: true,
       }
     }
     case userActions.GET_USER_FAILED: {
@@ -39,7 +37,6 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         ...state,
         error: true,
         userRequest: false,
-        isAuth: false,
       }
     }
     case loginActions.LOGIN_REQUEST: {
@@ -175,7 +172,7 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         ...state,
         request: false,
         error: false,
-        isAuth: false,
+        user: null,
       }
     }
 
@@ -184,7 +181,6 @@ export const userReducer = (state: UserRequestState = initialState, action: User
         ...state,
         error: true,
         request: false,
-        isAuth: true,
       }
     }
     default: {

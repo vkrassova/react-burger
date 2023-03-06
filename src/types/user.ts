@@ -134,7 +134,6 @@ export type UserRequestState = {
     user: null | UserModel
     request: boolean
     error: boolean
-    isAuth: boolean
     isResetPassword: boolean
     userRequest: boolean
 }

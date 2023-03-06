@@ -3,7 +3,6 @@ import { Navigate, Outlet } from 'react-router'
 import {useAppDispatch, useTypedSelector} from '../../hooks'
 import { AppRoutes } from '../../constants'
 import { useLocation } from 'react-router-dom'
-import {getIngredients} from '../../services/actions/ingredients';
 import {getUser} from '../../services/actions/user';
 
 interface PrivateRoutesProps {
@@ -19,7 +18,7 @@ interface LocationState {
   }
 }
 
-export const ProtectedRoute = ({ userAuthorized}: PrivateRoutesProps) => {
+export const ProtectedRoute = ({ userAuthorized = false}: PrivateRoutesProps) => {
   const location = useLocation() as LocationParams<LocationState>
   const dispatch = useAppDispatch()
 

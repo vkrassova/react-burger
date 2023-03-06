@@ -18,7 +18,7 @@ export const BurgerConstructor: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const { isAuth } = useTypedSelector(({ user }) => user)
+  const { user } = useTypedSelector(({ user }) => user)
 
   const priceCounting = useCallback(() => {
     const totalIngredientsPrice = ingredientsList.reduce((acc: number, topping: Ingredients) => {
@@ -47,7 +47,7 @@ export const BurgerConstructor: React.FC = () => {
   }
 
   const getOrder = () => {
-    if (isAuth) {
+    if (user) {
       toggle()
       dispatch(postOrder(getIngredientsId()))
     } else {

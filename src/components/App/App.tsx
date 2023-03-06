@@ -51,21 +51,20 @@ const App: React.FC = () => {
       <AppHeader />
       <Routes location={background || location}>
         <Route index path={AppRoutes.Main} element={<Main />} />
-
-        <Route element={<ProtectedRoute userAuthorized={false}/>}>
-          <Route path={AppRoutes.Feed} element={<Feed />} />
+        <Route path="*" element={<NotFound />} />
+        <Route element={<ProtectedRoute/>}>
           <Route path={AppRoutes.Profile} element={<Profile />} />
           <Route path={AppRoutes.ProfileOrders} element={<Orders />} />
           <Route path={AppRoutes.ProfileOrdersId} element={<FeedOrder/>}/>
-          <Route path={AppRoutes.FeedId} element={<FeedOrder />} />
-          <Route path={AppRoutes.IngredientsId} element={<IngredientDetails />} />
         </Route>
         <Route element={<ProtectedRoute userAuthorized={true} />}>
+          <Route path={AppRoutes.Feed} element={<Feed />} />
+          <Route path={AppRoutes.FeedId} element={<FeedOrder />} />
+          <Route path={AppRoutes.IngredientsId} element={<IngredientDetails />} />
           <Route path={AppRoutes.SignIn} element={<Login />} />
           <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword />} />
           <Route path={AppRoutes.ResetPassword} element={<ResetPassword />} />
           <Route path={AppRoutes.Register} element={<Register />} />
-          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
 
