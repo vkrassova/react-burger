@@ -7,6 +7,7 @@ import { postOrder } from '../../services/actions/order'
 import { DraggableElement } from './components/DraggableElement'
 import { addToConstructor, constructorActions } from '../../services/actions/constructor'
 import { AppRoutes } from '../../constants'
+import {Preloader} from '../preloader/preloader'
 import { useNavigate } from 'react-router-dom'
 import styles from '../BurgerConstructor/BurgerConstructor.module.scss'
 import { OrderDetails } from '../OrderDetails/OrderDetails'
@@ -113,7 +114,12 @@ export const BurgerConstructor: React.FC = () => {
         </Button>
         {modalState && (
           <Modal onClose={modalClose}>
-            {orderRequest && <p className="text text_type_main-large">Загрузка...</p>}
+            {orderRequest && (
+                <>
+                  <p className="text text_type_main-large mb-10 mt-6">Загрузка</p>
+                  <Preloader />
+                </>
+            )}
             {!orderFailed && !orderRequest && <OrderDetails number={order?.number} />}
           </Modal>
         )}

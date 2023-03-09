@@ -1,6 +1,7 @@
 import React from 'react'
 import style from './OrderList.module.scss'
 import { useTypedSelector } from '../../hooks'
+import {Preloader} from '../preloader/preloader'
 import { Order } from '../Order/Order'
 
 export const OrderList: React.FC = () => {
@@ -14,7 +15,9 @@ export const OrderList: React.FC = () => {
             <Order order={order} key={order._id} />
           ))}
         </ul>
-      ) : null}
+      ) : (
+          <Preloader />
+      )}
     </>
   )
 }
