@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react'
-import { ProfileNav } from '../../components/ProfileNav/ProfileNav'
-import style from './Orders.module.scss'
 import { useAppDispatch } from '../../hooks'
+import { getAccessToken } from '../../utils/utils'
+import React, { useEffect } from 'react'
+import style from '../styles.module.scss'
 import { wsConnectionStart, wsConnectionStop } from '../../services/actions/ws'
 import { wsUrl } from '../../constants'
-import { OrderList } from '../../components/OrderList/OrderList'
-import { getAccessToken } from '../../utils/utils'
+import { FeedOrderDetail } from '../../components/FeedOrderDetail/FeedOrderDetail'
 
-export const Orders: React.FC = () => {
+export const Order: React.FC = () => {
   const dispatch = useAppDispatch()
 
   let accessToken = String(getAccessToken()).replace(/^Bearer\s/, '')
@@ -19,12 +18,10 @@ export const Orders: React.FC = () => {
       dispatch(wsConnectionStop())
     }
   }, [dispatch])
+
   return (
-    <section className={style.wrapper}>
-      <ProfileNav />
-      <div className={style.ordersWrapper}>
-        <OrderList />
-      </div>
-    </section>
+    <div className={style.orderWrapper}>
+      <FeedOrderDetail />
+    </div>
   )
 }

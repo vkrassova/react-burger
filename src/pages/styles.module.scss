@@ -18,6 +18,14 @@
   }
 }
 
+.orderWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 .innerText {
   display: inline-flex;
   margin-bottom: 16px;

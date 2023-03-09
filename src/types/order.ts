@@ -1,5 +1,5 @@
 import { OrderNumber } from './responses'
-import {orderActions} from '../services/constants/order'
+import { orderActions } from '../services/constants/order'
 
 interface OrderRequest {
   type: orderActions.GET_ORDER_REQUEST

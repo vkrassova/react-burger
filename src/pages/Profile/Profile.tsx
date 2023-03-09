@@ -90,12 +90,7 @@ export const Profile: React.FC = () => {
               size="default"
               extraClass="mb-6"
             />
-            <PasswordInput
-              onChange={handleFieldsChange}
-              value={''}
-              autoComplete={'false'}
-              name="password"
-            />
+            <PasswordInput onChange={handleFieldsChange} value={''} autoComplete={'false'} name="password" />
 
             {isChanged && (
               <div className={style.buttonWrapper}>

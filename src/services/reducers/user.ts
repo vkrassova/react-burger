@@ -1,10 +1,13 @@
 import { UserRequestsActions, UserRequestState } from '../../types/user'
 import {
   forgotPasswordActions,
-  loginActions, logoutActions, postUserActions,
+  loginActions,
+  logoutActions,
+  postUserActions,
   registerActions,
-  resetPasswordActions, updateTokenActions,
-  userActions
+  resetPasswordActions,
+  updateTokenActions,
+  userActions,
 } from '../constants/user'
 
 const initialState = {

@@ -9,7 +9,7 @@
 
 .item {
   display: flex;
-  transform-style: preserve-3d;
+  transform: rotateY(-1deg);
 
   &:not(:first-child) {
     .container {

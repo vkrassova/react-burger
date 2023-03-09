@@ -3,7 +3,7 @@ import style from './Order.module.scss'
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import { OrderImage } from '../OrderImage/OrderImage'
 import { Link, useLocation } from 'react-router-dom'
-import { Ingredients, Orders } from '../../types/data'
+import { Ingredients, Orders, StatusCodes } from '../../types/data'
 import { useTypedSelector } from '../../hooks'
 
 type TOrder = {
@@ -17,6 +17,19 @@ export const Order: React.FC<TOrder> = ({ order }) => {
   const orderArr = ingredients.filter((el) => {
     return order.ingredients.includes(el._id)
   })
+
+  const orderStatus = (status: string) => {
+    if (status === StatusCodes.created) {
+      return 'Создан'
+    }
+    if (status === StatusCodes.pending) {
+      return 'Готовится'
+    }
+    if (status === StatusCodes.done) {
+      return 'Выполнен'
+    }
+    return ''
+  }
 
   const formatDate = (serverDate: string) => {
     return <FormattedDate date={new Date(serverDate)} />
@@ -52,10 +65,11 @@ export const Order: React.FC<TOrder> = ({ order }) => {
     >
       <li className={style.wrapper}>
         <div className={style.info}>
-          <span className="text text_type_main-small text_color_primary">#{order.number}</span>
+          <span className="text text_type_digits-default text_color_primary">#{order.number}</span>
           <span className="text text_type_main-small text_color_inactive">{formatDate(order.createdAt)}</span>
         </div>
-        <h3 className="text text_type_main-medium text_color_primary mb-6">{order.name}</h3>
+        <h3 className="text text_type_main-medium text_color_primary mb-2">{order.name}</h3>
+        <div className={`text text_type_main-default text_color_success mb-6`}>{orderStatus(order.status)}</div>
         <div className={style.ingredients}>
           <div className={style.list}>
             {orderArr

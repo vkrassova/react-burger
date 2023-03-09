@@ -4,5 +4,27 @@
   align-items: center;
   height: 80vh;
   margin: 0 auto;
-  width: fit-content;
+  max-width: 1280px;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+
+.ordersWrapper {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 844px;
+  max-height: 100%;
+
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar { /* 1 - скроллбар */
+    position: absolute;
+    width: 8px;
+    background-color: #2F2F37;
+  }
+
+  &::-webkit-scrollbar-thumb { /* 5 - ползунок */
+    background-color: #8585AD;;
+  }
 }

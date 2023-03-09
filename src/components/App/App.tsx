@@ -4,11 +4,12 @@ import { AppHeader } from '../AppHeader/AppHeader'
 import { getIngredients } from '../../services/actions/ingredients'
 import { AppRoutes } from '../../constants'
 import { ForgotPassword, Login, Main, NotFound, Profile, Register, ResetPassword } from '../../pages'
-import {useAppDispatch, useTypedSelector} from '../../hooks'
+import { useAppDispatch, useTypedSelector } from '../../hooks'
 import { getUser } from '../../services/actions/user'
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute'
 import { Feed } from '../../pages/Feed/Feed'
 import { Orders } from '../../pages/Orders/Orders'
+import { Order } from '../../pages/order/order'
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
 import { Modal } from '../Modal/Modal'
 import { FeedOrder } from '../../pages/FeedOrder/FeedOrder'
@@ -34,7 +35,6 @@ const App: React.FC = () => {
   useEffect(() => {
     dispatch(getIngredients())
     dispatch(getUser())
-    console.log(user)
   }, [dispatch])
 
   const location = useLocation() as LocationParams<LocationState>
@@ -51,15 +51,15 @@ const App: React.FC = () => {
       <AppHeader />
       <Routes location={background || location}>
         <Route index path={AppRoutes.Main} element={<Main />} />
+        <Route path={AppRoutes.Feed} element={<Feed />} />
+        <Route path={AppRoutes.FeedId} element={<FeedOrder />} />
         <Route path="*" element={<NotFound />} />
-        <Route element={<ProtectedRoute/>}>
+        <Route element={<ProtectedRoute userAuthorized={false} />}>
           <Route path={AppRoutes.Profile} element={<Profile />} />
           <Route path={AppRoutes.ProfileOrders} element={<Orders />} />
-          <Route path={AppRoutes.ProfileOrdersId} element={<FeedOrder/>}/>
+          <Route path={AppRoutes.ProfileOrdersId} element={<Order />} />
         </Route>
         <Route element={<ProtectedRoute userAuthorized={true} />}>
-          <Route path={AppRoutes.Feed} element={<Feed />} />
-          <Route path={AppRoutes.FeedId} element={<FeedOrder />} />
           <Route path={AppRoutes.IngredientsId} element={<IngredientDetails />} />
           <Route path={AppRoutes.SignIn} element={<Login />} />
           <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword />} />
@@ -78,14 +78,14 @@ const App: React.FC = () => {
               </Modal>
             }
           />
-            <Route
-                path={AppRoutes.ProfileOrdersId}
-                element={
-                  <Modal onClose={handleModalClose} title="Детали ингридиента">
-                    <FeedOrderDetail />
-                  </Modal>
-                }
-            />
+          <Route
+            path={AppRoutes.ProfileOrdersId}
+            element={
+              <Modal onClose={handleModalClose}>
+                <FeedOrderDetail />
+              </Modal>
+            }
+          />
           <Route
             path={AppRoutes.FeedId}
             element={

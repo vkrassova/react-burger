@@ -3,9 +3,11 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from '../AppHeader/AppHeader.module.scss'
 import { AppRoutes } from '../../constants'
+import {useTypedSelector} from '../../hooks';
 
 export const AppHeader: React.FC = () => {
   const location = useLocation()
+  const { user } = useTypedSelector(({ user }) => user)
 
   return (
     <header className={`${styles.headerContainer} mb-10`}>
@@ -35,8 +37,14 @@ export const AppHeader: React.FC = () => {
           className={({ isActive }) => (isActive ? styles.activeLink : styles.notActiveLink)}
           to={AppRoutes.Profile}
         >
-          <ProfileIcon type={location.pathname === AppRoutes.Profile ? 'primary' : 'secondary'} />
-          <span className="text text_type_main-default pl-2">Личный кабинет</span>
+          <ProfileIcon type={location.pathname === AppRoutes.ProfileOrders || location.pathname === AppRoutes.Profile ? 'primary' : 'secondary'} />
+          {
+            user ? (
+                <span className="text text_type_main-default pl-2">{user.name}</span>
+            ) : (
+                <span className="text text_type_main-default pl-2">Личный кабинет</span>
+            )
+          }
         </NavLink>
       </nav>
     </header>

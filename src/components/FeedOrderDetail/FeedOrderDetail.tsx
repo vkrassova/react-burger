@@ -4,7 +4,7 @@ import { useTypedSelector } from '../../hooks'
 import { useParams } from 'react-router-dom'
 import { Ingredients, StatusCodes } from '../../types/data'
 import { FeedOrderItem } from './components/FeedOrderItem'
-import { FormattedDate, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 
 export const FeedOrderDetail: React.FC = () => {
   const { messages } = useTypedSelector((store) => store.ws)
@@ -43,9 +43,9 @@ export const FeedOrderDetail: React.FC = () => {
       <div>
         <div className={`${style.number} text text_type_digits-default mb-10`}>{`#${currentOrder.number}`}</div>
         <div className={`text text_type_main-medium mb-3`}>{currentOrder.name}</div>
-        {currentOrder.status === StatusCodes.done && (
-          <div className={`text text_type_main-default text_color_success mb-15`}>Выполнен</div>
-        )}
+        <div className={`text text_type_main-default text_color_success mb-15`}>
+          {currentOrder.status === StatusCodes.done ? 'Выполнен' : 'Готовится'}
+        </div>
       </div>
       <div className={`${style.body} mb-6`}>
         <span className={`text text_type_main-medium mb-6`}>Состав:</span>
@@ -73,5 +73,7 @@ export const FeedOrderDetail: React.FC = () => {
         </div>
       </div>
     </div>
-  ) : null
+  ) : (
+    <>Загрузка</>
+  )
 }

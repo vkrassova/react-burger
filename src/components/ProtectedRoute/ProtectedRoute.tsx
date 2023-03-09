@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navigate, Outlet } from 'react-router'
-import {useAppDispatch, useTypedSelector} from '../../hooks'
+import { useAppDispatch, useTypedSelector } from '../../hooks'
 import { AppRoutes } from '../../constants'
 import { useLocation } from 'react-router-dom'
-import {getUser} from '../../services/actions/user';
+import { getUser } from '../../services/actions/user'
 
 interface PrivateRoutesProps {
   userAuthorized?: boolean
@@ -18,7 +18,7 @@ interface LocationState {
   }
 }
 
-export const ProtectedRoute = ({ userAuthorized = false}: PrivateRoutesProps) => {
+export const ProtectedRoute = ({ userAuthorized }: PrivateRoutesProps) => {
   const location = useLocation() as LocationParams<LocationState>
   const dispatch = useAppDispatch()
 
@@ -33,7 +33,7 @@ export const ProtectedRoute = ({ userAuthorized = false}: PrivateRoutesProps) =>
     })
   }, [dispatch])
 
-  if(!isAuth) {
+  if (!isAuth) {
     return null
   }
 
