@@ -1,4 +1,4 @@
-import { AppDispatch, AppThunk } from '../index'
+import { AppDispatch, AppThunk } from '../store'
 import { getIngredientsRequest } from '../../utils/api'
 import { Ingredients } from '../../types/data'
 

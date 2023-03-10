@@ -1,5 +1,5 @@
 import type { Middleware, MiddlewareAPI } from 'redux'
-import { RootState, AppDispatch } from '../index'
+import { RootState, AppDispatch } from '../store'
 
 import {
   wsConnectionSuccess,

@@ -1,18 +1,15 @@
-import { useAppDispatch } from '../../hooks'
-import { getAccessToken } from '../../utils/utils'
 import React, { useEffect } from 'react'
-import style from '../styles.module.scss'
+import { useAppDispatch } from '../../hooks'
 import { wsConnectionStart, wsConnectionStop } from '../../services/actions/ws'
 import { wsUrl } from '../../constants'
+import style from './feed-order.module.scss'
 import { FeedOrderDetail } from '../../components/feed-order-detail/feed-order-detail'
 
-export const Order: React.FC = () => {
+export const FeedOrder: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  let accessToken = String(getAccessToken()).replace(/^Bearer\s/, '')
-
   useEffect(() => {
-    dispatch(wsConnectionStart(`${wsUrl}/orders?token=${accessToken}`))
+    dispatch(wsConnectionStart(`${wsUrl}/orders/all`))
 
     return () => {
       dispatch(wsConnectionStop())
@@ -20,7 +17,7 @@ export const Order: React.FC = () => {
   }, [dispatch])
 
   return (
-    <div className={style.orderWrapper}>
+    <div className={style.wrapper}>
       <FeedOrderDetail />
     </div>
   )

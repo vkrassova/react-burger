@@ -1,4 +1,4 @@
-import { AppDispatch, AppThunk } from '../index'
+import { AppDispatch, AppThunk } from '../store'
 import { getOrderRequest } from '../../utils/api'
 import { OrderNumber } from '../../types/responses'
 import { orderActions } from '../constants/order'

@@ -1,4 +1,4 @@
-import { AppDispatch, AppThunk } from '../index'
+import { AppDispatch, AppThunk } from '../store'
 import { UserModel } from '../../types/responses'
 import { UserRequestsActions } from '../../types/user'
 import {
