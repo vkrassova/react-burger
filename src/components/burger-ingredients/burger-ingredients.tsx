@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useTypedSelector } from '../../hooks'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { INGREDIENT_TYPES } from '../../constants'
-import { getRect, tabsClickHandler } from '../../utils/utils'
+import { getRect, tabsClickHandler } from '../../utils'
 import styles from './burger-ingredients.module.scss'
 import { BurgerCategory } from './components'
 

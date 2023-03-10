@@ -4,13 +4,13 @@ import { useAppDispatch, useModal, useTypedSelector } from '../../hooks'
 import { Ingredients } from '../../types/data'
 import { useDrop } from 'react-dnd'
 import { postOrder } from '../../services/actions/order'
-import { addToConstructor, constructorActions } from '../../services/actions/constructor'
+import { addToConstructor } from '../../services/actions/constructor'
 import { AppRoutes } from '../../constants'
 import { useNavigate } from 'react-router-dom'
 import styles from './burger-constructor.module.scss'
-import { OrderDetails } from '../order-details/order-details'
-import { Modal, Preloader } from '../../components'
+import { Modal, Preloader, OrderDetails } from '../../components'
 import { DraggableElement } from './components'
+import {constructorActions} from '../../services/constants'
 
 export const BurgerConstructor: React.FC = () => {
   const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)

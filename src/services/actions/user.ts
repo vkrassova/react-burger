@@ -1,16 +1,7 @@
 import { AppDispatch, AppThunk } from '../store'
 import { UserModel } from '../../types/responses'
 import { UserRequestsActions } from '../../types/user'
-import {
-  forgotPasswordRequest,
-  getUserRequest,
-  login,
-  logOut,
-  patchUserRequest,
-  refreshTokenRequest,
-  resetPasswordRequest,
-  userRegisterRequest,
-} from '../../utils/api'
+
 import {
   forgotPasswordActions,
   loginActions,
@@ -20,7 +11,8 @@ import {
   resetPasswordActions,
   updateTokenActions,
   userActions,
-} from '../constants/user'
+} from '../constants'
+import {refreshTokenRequest, resetPasswordRequest, getUserRequest, login, logOut, patchUserRequest, userRegisterRequest, forgotPasswordRequest } from '../../utils'
 
 export const getUserRequestActions = (): UserRequestsActions => ({
   type: userActions.GET_USER_REQUEST,
@@ -48,11 +40,9 @@ export const loginSuccessAction = (payload: UserModel): UserRequestsActions => (
   payload,
 })
 
-export const logoutRequestActions = (): UserRequestsActions => {
-  return {
+export const logoutRequestActions = (): UserRequestsActions => ({
     type: logoutActions.LOGOUT_REQUEST,
-  }
-}
+})
 
 export const logoutFailedActions = (): UserRequestsActions => ({
   type: logoutActions.LOGOUT_FAILED,
@@ -83,62 +73,44 @@ export const resetPasswordFailedAction = (): UserRequestsActions => ({
   type: resetPasswordActions.RESET_PASSWORD_FAILED,
 })
 
-export const resetPasswordSuccessAction = (payload: UserModel): UserRequestsActions => {
-  return {
+export const resetPasswordSuccessAction = (payload: UserModel): UserRequestsActions => ({
     type: resetPasswordActions.RESET_PASSWORD_SUCCESS,
     payload,
-  }
-}
+})
 
-export const forgotPasswordRequestAction = (): UserRequestsActions => {
-  return {
+export const forgotPasswordRequestAction = (): UserRequestsActions => ({
     type: forgotPasswordActions.FORGOT_PASSWORD_REQUEST,
-  }
-}
+})
 
-export const forgotPasswordFailedAction = (): UserRequestsActions => {
-  return {
+export const forgotPasswordFailedAction = (): UserRequestsActions => ({
     type: forgotPasswordActions.FORGOT_PASSWORD_FAILED,
-  }
-}
+})
 
-export const forgotPasswordSuccessAction = (payload: UserModel) => {
-  return {
+export const forgotPasswordSuccessAction = (payload: UserModel) => ({
     type: forgotPasswordActions.FORGOT_PASSWORD_SUCCESS,
     payload,
-  }
-}
+})
 
-export const updateTokenRequestAction = (): UserRequestsActions => {
-  return {
+export const updateTokenRequestAction = (): UserRequestsActions => ({
     type: updateTokenActions.UPDATE_TOKEN_REQUEST,
-  }
-}
+})
 
-export const updateTokenFailedAction = (): UserRequestsActions => {
-  return {
+export const updateTokenFailedAction = (): UserRequestsActions => ({
     type: updateTokenActions.UPDATE_TOKEN_FAILED,
-  }
-}
+})
 
-export const postUserSuccessAction = (payload: UserModel): UserRequestsActions => {
-  return {
+export const postUserSuccessAction = (payload: UserModel): UserRequestsActions => ({
     type: postUserActions.POST_USER_SUCCESS,
     payload,
-  }
-}
+})
 
-export const postUserRequestAction = (): UserRequestsActions => {
-  return {
+export const postUserRequestAction = (): UserRequestsActions => ({
     type: postUserActions.POST_USER_REQUEST,
-  }
-}
+})
 
-export const postUserFailedAction = (): UserRequestsActions => {
-  return {
+export const postUserFailedAction = (): UserRequestsActions => ({
     type: postUserActions.POST_USER_FAILED,
-  }
-}
+})
 
 const refreshToken =
   (afterRefresh: AppThunk): AppThunk =>

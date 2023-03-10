@@ -1,5 +1,5 @@
 import { IngredientsActions, IngredientsState } from '../../types/ingredientsActions'
-import { getIngredientsActions } from '../actions/ingredients'
+import {getIngredientsActions} from '../constants'
 
 const initialState = {
   ingredients: [],

@@ -3,7 +3,7 @@ import { useAppDispatch } from '../../hooks'
 import { wsConnectionStart, wsConnectionStop } from '../../services/actions/ws'
 import { wsUrl } from '../../constants'
 import style from './feed-order.module.scss'
-import { FeedOrderDetail } from '../../components/feed-order-detail/feed-order-detail'
+import { FeedOrderDetail } from '../../components'
 
 export const FeedOrder: React.FC = () => {
   const dispatch = useAppDispatch()

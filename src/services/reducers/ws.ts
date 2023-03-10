@@ -1,4 +1,4 @@
-import { wsActions } from '../constants/ws'
+import { wsActions } from '../constants'
 import { WSActions } from '../../types/wsActions'
 import { FeedResponse } from '../../types/responses'
 

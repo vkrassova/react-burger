@@ -8,7 +8,7 @@ import {
   resetPasswordActions,
   updateTokenActions,
   userActions,
-} from '../services/constants/user'
+} from '../services/constants'
 
 interface GetUserRequestActions {
   readonly type: userActions.GET_USER_REQUEST

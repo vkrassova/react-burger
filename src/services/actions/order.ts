@@ -1,7 +1,7 @@
 import { AppDispatch, AppThunk } from '../store'
-import { getOrderRequest } from '../../utils/api'
+import { getOrderRequest } from '../../utils'
 import { OrderNumber } from '../../types/responses'
-import { orderActions } from '../constants/order'
+import { orderActions } from '../constants'
 import { OrderActions } from '../../types/order'
 
 export const orderRequestActions = (): OrderActions => ({

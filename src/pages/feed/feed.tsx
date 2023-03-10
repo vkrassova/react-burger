@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react'
 import feed from './feed.module.scss'
-import { Order } from '../../components/order/order'
 import { wsUrl } from '../../constants'
-import { OrderStatus } from '../../components/order-status/order-status'
-import { OrderList } from '../../components/order-list/order-list'
-
 import { wsConnectionStart, wsConnectionStop } from '../../services/actions/ws'
 import { useAppDispatch } from '../../hooks'
+import {OrderList, OrderStatus} from '../../components'
 
 export const Feed: React.FC = () => {
   const dispatch = useAppDispatch()
