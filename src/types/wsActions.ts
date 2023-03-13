@@ -1,5 +1,5 @@
 import { FeedResponse } from './responses'
-import {wsActions} from '../services/constants'
+import { wsActions } from '../services/constants'
 
 export interface WSConnectionStart {
   readonly type: wsActions.WS_CONNECTION_START

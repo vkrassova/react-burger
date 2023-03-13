@@ -3,7 +3,7 @@ import feed from './feed.module.scss'
 import { wsUrl } from '../../constants'
 import { wsConnectionStart, wsConnectionStop } from '../../services/actions/ws'
 import { useAppDispatch } from '../../hooks'
-import {OrderList, OrderStatus} from '../../components'
+import { OrderList, OrderStatus } from '../../components'
 
 export const Feed: React.FC = () => {
   const dispatch = useAppDispatch()

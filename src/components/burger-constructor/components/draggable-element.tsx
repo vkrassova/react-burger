@@ -5,7 +5,7 @@ import { Ingredients } from '../../../types/data'
 import type { Identifier } from 'dnd-core'
 import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd'
 import { useAppDispatch } from '../../../hooks'
-import {constructorActions} from '../../../services/constants'
+import { constructorActions } from '../../../services/constants'
 
 interface DraggableElementProps {
   items: Ingredients

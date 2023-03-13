@@ -12,7 +12,16 @@ import {
   updateTokenActions,
   userActions,
 } from '../constants'
-import {refreshTokenRequest, resetPasswordRequest, getUserRequest, login, logOut, patchUserRequest, userRegisterRequest, forgotPasswordRequest } from '../../utils'
+import {
+  refreshTokenRequest,
+  resetPasswordRequest,
+  getUserRequest,
+  login,
+  logOut,
+  patchUserRequest,
+  userRegisterRequest,
+  forgotPasswordRequest,
+} from '../../utils'
 
 export const getUserRequestActions = (): UserRequestsActions => ({
   type: userActions.GET_USER_REQUEST,
@@ -41,7 +50,7 @@ export const loginSuccessAction = (payload: UserModel): UserRequestsActions => (
 })
 
 export const logoutRequestActions = (): UserRequestsActions => ({
-    type: logoutActions.LOGOUT_REQUEST,
+  type: logoutActions.LOGOUT_REQUEST,
 })
 
 export const logoutFailedActions = (): UserRequestsActions => ({
@@ -74,42 +83,42 @@ export const resetPasswordFailedAction = (): UserRequestsActions => ({
 })
 
 export const resetPasswordSuccessAction = (payload: UserModel): UserRequestsActions => ({
-    type: resetPasswordActions.RESET_PASSWORD_SUCCESS,
-    payload,
+  type: resetPasswordActions.RESET_PASSWORD_SUCCESS,
+  payload,
 })
 
 export const forgotPasswordRequestAction = (): UserRequestsActions => ({
-    type: forgotPasswordActions.FORGOT_PASSWORD_REQUEST,
+  type: forgotPasswordActions.FORGOT_PASSWORD_REQUEST,
 })
 
 export const forgotPasswordFailedAction = (): UserRequestsActions => ({
-    type: forgotPasswordActions.FORGOT_PASSWORD_FAILED,
+  type: forgotPasswordActions.FORGOT_PASSWORD_FAILED,
 })
 
 export const forgotPasswordSuccessAction = (payload: UserModel) => ({
-    type: forgotPasswordActions.FORGOT_PASSWORD_SUCCESS,
-    payload,
+  type: forgotPasswordActions.FORGOT_PASSWORD_SUCCESS,
+  payload,
 })
 
 export const updateTokenRequestAction = (): UserRequestsActions => ({
-    type: updateTokenActions.UPDATE_TOKEN_REQUEST,
+  type: updateTokenActions.UPDATE_TOKEN_REQUEST,
 })
 
 export const updateTokenFailedAction = (): UserRequestsActions => ({
-    type: updateTokenActions.UPDATE_TOKEN_FAILED,
+  type: updateTokenActions.UPDATE_TOKEN_FAILED,
 })
 
 export const postUserSuccessAction = (payload: UserModel): UserRequestsActions => ({
-    type: postUserActions.POST_USER_SUCCESS,
-    payload,
+  type: postUserActions.POST_USER_SUCCESS,
+  payload,
 })
 
 export const postUserRequestAction = (): UserRequestsActions => ({
-    type: postUserActions.POST_USER_REQUEST,
+  type: postUserActions.POST_USER_REQUEST,
 })
 
 export const postUserFailedAction = (): UserRequestsActions => ({
-    type: postUserActions.POST_USER_FAILED,
+  type: postUserActions.POST_USER_FAILED,
 })
 
 const refreshToken =

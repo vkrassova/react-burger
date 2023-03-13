@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import styles from './burger-constructor.module.scss'
 import { Modal, Preloader, OrderDetails } from '../../components'
 import { DraggableElement } from './components'
-import {constructorActions} from '../../services/constants'
+import { constructorActions } from '../../services/constants'
 
 export const BurgerConstructor: React.FC = () => {
   const { ingredientsList, bun } = useTypedSelector((store) => store.constructorList)

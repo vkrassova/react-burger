@@ -1,4 +1,4 @@
-export { checkResponse, getRect, tabsClickHandler, getAccessToken } from './utils'
+export { checkResponse, getRect, tabsClickHandler, getAccessToken, declension, diffDays } from './utils'
 export {
   getOrderRequest,
   refreshTokenRequest,

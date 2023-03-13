@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react'
 import style from './order.module.scss'
-import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, useLocation } from 'react-router-dom'
 import { Ingredients, Orders, StatusCodes } from '../../types/data'
 import { useTypedSelector } from '../../hooks'
-import { OrderImage } from '../order-image'
+import { OrderImage, FormattedDate } from '../../components'
 
 type TOrder = {
   order: Orders
@@ -29,10 +29,6 @@ export const Order: React.FC<TOrder> = ({ order }) => {
       return 'Выполнен'
     }
     return ''
-  }
-
-  const formatDate = (serverDate: string) => {
-    return <FormattedDate date={new Date(serverDate)} />
   }
 
   const totalPrice = useCallback(() => {
@@ -66,7 +62,9 @@ export const Order: React.FC<TOrder> = ({ order }) => {
       <li className={style.wrapper}>
         <div className={style.info}>
           <span className="text text_type_digits-default text_color_primary">#{order.number}</span>
-          <span className="text text_type_main-small text_color_inactive">{formatDate(order.createdAt)}</span>
+          <span className="text text_type_main-small text_color_inactive">
+            <FormattedDate date={order.createdAt} />
+          </span>
         </div>
         <h3 className="text text_type_main-medium text_color_primary mb-2">{order.name}</h3>
         <div className={`text text_type_main-default text_color_success mb-6`}>{orderStatus(order.status)}</div>

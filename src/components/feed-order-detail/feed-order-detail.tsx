@@ -3,8 +3,9 @@ import style from './feed-order-detail.module.scss'
 import { useTypedSelector } from '../../hooks'
 import { useParams } from 'react-router-dom'
 import { Ingredients, StatusCodes } from '../../types/data'
-import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FeedOrderItem } from './components'
+import { FormattedDate } from '../formattedDate'
 
 export const FeedOrderDetail: React.FC = () => {
   const { messages } = useTypedSelector((store) => store.ws)
@@ -16,10 +17,6 @@ export const FeedOrderDetail: React.FC = () => {
   const orderArr = ingredients.filter((el) => {
     return currentOrder?.ingredients.includes(el._id)
   })
-
-  const formatDate = (serverDate: string) => {
-    return <FormattedDate date={new Date(serverDate)} />
-  }
 
   const totalPrice = useCallback(() => {
     let totalToppingsPrice = 0
@@ -61,7 +58,7 @@ export const FeedOrderDetail: React.FC = () => {
       <div className={style.footer}>
         <div className={style.footer}>
           <div className={`text text_color_inactive text_type_main-small`}>
-            {currentOrder && formatDate(currentOrder.createdAt)}
+            <FormattedDate date={currentOrder.createdAt} />
           </div>
         </div>
 
