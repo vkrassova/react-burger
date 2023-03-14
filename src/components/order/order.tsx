@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useMemo } from 'react'
 import style from './order.module.scss'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, useLocation } from 'react-router-dom'
@@ -31,7 +31,7 @@ export const Order: React.FC<TOrder> = ({ order }) => {
     return ''
   }
 
-  const totalPrice = useCallback(() => {
+  const totalPrice = useMemo(() => {
     let totalToppingsPrice = 0
     if (orderArr.length > 0) {
       totalToppingsPrice = orderArr.reduce((acc: number, curr: Ingredients) => {
@@ -87,7 +87,7 @@ export const Order: React.FC<TOrder> = ({ order }) => {
           </div>
           <div className={style.price}>
             <p className="text text_type_digits-default text_color_primary mr-2">
-              <span>{totalPrice()}</span>
+              <span>{totalPrice}</span>
             </p>
             <CurrencyIcon type="primary" />
           </div>

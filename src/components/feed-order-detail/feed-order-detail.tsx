@@ -1,11 +1,11 @@
-import React, { useCallback } from 'react'
+import React, { useMemo } from 'react'
 import style from './feed-order-detail.module.scss'
 import { useTypedSelector } from '../../hooks'
 import { useParams } from 'react-router-dom'
-import { Ingredients, StatusCodes } from '../../types/data'
+import { StatusCodes } from '../../types/data'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FeedOrderItem } from './components'
-import { FormattedDate } from '../formattedDate'
+import { FormattedDate, Preloader } from '../../components'
 
 export const FeedOrderDetail: React.FC = () => {
   const { messages } = useTypedSelector((store) => store.ws)
@@ -14,26 +14,20 @@ export const FeedOrderDetail: React.FC = () => {
 
   const currentOrder = messages?.orders.find((el) => el._id === id || null)
 
-  const orderArr = ingredients.filter((el) => {
-    return currentOrder?.ingredients.includes(el._id)
-  })
+  const orderArr = useMemo(
+      () => Array.from(new Set(currentOrder?.ingredients)).map((item) => ({
+        ingredient: ingredients.find(({ _id }) => _id === item),
+        count: currentOrder?.ingredients.filter((id) => id === item).length
+      })),
+      [currentOrder?.ingredients, ingredients]
+  )
 
-  const totalPrice = useCallback(() => {
-    let totalToppingsPrice = 0
-    if (orderArr.length > 0) {
-      totalToppingsPrice = orderArr.reduce((acc: number, curr: Ingredients) => {
-        return acc + curr.price
-      }, 0)
-    }
-
-    const bun = orderArr.find((el) => {
-      return el.type === 'bun'
-    })
-
-    const totalBunPrice = bun ? bun.price : 0
-
-    return totalBunPrice + totalToppingsPrice
-  }, [orderArr])
+  const totalPrice = useMemo(
+      () => orderArr.reduce((acc, { ingredient, count }) => (
+          acc + (ingredient?.price || 0) * (count || 0)
+      ), 0),
+      [orderArr]
+  )
 
   return currentOrder ? (
     <div className={style.container}>
@@ -50,7 +44,7 @@ export const FeedOrderDetail: React.FC = () => {
       <div className={style.wrapper}>
         <div className={style.listWrapper}>
           <ul className={`${style.list} custom-scroll`}>
-            {orderArr.map((el, index) => el && <FeedOrderItem element={el} key={index} />)}
+            {orderArr.map(({ingredient, count}) => ingredient && count && <FeedOrderItem element={ingredient} key={ingredient._id} count={count} />)}
           </ul>
         </div>
       </div>
@@ -64,11 +58,16 @@ export const FeedOrderDetail: React.FC = () => {
 
         <div className={style.price}>
           <p className="text text_type_digits-default text_color_primary mr-2">
-            <span>{totalPrice()}</span>
+            <span>{totalPrice}</span>
           </p>
           <CurrencyIcon type="primary" />
         </div>
       </div>
     </div>
-  ) : null
+  ) : (
+    <>
+      <p className="text text_type_main-large mb-10 mt-6">Загрузка</p>
+      <Preloader />
+    </>
+  )
 }

@@ -51,11 +51,11 @@ export const OrderStatus: React.FC = () => {
       </div>
       <div className={`mt-15`}>
         <h3 className="text text_type_main-medium">Выполнено за все время:</h3>
-        <p className={`${status.text} text text_type_digits-large`}>453244</p>
+        <p className={`${status.text} text text_type_digits-large`}>{messages?.total}</p>
       </div>
       <div className={`mt-15`}>
         <h3 className="text text_type_main-medium">Выполнено за сегодня:</h3>
-        <p className={`${status.text} text text_type_digits-large`}>234234</p>
+        <p className={`${status.text} text text_type_digits-large`}>{messages?.totalToday}</p>
       </div>
     </>
   )
