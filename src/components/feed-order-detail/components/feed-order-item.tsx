@@ -6,7 +6,7 @@ import { OrderImage } from '../../order-image'
 
 type FeedOrderItemProps = {
   element: Ingredients
-  count: number| undefined
+  count: number | undefined
 }
 
 export const FeedOrderItem: React.FC<FeedOrderItemProps> = ({ element, count }) => {

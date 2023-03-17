@@ -7,7 +7,7 @@ export const getOrderRequest = async (data: (string | undefined)[]): Promise<Ord
   const raw = JSON.stringify({
     ingredients: data,
   })
-  if(token !== undefined) {
+  if (token !== undefined) {
     return fetch(`${BASE_URL}/orders`, {
       method: 'POST',
       headers: {

@@ -15,18 +15,17 @@ export const FeedOrderDetail: React.FC = () => {
   const currentOrder = messages?.orders.find((el) => el._id === id || null)
 
   const orderArr = useMemo(
-      () => Array.from(new Set(currentOrder?.ingredients)).map((item) => ({
+    () =>
+      Array.from(new Set(currentOrder?.ingredients)).map((item) => ({
         ingredient: ingredients.find(({ _id }) => _id === item),
-        count: currentOrder?.ingredients.filter((id) => id === item).length
+        count: currentOrder?.ingredients.filter((id) => id === item).length,
       })),
-      [currentOrder?.ingredients, ingredients]
+    [currentOrder?.ingredients, ingredients]
   )
 
   const totalPrice = useMemo(
-      () => orderArr.reduce((acc, { ingredient, count }) => (
-          acc + (ingredient?.price || 0) * (count || 0)
-      ), 0),
-      [orderArr]
+    () => orderArr.reduce((acc, { ingredient, count }) => acc + (ingredient?.price || 0) * (count || 0), 0),
+    [orderArr]
   )
 
   return currentOrder ? (
@@ -44,7 +43,10 @@ export const FeedOrderDetail: React.FC = () => {
       <div className={style.wrapper}>
         <div className={style.listWrapper}>
           <ul className={`${style.list} custom-scroll`}>
-            {orderArr.map(({ingredient, count}) => ingredient && count && <FeedOrderItem element={ingredient} key={ingredient._id} count={count} />)}
+            {orderArr.map(
+              ({ ingredient, count }) =>
+                ingredient && count && <FeedOrderItem element={ingredient} key={ingredient._id} count={count} />
+            )}
           </ul>
         </div>
       </div>
