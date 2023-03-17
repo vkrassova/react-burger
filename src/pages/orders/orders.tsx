@@ -9,7 +9,7 @@ import { getAccessToken } from '../../utils'
 export const Orders: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  let accessToken = String(getAccessToken()).replace(/^Bearer\s/, '')
+  const accessToken = String(getAccessToken()).replace(/^Bearer\s/, '')
 
   useEffect(() => {
     dispatch(wsConnectionStart(`${wsUrl}/orders?token=${accessToken}`))

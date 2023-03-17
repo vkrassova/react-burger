@@ -2,18 +2,21 @@ import { BASE_URL } from '../constants'
 import { checkResponse } from './utils'
 import { OrderResponse, UserModel, UserResponse, IngredientsResponse } from '../types/responses'
 
-export const getOrderRequest = (data: (string | undefined)[]): Promise<OrderResponse> => {
+export const getOrderRequest = async (data: (string | undefined)[]): Promise<OrderResponse | undefined> => {
+  const token = localStorage.getItem('accessToken') || ' '
   const raw = JSON.stringify({
     ingredients: data,
   })
-  return fetch(`${BASE_URL}/orders`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: `${localStorage.getItem('accessToken')}`,
-    },
-    body: raw,
-  }).then(checkResponse)
+  if(token !== undefined) {
+    return fetch(`${BASE_URL}/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `${token}`,
+      },
+      body: raw,
+    }).then(checkResponse)
+  }
 }
 
 export const getIngredientsRequest = (): Promise<IngredientsResponse> => {

@@ -23,6 +23,7 @@ export type wsActionsType = {
 
 export const socketMiddleware = (wsActions: wsActionsType): Middleware => {
   return (store: MiddlewareAPI<AppDispatch, RootState>) => {
+    const WS_NORMAL_CLOSE = 1000
     let socket: null | WebSocket = null
     let isConnected: boolean = false
     let reconnectTimer: number = 0
@@ -56,7 +57,7 @@ export const socketMiddleware = (wsActions: wsActionsType): Middleware => {
         }
 
         socket.onclose = (event) => {
-          if (event.code !== 1000) {
+          if (event.code !== WS_NORMAL_CLOSE) {
             dispatch(onError(event))
           }
 
