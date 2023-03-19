@@ -1,5 +1,5 @@
-import { constructorActions } from '../actions/constructor'
 import { ConstructorActions, ConstructorState } from '../../types/constructorActions'
+import { constructorActions } from '../constants'
 
 const initialState = {
   bun: null,

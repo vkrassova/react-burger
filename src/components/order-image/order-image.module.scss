@@ -1,0 +1,50 @@
+.container {
+  border-radius: 50%;
+  padding: 2px;
+  width: 64px;
+  height: 64px;
+  background-image: linear-gradient(45deg, rgba(128, 26, 178, 1) 0%, rgba(76, 76, 255, 1) 100%);
+  overflow: hidden;
+}
+
+.item {
+  display: flex;
+  transform: rotateY(-1deg);
+
+  &:not(:first-child) {
+    .container {
+      margin-left: -20px;
+    }
+  }
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #131316;
+  border-radius: 50%;
+
+  img {
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+}
+
+.count {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(28, 28, 33, 0.6);
+  color: white;
+}

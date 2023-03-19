@@ -1,46 +1,36 @@
-import { AppDispatch, AppThunk } from '../index'
-import { getOrderRequest } from '../../utils/api'
+import { AppDispatch, AppThunk } from '../store'
+import { getOrderRequest } from '../../utils'
 import { OrderNumber } from '../../types/responses'
+import { orderActions } from '../constants'
+import { OrderActions } from '../../types/order'
 
-export enum orderActions {
-  GET_ORDER_REQUEST = 'GET_ORDER_REQUEST',
-  GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS',
-  GET_ORDER_FAILED = 'GET_ORDER_FAILED',
-}
+export const orderRequestActions = (): OrderActions => ({
+  type: orderActions.GET_ORDER_REQUEST,
+})
 
-export const orderRequestActions = () => {
-  return {
-    type: orderActions.GET_ORDER_REQUEST,
-  }
-}
+export const orderSuccessActions = (payload: OrderNumber): OrderActions => ({
+  type: orderActions.GET_ORDER_SUCCESS,
+  payload,
+})
 
-export const orderSuccessActions = (payload: OrderNumber) => {
-  return {
-    type: orderActions.GET_ORDER_SUCCESS,
-    payload,
-  }
-}
-
-export const orderFailedActions = () => {
-  return {
-    type: orderActions.GET_ORDER_FAILED,
-  }
-}
+export const orderFailedActions = (): OrderActions => ({
+  type: orderActions.GET_ORDER_FAILED,
+})
 
 export const postOrder =
   (data: (string | undefined)[]): AppThunk =>
   (dispatch: AppDispatch) => {
-    dispatch(orderRequestActions)
+    dispatch(orderRequestActions())
 
     return getOrderRequest(data)
       .then((res) => {
         if (res && res.success) {
           dispatch(orderSuccessActions(res.order))
         } else {
-          dispatch(orderFailedActions)
+          dispatch(orderFailedActions())
         }
       })
       .catch(() => {
-        dispatch(orderFailedActions)
+        dispatch(orderFailedActions())
       })
   }

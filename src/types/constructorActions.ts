@@ -1,5 +1,5 @@
 import { Ingredients } from './data'
-import { constructorActions } from '../services/actions/constructor'
+import { constructorActions } from '../services/constants'
 
 type AddIngredientToConstructorAction = {
   readonly type: constructorActions.ADD_INGREDIENTS_TO_CONSTRUCTOR

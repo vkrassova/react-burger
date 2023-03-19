@@ -1,5 +1,5 @@
 import { OrderActions, OrderSate } from '../../types/order'
-import { orderActions } from '../actions/order'
+import { orderActions } from '../constants'
 
 const initialState = {
   order: null,
