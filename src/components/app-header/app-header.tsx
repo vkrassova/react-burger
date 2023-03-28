@@ -9,6 +9,8 @@ export const AppHeader: React.FC = () => {
   const location = useLocation()
   const { user } = useTypedSelector(({ user }) => user)
 
+  const isUserAuthorized = user?.name !== ''
+
   return (
     <header className={`${styles.headerContainer} mb-10`}>
       <nav className={`${styles.navigation} pt-4 pb-4`}>
@@ -44,8 +46,8 @@ export const AppHeader: React.FC = () => {
                 : 'secondary'
             }
           />
-          {user ? (
-            <span className="text text_type_main-default pl-2">{user.name}</span>
+          {isUserAuthorized ? (
+            <span className="text text_type_main-default pl-2">{user?.name}</span>
           ) : (
             <span className="text text_type_main-default pl-2">Личный кабинет</span>
           )}
