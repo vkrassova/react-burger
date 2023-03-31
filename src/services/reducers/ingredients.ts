@@ -1,7 +1,7 @@
 import { IngredientsActions, IngredientsState } from '../../types/ingredientsActions'
 import { getIngredientsActions } from '../constants'
 
-const initialState = {
+export const initialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
