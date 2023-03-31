@@ -12,7 +12,7 @@ export interface Ingredients {
   image_large: string
   __v: number
   id?: string
-  key?: number
+  key?: number | string
   index?: number
 }
 

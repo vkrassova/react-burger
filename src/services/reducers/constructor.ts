@@ -1,7 +1,7 @@
 import { ConstructorActions, ConstructorState } from '../../types/constructorActions'
 import { constructorActions } from '../constants'
 
-const initialState = {
+export const initialState = {
   bun: null,
   ingredientsList: [],
 }
