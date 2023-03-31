@@ -1,9 +1,8 @@
-import { constructorReducer, initialState } from "./constructor";
-import { constructorActions } from "../constants";
-import { ConstructorActions } from "../../types/constructorActions";
-import { Ingredients } from "../../types/data";
-import { v4 as uuidv4 } from "uuid";
-import exp from "constants";
+import { constructorReducer, initialState } from "./constructor"
+import { constructorActions } from "../constants"
+import { ConstructorActions } from "../../types/constructorActions"
+import { Ingredients } from "../../types/data"
+import { v4 as uuidv4 } from "uuid"
 
 const ingredients: Ingredients[] = [
   {

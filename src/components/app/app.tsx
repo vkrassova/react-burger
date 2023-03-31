@@ -15,7 +15,7 @@ import {
   Order,
   Orders,
 } from '../../pages'
-import { useAppDispatch, useTypedSelector } from '../../hooks'
+import { useAppDispatch } from '../../hooks'
 import { getUser } from '../../services/actions/user'
 import { AppHeader, ProtectedRoute, Modal, IngredientDetails, FeedOrderDetail } from '../../components'
 
@@ -33,8 +33,6 @@ interface LocationState {
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch()
-
-  const { user } = useTypedSelector(({ user }) => user)
 
   useEffect(() => {
     dispatch(getIngredients())

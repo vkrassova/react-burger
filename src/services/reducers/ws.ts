@@ -8,7 +8,7 @@ type WSState = {
   error?: null | Event
 }
 
-const initialState = {
+export const initialState = {
   wsConnected: false,
   messages: null,
 }
