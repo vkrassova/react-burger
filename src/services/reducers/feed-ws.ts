@@ -15,7 +15,7 @@ export const initialState = {
 
 export const wsFeedReducer = (state: WSState = initialState, action: WSActions) => {
   switch (action.type) {
-    case wsFeedActions.FEED_CONNECTION_START: {
+    case wsFeedActions.FEED_CONNECTION_STOP: {
       return {
         ...state,
         wsConnected: false,

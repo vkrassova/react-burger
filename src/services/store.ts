@@ -3,15 +3,6 @@ import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { TApplicationActions } from '../types/reducerActions'
 import { rootReducer } from './reducers'
 import { socketMiddleware } from './middleware/ws'
-import {
-  wsConnectionStart,
-  wsConnectionError,
-  wsConnectionStop,
-  wsGetMessage,
-  wsSendMessage,
-  wsConnectionClosed,
-  wsConnectionSuccess,
-} from './actions/ws'
 
 import {
   wsFeedConnectionStart,
@@ -36,16 +27,6 @@ declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose
   }
-}
-
-const wsActions = {
-  wsConnect: wsConnectionStart,
-  wsDisconnect: wsConnectionStop,
-  wsSendMessage: wsSendMessage,
-  onOpen: wsConnectionSuccess,
-  onClose: wsConnectionClosed,
-  onError: wsConnectionError,
-  onMessage: wsGetMessage,
 }
 
 const wsFeedActions = {

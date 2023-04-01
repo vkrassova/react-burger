@@ -1,20 +1,20 @@
-import { wsActions } from '../constants'
 import { WSActions } from '../../types/wsActions'
 import { FeedResponse } from '../../types/responses'
-import { initialState, wsReducer } from './ws'
 import { StatusCodes } from '../../types/data'
+import { wsProfileActions } from '../constants'
+import { initialState, wsProfileReducer } from './profile-ws'
 
 describe('Проверка wsReducer', () => {
   it('Проверка начального состояния', () => {
-    expect(wsReducer(undefined, {} as WSActions)).toEqual(initialState)
+    expect(wsProfileReducer(undefined, {} as WSActions)).toEqual(initialState)
   })
 
   it('Провека принудительного закрытия соединения', () => {
     const action: WSActions = {
-      type: wsActions.WS_CONNECTION_STOP,
+      type: wsProfileActions.PROFILE_CONNECTION_STOP,
     }
 
-    const result = wsReducer(initialState, action)
+    const result = wsProfileReducer(initialState, action)
 
     expect(result).toEqual({
       ...initialState,
@@ -26,10 +26,10 @@ describe('Проверка wsReducer', () => {
 
   it('Проверка успешного соединения', () => {
     const action: WSActions = {
-      type: wsActions.WS_CONNECTION_SUCCESS,
+      type: wsProfileActions.PROFILE_CONNECTION_SUCCESS,
     }
 
-    const result = wsReducer(initialState, action)
+    const result = wsProfileReducer(initialState, action)
 
     expect(result).toEqual({
       ...initialState,
@@ -42,11 +42,11 @@ describe('Проверка wsReducer', () => {
     const error = new Event('error')
 
     const action: WSActions = {
-      type: wsActions.WS_CONNECTION_ERROR,
+      type: wsProfileActions.PROFILE_CONNECTION_ERROR,
       payload: error,
     }
 
-    const result = wsReducer(initialState, action)
+    const result = wsProfileReducer(initialState, action)
 
     expect(result).toEqual({
       ...initialState,
@@ -57,10 +57,10 @@ describe('Проверка wsReducer', () => {
 
   it('Проверка закрытия соединения', () => {
     const action: WSActions = {
-      type: wsActions.WS_CONNECTION_CLOSED,
+      type: wsProfileActions.PROFILE_CONNECTION_CLOSED,
     }
 
-    const result = wsReducer(initialState, action)
+    const result = wsProfileReducer(initialState, action)
 
     expect(result).toEqual({
       ...initialState,
@@ -101,11 +101,11 @@ describe('Проверка wsReducer', () => {
     }
 
     const action: WSActions = {
-      type: wsActions.WS_GET_MESSAGE,
+      type: wsProfileActions.PROFILE_GET_MESSAGE,
       payload: messages,
     }
 
-    const result = wsReducer(initialState, action)
+    const result = wsProfileReducer(initialState, action)
 
     expect(result).toEqual({
       ...initialState,

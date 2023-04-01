@@ -15,7 +15,7 @@ export const initialState = {
 
 export const wsProfileReducer = (state: WSState = initialState, action: WSActions) => {
   switch (action.type) {
-    case wsProfileActions.PROFILE_CONNECTION_START: {
+    case wsProfileActions.PROFILE_CONNECTION_STOP: {
       return {
         ...state,
         wsConnected: false,
