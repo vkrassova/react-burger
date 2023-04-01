@@ -17,7 +17,14 @@ import {
 } from '../../pages'
 import { useAppDispatch } from '../../hooks'
 import { getUser } from '../../services/actions/user'
-import { AppHeader, ProtectedRoute, Modal, IngredientDetails, FeedOrderDetail } from '../../components'
+import {
+  AppHeader,
+  ProtectedRoute,
+  Modal,
+  IngredientDetails,
+  FeedOrderDetail,
+  ProfileOrderDetail,
+} from '../../components'
 
 export interface LocationParams<T> {
   pathname: string
@@ -84,7 +91,7 @@ export const App: React.FC = () => {
             path={AppRoutes.ProfileOrdersId}
             element={
               <Modal onClose={handleModalClose}>
-                <FeedOrderDetail />
+                <ProfileOrderDetail />
               </Modal>
             }
           />

@@ -4,7 +4,7 @@ import { useTypedSelector } from '../../hooks'
 import { Orders, StatusCodes } from '../../types/data'
 
 export const OrderStatus: React.FC = () => {
-  const { messages } = useTypedSelector((store) => store.ws)
+  const { messages } = useTypedSelector((store) => store.feedWS)
 
   let doneOrders: Orders[] = []
   let pendingOrders: Orders[] = []

@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react'
-import style from './feed-order-detail.module.scss'
+import style from '../feed-order-detail/feed-order-detail.module.scss'
 import { useTypedSelector } from '../../hooks'
 import { useParams } from 'react-router-dom'
 import { StatusCodes } from '../../types/data'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FormattedDate, Preloader, OrderItem } from '../../components'
 
-export const FeedOrderDetail: React.FC = () => {
-  const { messages } = useTypedSelector((store) => store.feedWS)
+export const ProfileOrderDetail: React.FC = () => {
+  const { messages } = useTypedSelector((store) => store.profileWS)
   const { ingredients } = useTypedSelector((store) => store.ingredients)
   const { id } = useParams() as { id: string }
 

@@ -1,20 +1,24 @@
 import React, { useEffect } from 'react'
 import feed from './feed.module.scss'
 import { wsUrl } from '../../constants'
-import { wsConnectionStart, wsConnectionStop } from '../../services/actions/ws'
-import { useAppDispatch } from '../../hooks'
-import { OrderList, OrderStatus } from '../../components'
+import { wsFeedConnectionStart, wsFeedConnectionStop } from '../../services/actions/feed-ws'
+import { useAppDispatch, useTypedSelector } from '../../hooks'
+import { Order, OrderStatus, Preloader } from '../../components'
+import style from '../../components/order-list/order-list.module.scss'
 
 export const Feed: React.FC = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(wsConnectionStart(`${wsUrl}/orders/all`))
+    dispatch(wsFeedConnectionStart(`${wsUrl}/orders/all`))
 
     return () => {
-      dispatch(wsConnectionStop())
+      dispatch(wsFeedConnectionStop())
     }
   }, [dispatch])
+
+  const { messages } = useTypedSelector((store) => store.feedWS)
+  const orders = messages?.orders
 
   return (
     <section className={feed.mainWrapper}>
@@ -22,7 +26,15 @@ export const Feed: React.FC = () => {
         <div className={`${feed.inner}`}>
           <h2 className="text text_type_main-large mb-5">Лента Заказов</h2>
           <div className={feed.listContainer}>
-            <OrderList />
+            {orders ? (
+              <ul className={feed.list}>
+                {orders.map((order) => (
+                  <Order order={order} key={order._id} />
+                ))}
+              </ul>
+            ) : (
+              <Preloader />
+            )}
           </div>
         </div>
       </div>

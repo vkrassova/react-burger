@@ -11,4 +11,6 @@ export {
   loginActions,
 } from './user'
 export { wsActions } from './ws'
+export { wsFeedActions } from './feed-ws'
+export { wsProfileActions } from './profile-ws'
 export { getIngredientsActions } from './ingredients'

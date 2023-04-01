@@ -13,6 +13,25 @@ import {
   wsConnectionSuccess,
 } from './actions/ws'
 
+import {
+  wsFeedConnectionStart,
+  wsFeedSendMessage,
+  wsFeedGetMessage,
+  wsFeedConnectionSuccess,
+  wsFeedConnectionError,
+  wsFeedConnectionClosed,
+  wsFeedConnectionStop,
+} from './actions/feed-ws'
+import {
+  wsProfileConnectionStart,
+  wsProfileSendMessage,
+  wsProfileGetMessage,
+  wsProfileConnectionSuccess,
+  wsProfileConnectionStop,
+  wsProfileConnectionError,
+  wsProfileConnectionClosed,
+} from './actions/profile-ws'
+
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose
@@ -29,8 +48,30 @@ const wsActions = {
   onMessage: wsGetMessage,
 }
 
+const wsFeedActions = {
+  wsConnect: wsFeedConnectionStart,
+  wsDisconnect: wsFeedConnectionStop,
+  wsSendMessage: wsFeedSendMessage,
+  onOpen: wsFeedConnectionSuccess,
+  onClose: wsFeedConnectionClosed,
+  onError: wsFeedConnectionError,
+  onMessage: wsFeedGetMessage,
+}
+
+const wsProfileActions = {
+  wsConnect: wsProfileConnectionStart,
+  wsDisconnect: wsProfileConnectionStop,
+  wsSendMessage: wsProfileSendMessage,
+  onOpen: wsProfileConnectionSuccess,
+  onClose: wsProfileConnectionClosed,
+  onError: wsProfileConnectionError,
+  onMessage: wsProfileGetMessage,
+}
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsActions)))
+const enhancer = composeEnhancers(
+  applyMiddleware(thunk, socketMiddleware(wsFeedActions), socketMiddleware(wsProfileActions))
+)
 
 export const store = createStore(rootReducer, enhancer)
 

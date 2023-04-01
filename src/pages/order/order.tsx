@@ -2,9 +2,9 @@ import { useAppDispatch } from '../../hooks'
 import { getAccessToken } from '../../utils'
 import React, { useEffect } from 'react'
 import style from '../styles.module.scss'
-import { wsConnectionStart, wsConnectionStop } from '../../services/actions/ws'
+import { wsProfileConnectionStart, wsProfileConnectionStop } from '../../services/actions/profile-ws'
 import { wsUrl } from '../../constants'
-import { FeedOrderDetail } from '../../components'
+import { ProfileOrderDetail } from '../../components'
 
 export const Order: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -12,16 +12,16 @@ export const Order: React.FC = () => {
   let accessToken = String(getAccessToken()).replace(/^Bearer\s/, '')
 
   useEffect(() => {
-    dispatch(wsConnectionStart(`${wsUrl}/orders?token=${accessToken}`))
+    dispatch(wsProfileConnectionStart(`${wsUrl}/orders?token=${accessToken}`))
 
     return () => {
-      dispatch(wsConnectionStop())
+      dispatch(wsProfileConnectionStop())
     }
   }, [dispatch])
 
   return (
     <div className={style.orderWrapper}>
-      <FeedOrderDetail />
+      <ProfileOrderDetail />
     </div>
   )
 }
