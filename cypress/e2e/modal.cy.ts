@@ -3,7 +3,7 @@ export {}
 describe('Проверка конструктора бургеров', function() {
   before(function() {
     cy.intercept('GET', '/api/ingredients', { fixture: 'ingredients.json' }).as('getIngredients')
-    cy.visit('http://localhost:3000')
+    cy.visit('dashboard')
   })
 
   it('Проверка открытия модального окна ингредиента', () => {

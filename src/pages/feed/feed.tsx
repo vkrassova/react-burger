@@ -4,7 +4,6 @@ import { wsUrl } from '../../constants'
 import { wsFeedConnectionStart, wsFeedConnectionStop } from '../../services/actions/feed-ws'
 import { useAppDispatch, useTypedSelector } from '../../hooks'
 import { Order, OrderStatus, Preloader } from '../../components'
-import style from '../../components/order-list/order-list.module.scss'
 
 export const Feed: React.FC = () => {
   const dispatch = useAppDispatch()

@@ -5,7 +5,6 @@ import { wsProfileConnectionStart, wsProfileConnectionStop } from '../../service
 import { wsUrl } from '../../constants'
 import { Order, Preloader, ProfileNav } from '../../components'
 import { getAccessToken } from '../../utils'
-import feed from '../feed/feed.module.scss'
 
 export const Orders: React.FC = () => {
   const dispatch = useAppDispatch()

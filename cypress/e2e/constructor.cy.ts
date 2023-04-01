@@ -5,7 +5,7 @@ describe('Проверка конструктора бургеров', function(
     cy.intercept('GET', 'api/auth/user', { fixture: 'user.json' })
     cy.intercept('POST', 'api/orders', { fixture: 'order.json' }).as('postOrder')
     cy.intercept('GET', '/api/ingredients', { fixture: 'ingredients.json' }).as('getIngredients')
-    cy.visit('http://localhost:3000')
+    cy.visit('dashboard')
 
     window.localStorage.setItem(
       "refreshToken",
