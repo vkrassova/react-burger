@@ -29,6 +29,12 @@
   p {
     text-align: center;
   }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .img__wrapper {
