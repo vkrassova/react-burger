@@ -1,7 +1,7 @@
-import { OrderActions } from "../../types/order"
-import {OrderNumber} from "../../types/responses"
-import { orderActions } from "../constants"
-import { initialState, orderReducer } from "./order"
+import { OrderActions } from '../../types/order'
+import { OrderNumber } from '../../types/responses'
+import { orderActions } from '../constants'
+import { initialState, orderReducer } from './order'
 
 describe('Проверяет orderReducer', () => {
   it('Проверка начального состояния', () => {
@@ -10,7 +10,7 @@ describe('Проверяет orderReducer', () => {
 
   it('Проверка  успешной отправки запроса', () => {
     const action: OrderActions = {
-      type: orderActions.GET_ORDER_REQUEST
+      type: orderActions.GET_ORDER_REQUEST,
     }
     const result = orderReducer(initialState, action)
 
@@ -22,12 +22,12 @@ describe('Проверяет orderReducer', () => {
 
   it('Проверка успешного оформления заказа', () => {
     const order: OrderNumber = {
-      number: 25088
+      number: 25088,
     }
 
     const action: OrderActions = {
       type: orderActions.GET_ORDER_SUCCESS,
-      payload: order
+      payload: order,
     }
 
     const result = orderReducer(initialState, action)
@@ -42,7 +42,7 @@ describe('Проверяет orderReducer', () => {
 
   it('Проверка неуспешной отправки запроса', () => {
     const action: OrderActions = {
-      type: orderActions.GET_ORDER_FAILED
+      type: orderActions.GET_ORDER_FAILED,
     }
     const result = orderReducer(initialState, action)
 

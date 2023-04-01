@@ -4,7 +4,7 @@ import { useDrag } from 'react-dnd'
 import { Ingredients } from '../../../../types/data'
 import { useTypedSelector } from '../../../../hooks'
 import styles from '../../burger-ingredients.module.scss'
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom'
 
 type IngredientsItemProps = {
   ingredient: Ingredients
@@ -43,14 +43,15 @@ export const IngredientsItem: React.FC<IngredientsItemProps> = ({ ingredient, id
   })
 
   return (
-      <li className={styles.item} ref={dragRef} style={{ opacity }}>
-        <Link
-          key={ingredient._id}
-          to={{
-            pathname: `/ingredients/${ingredient._id}`,
-          }}
-          state={{ background: location }} className={"ingredients-link"}
-        >
+    <li className={styles.item} ref={dragRef} style={{ opacity }}>
+      <Link
+        key={ingredient._id}
+        to={{
+          pathname: `/ingredients/${ingredient._id}`,
+        }}
+        state={{ background: location }}
+        className={'ingredients-link'}
+      >
         <div className={styles.img__wrapper}>
           {counter > 0 && <Counter count={counter} size="default" />}
           <img src={ingredient.image} alt={ingredient.name} />
@@ -60,7 +61,7 @@ export const IngredientsItem: React.FC<IngredientsItemProps> = ({ ingredient, id
           <CurrencyIcon type="primary" />
         </div>
         <p className={`${styles.ingredientsText} text text_type_main-default`}>{ingredient.name}</p>
-        </Link>
-      </li>
+      </Link>
+    </li>
   )
 }

@@ -8,7 +8,7 @@ describe('Проверка конструктора бургеров', function(
 
   it('Проверка открытия модального окна ингредиента', () => {
     cy.wait('@getIngredients').then(() => {
-      cy.get('[class^="burger-ingredients_item"]').each((element: any) => {
+      cy.get('[class^="burger-ingredients_item"]').each((element: string) => {
         cy.get(element).find('[class^="ingredients-link"]').click()
 
         cy.get('[class^="ingredient-details_content"]')

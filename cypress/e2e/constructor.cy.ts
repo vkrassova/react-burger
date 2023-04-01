@@ -19,7 +19,7 @@ describe('Проверка конструктора бургеров', function(
 
   it('Проверка Drag and drop и оформления заказа', function() {
     cy.wait('@getIngredients').then(() => {
-      cy.get('[class^="burger-ingredients_item"]').each((element: any) => {
+      cy.get('[class^="burger-ingredients_item"]').each((element: string) => {
         cy.get(element).trigger('dragstart')
         cy.get('div[class^=burger-constructor_wrapper]').first().trigger('drop', { force: true })
         cy.get('ul li div').should('exist')

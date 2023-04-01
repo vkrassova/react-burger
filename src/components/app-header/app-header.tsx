@@ -44,11 +44,7 @@ export const AppHeader: React.FC = () => {
                 : 'secondary'
             }
           />
-          {
-            !userRequest && (
-              <span className="text text_type_main-default pl-2">{user?.name || 'Личный кабинет'}</span>
-            )
-          }
+          {!userRequest && <span className="text text_type_main-default pl-2">{user?.name || 'Личный кабинет'}</span>}
         </NavLink>
       </nav>
     </header>
