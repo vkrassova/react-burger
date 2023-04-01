@@ -101,7 +101,7 @@ describe('Проверка wsReducer', () => {
       ],
       total: 25001,
       totalToday: 41
-    };
+    }
 
     const action: WSActions = {
       type: wsActions.WS_GET_MESSAGE,

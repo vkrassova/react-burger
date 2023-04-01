@@ -23,15 +23,7 @@ export const BurgerCategory: React.FC<IngredientsListProps> = React.forwardRef(
             ingredients.map((el) => {
               if (el.type === ingredientType) {
                 return (
-                  <Link
-                    key={el._id}
-                    to={{
-                      pathname: `/ingredients/${el._id}`,
-                    }}
-                    state={{ background: location }}
-                  >
                     <IngredientsItem ingredient={el} key={el._id} id={el._id} />
-                  </Link>
                 )
               }
               return null

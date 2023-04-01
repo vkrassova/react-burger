@@ -2,8 +2,9 @@ export {}
 
 describe('Проверка конструктора бургеров', function() {
   before(function() {
-    cy.intercept('GET', 'api/auth/user', { fixture: 'user.json' }).as('getUser')
+    cy.intercept('GET', 'api/auth/user', { fixture: 'user.json' })
     cy.intercept('POST', 'api/orders', { fixture: 'order.json' }).as('postOrder')
+    cy.intercept('GET', '/api/ingredients', { fixture: 'ingredients.json' }).as('getIngredients')
     cy.visit('http://localhost:3000')
 
     window.localStorage.setItem(
@@ -16,9 +17,22 @@ describe('Проверка конструктора бургеров', function(
     )
   })
 
-  it('Drag and drop работате корректно', function() {
-    cy.get('li[draggable="true"]').first().trigger('dragstart');
-    cy.get('div[class^=burger-constructor_wrapper]').first().trigger('drop', { force: true })
-    cy.get('ul li div').should('exist');
+  it('Проверка Drag and drop и оформления заказа', function() {
+    cy.wait('@getIngredients').then(() => {
+      cy.get('[class^="burger-ingredients_item"]').each((element: any) => {
+        cy.get(element).trigger('dragstart')
+        cy.get('div[class^=burger-constructor_wrapper]').first().trigger('drop', { force: true })
+        cy.get('ul li div').should('exist')
+      })
+    })
+
+    cy.get('[class^="burger-constructor_sum"]').find('button')
+      .should('not.be.disabled').click()
+
+    cy.wait('@postOrder').then(() => {
+      cy.get('[class^="order-details_orderCount"]').should('exist')
+      cy.get('[class^="modal_popup"]').find('[class^="modal_close"]').click()
+      cy.get('[class^="modal_popup"]').should('not.exist')
+    })
   })
 })
