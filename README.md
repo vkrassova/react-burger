@@ -6,15 +6,15 @@
 
 ### Установка зависимостей:
 
-### `npm install`
+#### `npm install`
 
 ### Запуск приложения:
 
-### `npm run start`
+#### `npm run start`
 
 ### Деплой:
 
-### `npm deploy`
+#### `npm run deploy`
 
 ## Используемый стек:
 
