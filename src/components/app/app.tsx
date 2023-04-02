@@ -15,9 +15,16 @@ import {
   Order,
   Orders,
 } from '../../pages'
-import { useAppDispatch, useTypedSelector } from '../../hooks'
+import { useAppDispatch } from '../../hooks'
 import { getUser } from '../../services/actions/user'
-import { AppHeader, ProtectedRoute, Modal, IngredientDetails, FeedOrderDetail } from '../../components'
+import {
+  AppHeader,
+  ProtectedRoute,
+  Modal,
+  IngredientDetails,
+  FeedOrderDetail,
+  ProfileOrderDetail,
+} from '../../components'
 
 export interface LocationParams<T> {
   pathname: string
@@ -33,8 +40,6 @@ interface LocationState {
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch()
-
-  const { user } = useTypedSelector(({ user }) => user)
 
   useEffect(() => {
     dispatch(getIngredients())
@@ -86,7 +91,7 @@ export const App: React.FC = () => {
             path={AppRoutes.ProfileOrdersId}
             element={
               <Modal onClose={handleModalClose}>
-                <FeedOrderDetail />
+                <ProfileOrderDetail />
               </Modal>
             }
           />

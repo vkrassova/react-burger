@@ -4,11 +4,10 @@ import { useTypedSelector } from '../../hooks'
 import { useParams } from 'react-router-dom'
 import { StatusCodes } from '../../types/data'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { FeedOrderItem } from './components'
-import { FormattedDate, Preloader } from '../../components'
+import { FormattedDate, Preloader, OrderItem } from '../../components'
 
 export const FeedOrderDetail: React.FC = () => {
-  const { messages } = useTypedSelector((store) => store.ws)
+  const { messages } = useTypedSelector((store) => store.feedWS)
   const { ingredients } = useTypedSelector((store) => store.ingredients)
   const { id } = useParams() as { id: string }
 
@@ -45,7 +44,7 @@ export const FeedOrderDetail: React.FC = () => {
           <ul className={`${style.list} custom-scroll`}>
             {orderArr.map(
               ({ ingredient, count }) =>
-                ingredient && count && <FeedOrderItem element={ingredient} key={ingredient._id} count={count} />
+                ingredient && count && <OrderItem element={ingredient} key={ingredient._id} count={count} />
             )}
           </ul>
         </div>

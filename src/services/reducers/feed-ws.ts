@@ -1,4 +1,4 @@
-import { wsActions } from '../constants'
+import { wsFeedActions } from '../constants'
 import { WSActions } from '../../types/wsActions'
 import { FeedResponse } from '../../types/responses'
 
@@ -8,14 +8,14 @@ type WSState = {
   error?: null | Event
 }
 
-const initialState = {
+export const initialState = {
   wsConnected: false,
   messages: null,
 }
 
-export const wsReducer = (state: WSState = initialState, action: WSActions) => {
+export const wsFeedReducer = (state: WSState = initialState, action: WSActions) => {
   switch (action.type) {
-    case wsActions.WS_CONNECTION_STOP: {
+    case wsFeedActions.FEED_CONNECTION_STOP: {
       return {
         ...state,
         wsConnected: false,
@@ -23,27 +23,27 @@ export const wsReducer = (state: WSState = initialState, action: WSActions) => {
         error: null,
       }
     }
-    case wsActions.WS_CONNECTION_SUCCESS: {
+    case wsFeedActions.FEED_CONNECTION_SUCCESS: {
       return {
         ...state,
         wsConnected: true,
         error: null,
       }
     }
-    case wsActions.WS_CONNECTION_ERROR: {
+    case wsFeedActions.FEED_CONNECTION_ERROR: {
       return {
         ...state,
         wsConnected: false,
         error: action.payload,
       }
     }
-    case wsActions.WS_CONNECTION_CLOSED: {
+    case wsFeedActions.FEED_CONNECTION_CLOSED: {
       return {
         ...state,
         wsConnected: false,
       }
     }
-    case wsActions.WS_GET_MESSAGE: {
+    case wsFeedActions.FEED_GET_MESSAGE: {
       return {
         ...state,
         error: null,

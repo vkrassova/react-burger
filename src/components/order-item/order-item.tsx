@@ -1,15 +1,15 @@
 import React from 'react'
-import style from './feed-order-item.module.scss'
-import { Ingredients } from '../../../types/data'
+import style from './order-item.module.scss'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { OrderImage } from '../../order-image'
+import { OrderImage } from '../order-image'
+import { Ingredients } from '../../types/data'
 
 type FeedOrderItemProps = {
   element: Ingredients
   count: number | undefined
 }
 
-export const FeedOrderItem: React.FC<FeedOrderItemProps> = ({ element, count }) => {
+export const OrderItem: React.FC<FeedOrderItemProps> = ({ element, count }) => {
   return (
     <li className={`${style.item}`}>
       <div className={style.imgWrapper}>

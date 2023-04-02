@@ -1,7 +1,7 @@
 import { OrderActions, OrderSate } from '../../types/order'
 import { orderActions } from '../constants'
 
-const initialState = {
+export const initialState = {
   order: null,
   orderRequest: false,
   orderFailed: false,

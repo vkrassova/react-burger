@@ -15,7 +15,7 @@ export const IngredientDetails: React.FC = () => {
       <div className={style.imgWrapper}>
         <img src={data?.image} alt={data?.name} />
       </div>
-      <h3 className="text text_type_main-medium mb-8">{data?.name}</h3>
+      <h3 className="text text_type_main-medium mb-8 ingredients-name">{data?.name}</h3>
       <ul className={style.list}>
         <li className={style.item}>
           <p className="text text_type_main-default text_color_inactive pb-2">Калории,ккал</p>

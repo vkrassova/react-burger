@@ -7,7 +7,7 @@ import { useTypedSelector } from '../../hooks'
 
 export const AppHeader: React.FC = () => {
   const location = useLocation()
-  const { user } = useTypedSelector(({ user }) => user)
+  const { user, userRequest } = useTypedSelector(({ user }) => user)
 
   return (
     <header className={`${styles.headerContainer} mb-10`}>
@@ -44,11 +44,7 @@ export const AppHeader: React.FC = () => {
                 : 'secondary'
             }
           />
-          {user ? (
-            <span className="text text_type_main-default pl-2">{user.name}</span>
-          ) : (
-            <span className="text text_type_main-default pl-2">Личный кабинет</span>
-          )}
+          {!userRequest && <span className="text text_type_main-default pl-2">{user?.name || 'Личный кабинет'}</span>}
         </NavLink>
       </nav>
     </header>

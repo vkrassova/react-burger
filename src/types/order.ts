@@ -2,7 +2,7 @@ import { OrderNumber } from './responses'
 import { orderActions } from '../services/constants'
 
 interface OrderRequest {
-  type: orderActions.GET_ORDER_REQUEST
+  readonly type: orderActions.GET_ORDER_REQUEST
 }
 
 interface OrderSuccess {

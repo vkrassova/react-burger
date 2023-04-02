@@ -10,7 +10,7 @@ import {
   userActions,
 } from '../constants'
 
-const initialState = {
+export const initialState = {
   user: null,
   request: false,
   error: false,

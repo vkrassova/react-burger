@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import style from './orders.module.scss'
-import { useAppDispatch } from '../../hooks'
-import { wsConnectionStart, wsConnectionStop } from '../../services/actions/ws'
+import { useAppDispatch, useTypedSelector } from '../../hooks'
+import { wsProfileConnectionStart, wsProfileConnectionStop } from '../../services/actions/profile-ws'
 import { wsUrl } from '../../constants'
-import { OrderList, ProfileNav } from '../../components'
+import { Order, Preloader, ProfileNav } from '../../components'
 import { getAccessToken } from '../../utils'
 
 export const Orders: React.FC = () => {
@@ -12,17 +12,29 @@ export const Orders: React.FC = () => {
   const accessToken = String(getAccessToken()).replace(/^Bearer\s/, '')
 
   useEffect(() => {
-    dispatch(wsConnectionStart(`${wsUrl}/orders?token=${accessToken}`))
+    dispatch(wsProfileConnectionStart(`${wsUrl}/orders?token=${accessToken}`))
 
     return () => {
-      dispatch(wsConnectionStop())
+      dispatch(wsProfileConnectionStop())
     }
   }, [dispatch])
+
+  const { messages } = useTypedSelector((store) => store.profileWS)
+  const orders = messages?.orders
+
   return (
     <section className={style.wrapper}>
       <ProfileNav />
       <div className={style.ordersWrapper}>
-        <OrderList />
+        {orders ? (
+          <ul className={style.list}>
+            {orders.map((order) => (
+              <Order order={order} key={order._id} />
+            ))}
+          </ul>
+        ) : (
+          <Preloader />
+        )}
       </div>
     </section>
   )

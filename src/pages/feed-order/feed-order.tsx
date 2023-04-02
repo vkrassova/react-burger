@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch } from '../../hooks'
-import { wsConnectionStart, wsConnectionStop } from '../../services/actions/ws'
+import { wsFeedConnectionStart, wsFeedConnectionStop } from '../../services/actions/feed-ws'
 import { wsUrl } from '../../constants'
 import style from './feed-order.module.scss'
 import { FeedOrderDetail } from '../../components'
@@ -9,10 +9,10 @@ export const FeedOrder: React.FC = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(wsConnectionStart(`${wsUrl}/orders/all`))
+    dispatch(wsFeedConnectionStart(`${wsUrl}/orders/all`))
 
     return () => {
-      dispatch(wsConnectionStop())
+      dispatch(wsFeedConnectionStop())
     }
   }, [dispatch])
 

@@ -1,24 +1,32 @@
 import type { Middleware, MiddlewareAPI } from 'redux'
 import { RootState, AppDispatch } from '../store'
-
 import {
-  wsConnectionSuccess,
-  wsConnectionClosed,
-  wsConnectionStop,
-  wsConnectionError,
-  wsConnectionStart,
-  wsSendMessage,
-  wsGetMessage,
-} from '../actions/ws'
+  wsFeedConnectionStart,
+  wsFeedConnectionStop,
+  wsFeedConnectionClosed,
+  wsFeedConnectionError,
+  wsFeedConnectionSuccess,
+  wsFeedGetMessage,
+  wsFeedSendMessage,
+} from '../actions/feed-ws'
+import {
+  wsProfileConnectionClosed,
+  wsProfileConnectionError,
+  wsProfileConnectionStart,
+  wsProfileConnectionStop,
+  wsProfileConnectionSuccess,
+  wsProfileGetMessage,
+  wsProfileSendMessage,
+} from '../actions/profile-ws'
 
 export type wsActionsType = {
-  wsConnect: typeof wsConnectionStart
-  wsDisconnect: typeof wsConnectionStop
-  wsSendMessage: typeof wsSendMessage
-  onOpen: typeof wsConnectionSuccess
-  onClose: typeof wsConnectionClosed
-  onError: typeof wsConnectionError
-  onMessage: typeof wsGetMessage
+  wsConnect: typeof wsFeedConnectionStart | typeof wsProfileConnectionStart
+  wsDisconnect: typeof wsFeedConnectionStop | typeof wsProfileConnectionStop
+  wsSendMessage: typeof wsFeedSendMessage | typeof wsProfileSendMessage
+  onOpen: typeof wsFeedConnectionSuccess | typeof wsProfileConnectionSuccess
+  onClose: typeof wsFeedConnectionClosed | typeof wsProfileConnectionClosed
+  onError: typeof wsFeedConnectionError | typeof wsProfileConnectionError
+  onMessage: typeof wsFeedGetMessage | typeof wsProfileGetMessage
 }
 
 export const socketMiddleware = (wsActions: wsActionsType): Middleware => {
