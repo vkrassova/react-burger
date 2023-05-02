@@ -9,6 +9,8 @@ export const AppHeader: React.FC = () => {
   const location = useLocation()
   const { user, userRequest } = useTypedSelector(({ user }) => user)
 
+  const isAuth = !userRequest && user?.name !== ''
+
   return (
     <header className={`${styles.headerContainer} mb-10`}>
       <nav className={`${styles.navigation} pt-4 pb-4`}>
@@ -18,7 +20,7 @@ export const AppHeader: React.FC = () => {
               className={({ isActive }) => (isActive ? styles.activeLink : styles.notActiveLink)}
               to={AppRoutes.Main}
             >
-              <BurgerIcon type={location.pathname === AppRoutes.Main ? 'primary' : 'secondary'} />
+              <BurgerIcon type={'secondary'} />
               <p className="text text_type_main-default pl-2">Конструктор</p>
             </NavLink>
           </li>
@@ -27,7 +29,7 @@ export const AppHeader: React.FC = () => {
               className={({ isActive }) => (isActive ? styles.activeLink : styles.notActiveLink)}
               to={AppRoutes.Feed}
             >
-              <ListIcon type={location.pathname === AppRoutes.Feed ? 'primary' : 'secondary'} />
+              <ListIcon type={'secondary'} />
               <p className="text text_type_main-default pl-2">Лента заказов</p>
             </NavLink>
           </li>
@@ -44,7 +46,7 @@ export const AppHeader: React.FC = () => {
                 : 'secondary'
             }
           />
-          {!userRequest && <span className="text text_type_main-default pl-2">{user?.name || 'Личный кабинет'}</span>}
+          {isAuth && <span className="text text_type_main-default pl-2">{user?.name || 'Личный кабинет'}</span>}
         </NavLink>
       </nav>
     </header>
